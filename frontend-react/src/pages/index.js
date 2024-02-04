@@ -1,0 +1,12 @@
+export { Home } from "./Home/Home";
+export { BuyCar } from "./BuyCar/BuyCar";
+export { SellCar } from "./SellCar/SellCar";
+export { CarDetails } from "./CarDetails/CarDetails";
+export { UserProfile } from "./UserProfile/UserProfile";
+export { Recommendation } from "./Recommendation/Recommendation";
+export { Dashboard } from "./Dashboard/Dashboard";
+export { Loading } from "./loading/Loading";
+export { Register } from "./Register/Register";
+export { About } from "./About/About";
+export { NoPage } from "./NoPage/NoPage";
+export { Contact } from "./Contact/Contact";
