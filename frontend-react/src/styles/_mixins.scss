@@ -1,0 +1,20 @@
+@mixin flexCenter($direction: row, $justify: center, $align: center) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+}
+
+@mixin responsiveFontSize($baseSize: 14px, $ratio: 1.2) {
+    font-size: $baseSize;
+
+    @media screen and (min-width: 768px) {
+        font-size: $baseSize * $ratio;
+    }
+}
+
+@mixin transition($properties: all, $duration: 0.3s, $timing-function: ease) {
+    transition: $properties $duration $timing-function;
+}
+
+// TODO: for all member please any other properties that are reusable make it here , thanks

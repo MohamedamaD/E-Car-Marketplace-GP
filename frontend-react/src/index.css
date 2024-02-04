@@ -1,0 +1,159 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;300;400;500;600;700&display=swap');
+
+:root {
+  --main-color: #009b5d;
+  --secondary-color: #1a2f5b;
+
+  --white: #fff;
+  --black: #000;
+  --p-color: #667085;
+
+  --font-size: 14px;
+  --thumb-radius: 5px;
+  --border-radius: 5px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+  outline: none;
+  text-transform: capitalize;
+  border: none;
+  color: var(--secondary-color);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-size: var(--font-size);
+  font-family: 'IBM Plex Sans Arabic', sans-serif;
+
+  background-color: var(--white);
+  color: var(--secondary-color);
+
+  min-height: 5000px;
+}
+
+a {
+  color: var(--secondary-color);
+}
+
+img {
+  display: block;
+  width: 100%;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--secondary-color);
+  border-radius: var(----thumb-radius);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--main-color);
+  border-radius: var(----thumb-radius);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  opacity: 0.6;
+}
+
+::selection {
+  background-color: var(--main-color);
+  color: var(--white);
+}
+
+.container {
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 768px) {
+  .container {
+    width: 750px;
+  }
+}
+
+@media (min-width: 992px) {
+  .container {
+    width: 970px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    width: 1170px;
+  }
+}
+
+.icon-container {
+  cursor: pointer;
+  border-radius: 50%;
+  background-color: var(--secondary-color);
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  svg {
+    fill: var(--white);
+    font-size: 2em;
+  }
+}
+
+/* custom layout for global styles */
+.main-color {
+  color: var(--main-color);
+}
+
+.secondary-color {
+  color: var(--secondary-color);
+}
+
+.p-color {
+  color: var(--p-color);
+}
+
+.white-color {
+  color: var(--white);
+}
+
+.black-color {
+  color: var(--black);
+}
+
+.main-bg-color {
+  background-color: var(--main-color);
+}
+
+.secondary-bg-color {
+  background-color: var(--secondary-color);
+}
+
+.p-bg-color {
+  background-color: var(--p-color);
+}
+
+.white-bg-color {
+  background-color: var(--white);
+}
+
+.black-bg-color {
+  background-color: var(--black);
+}
+
+.rounded {
+  border-radius: var(--border-radius);
+}

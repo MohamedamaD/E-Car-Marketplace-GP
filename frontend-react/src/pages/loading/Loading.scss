@@ -1,0 +1,14 @@
+@import '../../styles/_mixins.scss';
+
+#loading-page {
+    background-color: #cee3e2;
+    height: 100vh;
+    @include flexCenter();
+
+    .container {
+        img {
+            margin: auto;
+            max-width: 600px;
+        }
+    }
+}
