@@ -1,6 +1,127 @@
-// p h1 span 
-p {
-    h1 {
-        span {}
+// Home.scss
+@import '../../App.scss';
+.Home {
+    
+  
+    .continer1 {
+      
+      margin-top: 90px;
+      word-spacing: 3px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      .start {
+        text-align: center;
+        margin-bottom: 20px;
+        h2 {
+            font-size: 20px;
+            margin-bottom: 5px;
+            color:$mainColor;
+          }
+  
+          h5 {
+            font-size: 17px;
+            margin-bottom: 10px;
+            color: var(--p-color);
+            font-weight:400;
+          }
+      }
+  
+      .row {
+        display: flex;
+        justify-content: center;
+        
+  
+        .fcol {
+          text-align: right;
+          flex: 1;
+          margin-right: 140px;
+          
+          h2 {
+           
+            font-size: 20px;
+            margin-bottom: 10px;
+          }
+  
+          h5 {
+            font-size: 17px;
+            margin-bottom: 50px;
+            color: var(--p-color);
+            font-weight:400;
+          }
+  
+          Button {
+            margin-top: 10px;
+            background-color:$mainColor ;
+            width: 280px;
+           
+            a {
+              text-decoration: none;
+          
+            }
+          }
+        }
+  
+        .fco2 {
+          flex: 1;
+  
+          img {
+            width: 100%; // Adjust the width as needed
+            max-width: 500px; // Set a max-width to control the size
+            display: block; // Prevents image spacing issues
+            margin: 0 auto; // Centers the image within its container
+          }
+        }
+      }
     }
-}
+    .continer2 {
+        word-spacing: 3px;
+        margin-top: 60px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: rgb(233 233 254);
+        display: flex;
+        margin-left: 140px;
+        margin-right: 140px;
+       
+       
+      
+        .sell {
+          flex: 1;
+          text-align: right;
+          padding: 20px; /* Add padding as needed */
+          box-sizing: border-box; /* Include padding in the width */
+          
+          h1 {
+            font-size: 50px;
+            margin-bottom: 10px;
+          }
+      
+          h3 {
+            font-size: 17px;
+            margin-bottom: 50px;
+            font-weight: 400;
+          }
+          Button {
+            margin-top: 10px;
+
+            width: 150px;
+           
+            a {
+              text-decoration: none;
+          
+            }
+          }
+        }
+      
+        .im {
+          flex: 1;
+          img {
+            width: 100%;
+            height: 250px;
+            max-width: 500px;
+            display: block;
+            margin: 0 auto;
+          }
+        }
+      }
+      
+  }
+  
