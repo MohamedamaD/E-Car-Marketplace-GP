@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Navbar.scss";
 import { navLinks } from "../../constants";
 import { Link } from "react-router-dom";
-import { BiUser } from "react-icons/bi";
+import { BiMenu, BiUser } from "react-icons/bi";
 import { Button } from "../Button/Button";
 import { useSelector } from "react-redux";
 
 export const Navbar = () => {
   const { isAuthenticated } = useSelector((state) => state.authentication);
+  const [sidebarIsActive, setActive] = useState(false);
   return (
     <div className="navbar-container container">
       <Link to="/">
@@ -24,16 +25,23 @@ export const Navbar = () => {
           </Link>
         ))}
       </nav>
-      <nav className="side-bar">
-        {/* TODO [somaya] : here implement sidebar  #note follow layout inside tasks/navbar*/}
-      </nav>
+      {sidebarIsActive && (
+        <nav className="side-bar">
+          {/* TODO [somaya] : here implement sidebar  #note follow layout inside tasks/navbar*/}
+        </nav>
+      )}
       <div className="user-profile">
         {isAuthenticated ? (
           <div className="icon-container">
             <BiUser />
           </div>
         ) : (
-          <Button value="تسجيل" />
+          <div className="profile-container">
+            <Button value="تسجيل" />
+            <div className="icon-container sidebar-toggle">
+              <BiMenu onClick={() => setActive(true)} />
+            </div>
+          </div>
         )}
       </div>
     </div>
