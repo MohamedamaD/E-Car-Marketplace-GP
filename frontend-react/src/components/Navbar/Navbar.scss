@@ -20,6 +20,21 @@
         }
     }
 
+    .user-profile {
+        .profile-container {
+            @include flexCenter();
+            gap: 1rem;
+
+            .sidebar-toggle {
+                display: none;
+
+                @media screen and (max-width: 767px) {
+                    display: flex;
+                }
+            }
+        }
+    }
+
     .side-bar {
         position: fixed;
         top: 0;

@@ -1,0 +1,137 @@
+@import '../../styles/mixins';
+@import '../../App.scss';
+
+#register-page {
+    background-color: #f6f3f3;
+
+    .register-container {
+        min-height: 100vh;
+        @include flexCenter();
+
+        main {
+            @include flexCenter();
+            box-shadow: 0 0 0 0;
+            width: 80%;
+            border-radius: $radius;
+            position: relative;
+            overflow: hidden;
+            background-color: $whiteColor;
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+
+            @media screen and (max-width: 992px) {
+                width: 100%;
+            }
+
+            @media screen and (max-width: 768px) {
+                flex-direction: column;
+            }
+        }
+
+        .login-form,
+        .register-form {
+            text-align: center;
+            @include transition();
+            background-color: $whiteColor;
+            width: 50%;
+            padding: 60px 30px;
+
+            form {
+                @include flexCenter($direction: column);
+                gap: 1rem;
+            }
+
+            @media screen and (max-width: 768px) {
+                width: 100%;
+                order: 2;
+            }
+        }
+
+        .login-form {
+            @media screen and (max-width: 768px) {
+                transform: translateX(-100%);
+            }
+
+            &.active {
+                @media screen and (max-width: 768px) {
+                    transform: translateX(0%);
+                }
+            }
+        }
+
+        .register-form {
+            position: absolute;
+            right: 0;
+            z-index: -1;
+            opacity: 0;
+
+            @media screen and (max-width: 768px) {
+                bottom: 0;
+            }
+
+            &.active {
+                z-index: 1;
+                transform: translateX(-100%);
+                opacity: 1;
+
+                @media screen and (max-width: 768px) {
+                    transform: translateX(0%);
+                }
+            }
+        }
+
+        .login-toggle {
+            width: 50%;
+            background-color: $mainColor;
+            background: linear-gradient(to left, #00c173, #06613d);
+            text-align: center;
+            align-self: stretch;
+            @include flexCenter();
+            @include transition();
+            position: relative;
+            z-index: 11;
+            border-radius: 0 125px 125px 0;
+
+            //reset styles for mobile devices
+            @media screen and (max-width: 768px) {
+                width: 100%;
+                border-radius: unset;
+                min-height: 25vh;
+                order: 1;
+            }
+
+            * {
+                color: $whiteColor;
+                margin-bottom: 1rem;
+            }
+
+            ._container {
+                margin-bottom: 0;
+            }
+
+            &.active {
+                @media screen and (min-width: 768px) {
+                    border-radius: 125px 0 0 125px;
+                    transform: translateX(100%);
+                }
+            }
+        }
+
+        .title-container {
+            margin-bottom: 1rem;
+
+            h1.title {
+                text-align: center;
+                margin-bottom: 1rem;
+            }
+
+            .links {
+                @include flexCenter();
+                gap: 1rem;
+            }
+
+            p {
+                padding: 1rem 0;
+            }
+        }
+    }
+}
