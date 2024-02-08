@@ -1,24 +1,42 @@
-header.__header {
-    .__header__container {
-        display: flex;
-        gap: 1rem;
-        min-height: 500px;
-        background-color: aqua;
-        position: relative;
+@import '../../styles/mixins';
 
-        .__swiper-wrapper {
+#home-header {
+    main {
+        position: relative;
+        height: calc(100vh - 80px); // 80px - بتوع النافبار عشان ياخد الشاشه كامله
+
+        .swiper-wrapper {
             flex: 1;
             width: calc(100% - 300px);
         }
 
-        .text-overlay {
-            position: absolute;
-            top: 30%;
-            padding: 1%;
+        .swiper {
+            height: 100%;
         }
 
-        .slider-opacity {
+        .text-overlay {
+            position: absolute;
+            right: 0;
+            padding: 0 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2;
+
+            h1 {
+                @include responsiveFontSize($baseSize: 2em, $ratio: 1.2);
+                margin-bottom: 0.5rem;
+            }
+
+            p {
+                @include responsiveFontSize($baseSize: 1.2em);
+            }
+        }
+
+        img.slider-opacity {
             opacity: 0.9;
+            height: 100%;
+            object-fit: cover;
+            object-position: center center;
         }
     }
 }

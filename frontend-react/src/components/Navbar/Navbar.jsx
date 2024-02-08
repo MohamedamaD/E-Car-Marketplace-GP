@@ -37,7 +37,9 @@ export const Navbar = () => {
           </div>
         ) : (
           <div className="profile-container">
-            <Button value="تسجيل" />
+            <Link to="/register">
+              <Button value="تسجيل" />
+            </Link>
             <div className="icon-container sidebar-toggle">
               <BiMenu onClick={() => setActive(true)} />
             </div>

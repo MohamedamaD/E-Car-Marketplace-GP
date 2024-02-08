@@ -29,10 +29,13 @@ export const Header = () => {
       <main>
         <Swiper {...swiperOptions}>
           <SwiperSlide>
+            <div className="overlay"></div>
             <img src={images.HERO} alt="car" className="slider-opacity" />
             <div className="text-overlay">
-              <h1>عربيات مستعملة بدون تنازلات!</h1>
-              <p>اشتري أو بيع عربية مستعملة بسهولة وآمان</p>
+              <h1 className="white-color">عربيات مستعملة بدون تنازلات!</h1>
+              <p className="secondary-color">
+                اشتري أو بيع عربية مستعملة بسهولة وآمان
+              </p>
             </div>
           </SwiperSlide>
         </Swiper>

@@ -114,6 +114,16 @@ img {
   }
 }
 
+.overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: #0000004c;
+  z-index: 1;
+}
+
 /* custom layout for global styles */
 .main-color {
   color: var(--main-color);
