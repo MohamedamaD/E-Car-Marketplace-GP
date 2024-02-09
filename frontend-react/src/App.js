@@ -13,7 +13,7 @@ import {
   Register,
   Loading,
 } from "./pages";
-import { Navbar } from "./components";
+import { BottomNavbar, Navbar } from "./components";
 import { Footer } from "./containers";
 
 const App = () => {
@@ -32,6 +32,7 @@ const App = () => {
         <Route path="/register" component={Register} />
         <Route path="*" component={NoPage} />
       </Switch>
+      <BottomNavbar />
       {/* <Footer /> */}
     </Router>
   );

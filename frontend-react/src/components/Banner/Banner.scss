@@ -18,7 +18,7 @@
         .sell {
             flex: 1;
             text-align: right;
-            @include flexCenter($direction: column, $align: start);
+            @include flexCenter($direction: column, $align: flex-start);
 
             h1 {
                 margin-bottom: 10px;
@@ -42,7 +42,7 @@
         .floating-img {
             width: 200px;
             display: none !important;
-            @include flexCenter($align: start);
+            @include flexCenter($align: flex-start);
 
             @media screen and (max-width: 991px) {
                 display: flex !important;
