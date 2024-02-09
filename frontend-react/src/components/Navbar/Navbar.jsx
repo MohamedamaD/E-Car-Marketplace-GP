@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import "./Navbar.scss";
 import { navLinks } from "../../constants";
 import { Link } from "react-router-dom";
@@ -13,10 +12,8 @@ import { BsShop } from "react-icons/bs";
 import { BiLogOutCircle } from "react-icons/bi";
 export const Navbar = () => {
   const { isAuthenticated } = useSelector((state) => state.authentication);
-  const [show,setshow ]=useState(false)
   return (
     <div className="navbar-container container">
-      <i class="ri-menu-line">x</i>
       <Link to="/">
         <div className="brand">
           <img src="" alt="" />
