@@ -1,3 +1,8 @@
 export { images } from "./images";
-export { navLinks } from "./navLinks";
+
+
 export { footerlinks } from "./footerlinks";
+
+export { navLinks, staticLinks } from "./navLinks";
+export { socialLinks } from "./socialLinks";
+

@@ -1,0 +1,80 @@
+@import '../../styles/mixins';
+
+.sell-banner {
+    margin: 60px 0;
+
+    .container {
+        word-spacing: 3px;
+        background-color: rgb(233 233 254);
+        display: flex;
+        position: relative;
+        padding: 2rem;
+
+        @media screen and (max-width: 991px) {
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .sell {
+            flex: 1;
+            text-align: right;
+            @include flexCenter($direction: column, $align: flex-start);
+
+            h1 {
+                margin-bottom: 10px;
+            }
+
+            h3 {
+                font-size: 17px;
+                margin-bottom: 1rem;
+            }
+
+            Button.sell-button {
+                margin-top: 10px;
+                width: 150px;
+
+                @media screen and (max-width: 991px) {
+                    display: none;
+                }
+            }
+        }
+
+        .floating-img {
+            width: 200px;
+            display: none !important;
+            @include flexCenter($align: flex-start);
+
+            @media screen and (max-width: 991px) {
+                display: flex !important;
+            }
+        }
+
+        .link-item {
+            display: none;
+            width: 100%;
+
+            @media screen and (max-width: 991px) {
+                order: 3;
+                display: block;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+
+        .img-container {
+            flex: 1;
+
+            @media screen and (max-width: 991px) {
+                display: none;
+            }
+
+            img {
+                max-width: 500px;
+                margin: 0 auto;
+                height: 100%;
+            }
+        }
+    }
+}

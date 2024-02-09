@@ -1,24 +1,27 @@
 @import '../../styles/_mixins.scss';
 @import '../../App.scss';
 @import '../../index.css';
+$sidebar-width: 250px;
+
 .navbar-container {
-    min-height: 80px;
-    @include flexCenter($justify: space-between);
+  min-height: 80px;
+  @include flexCenter($justify: space-between);
 
-    .brand {
-        img {}
+  .brand {
+    img {}
+  }
+
+  .nav-bar {
+    a {
+      @include responsiveFontSize($baseSize: 16px);
+      padding: 0 1rem;
     }
 
-    .nav-bar {
-        a {
-            @include responsiveFontSize($baseSize: 16px);
-            padding: 0 1rem;
-        }
-
-        @media screen and (max-width: 767px) {
-            display: none;
-        }
+    @media screen and (max-width: 767px) {
+      display: none;
     }
+  }
+
 
     .side-bar {
         display: none;
@@ -31,67 +34,19 @@
         padding: 20px; 
         border: solid rgba(0, 0, 0, 0.1) 2px;
 
-      
-        @media screen and (min-width: 768px) {
+  .user-profile {
+    .profile-container {
+      @include flexCenter();
+      gap: 1rem;
+
+
+      .sidebar-toggle {
+        display: none;
+
+        @media screen and (max-width: 767px) {
           display: flex;
-          flex-direction: column;
-          align-items: flex-start;
-          
         }
-      
-        .comp {
-            margin-bottom: 20px;
-          
-            h1 {
-              display: flex;
-              align-items: center; // Align items vertically
-              margin-top: 5px; // Adjust margin as needed
-              margin-bottom: 15px; // Adjust margin as needed
-          
-              .icon-container {
-                width: 50px;
-                height: 50px;
-                display: flex;
-               
-                justify-content: center;
-                margin-right: 60px; // Adjust margin as needed
-              }
-            }
-          
-            ul {
-              padding: 0;
-              margin: 0;
-          
-              li {
-                list-style: none;
-                padding: 1rem 1rem;
-                margin-bottom: 10px;
-                gap: 1rem;
-                border-top: solid rgba(0, 0, 0, 0.1) 2px;
-                font-weight: 300;
-                display: flex;
-                align-items: center; 
-                &:hover {
-               
-                    background-color: rgba(0, 0, 0, 0.1); 
-                  }
-                .icon-container {
-                  margin-right: 0; // Reset margin for icon container
-                  margin-left: 10px; // Adjust margin as needed
-                  width: 25px;
-                  height: 25px;
-                }
-              }
-            }
-          
-         Button{
-           align-items: center;
-            margin-top: 20px;
-            background-color: $secondaryColor;
-            width: 80%;
-            
-              
-        }
+
         
         .btn1{
             background-color: $mainColor;
@@ -99,6 +54,56 @@
           
          }*/
        
+
+
       }
-      
+    }
+  }
+
+  .side-bar {
+    position: fixed;
+    top: 0;
+    right: -$sidebar-width;
+    width: $sidebar-width;
+    height: 100%;
+    padding: 20px;
+    z-index: 111;
+    background-color: $whiteColor;
+    border-left: solid rgba(0, 0, 0, 0.1) 2px;
+    @include transition();
+    animation: sidebar-animation 0.3s linear forwards;
+
+    @media screen and (min-width: 768px) {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .comp {
+      margin-bottom: 20px;
+      @include flexCenter($justify: space-between);
+    }
+
+    a.sidebar-link {
+      @include flexCenter($justify: space-between);
+      margin-bottom: 1rem;
+    }
+
+
+    Button {
+      align-items: center;
+      margin-top: 20px;
+      width: 100%;
+    }
+  }
+}
+
+@keyframes sidebar-animation {
+  0% {
+    right: -$sidebar-width;
+  }
+
+  100% {
+    right: 0;
+  }
 }
