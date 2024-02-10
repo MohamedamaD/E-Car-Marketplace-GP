@@ -1,104 +1,138 @@
-@import '../../styles/_mixins.scss';
 @import '../../App.scss';
-@import '../../index.css';
 
+.__footer {
+    .__container-footer {
+        .__end-footer {
+            @include flex-center;
+            justify-content: space-between;
+            padding: 40px 0;
+            border-top: 1px solid #ccc;
 
-.footer-container {
-    width: 100%;
-    margin: 2px 2px;
-    background-image: url(../../assets/backgroundfooter.svg);
-  
-  
-    .f_footer {
-     
-      margin-bottom: 20px;
-     @include flexCenter($direction: row, $justify: center, $align: center);
-      
-  
-      h2 {
-        @include responsiveFontSize($baseSize: 18px);
-        margin-bottom: 10px;
-        text-align: right;
-        color: $whiteColor;
-       
-      }
-     .btn{
-      display: flex;
-      margin-right: 600px;
-  
-      }
-      
-
-      Button{
-        margin-right: 20px;
-        margin-top: 3px;
-        border-color: rgb(255, 255, 255);
-      
-      }
-    
-      .btn3{
-        color: $whiteColor;
-        background-color: transparent;
-        }
-      }
-      }
-  
-    .m_footer {
-      display: flex;
-      padding-top: 10px;
-      padding-bottom: 10px;
-      border-top: solid rgba(0, 0, 0, 0.1) 2px;
-      border-bottom: solid rgba(0, 0, 0, 0.1) 2px;
-      .footer-column{
-        margin: 70px 70px;
-      h2{color: $whiteColor;}
-      p{color: $whiteColor;}
-      h5 {
-        font-size: 18px;
-        margin-bottom: 10px;
-        color: $whiteColor;
-      }
-  
-      ul {
-        list-style-type: none;
-        padding: 0;
-        
-  
-        li {
-          margin-bottom: 5px;
-         
-  
-          a {
-            color: $whiteColor;
-            text-decoration: none;
-  
-            &:hover {
-              text-decoration: underline;
+            @media screen and (max-width: 991px) {
+                flex-direction: column;
+                gap: 1rem;
             }
-          }
+
+            p {
+                color: $PColor;
+            }
         }
-     }
-    }
-    }
-    .e_footer {
-      text-align: center;
-      margin-top: 30px;
-  
-      p {
-        font-size: 14px;
-        color: $whiteColor;
-        margin-bottom: 10px;
-      }
-  
-      a {
-        
-        margin: 0 10px;
-       
-  
-        &:hover {
-          color: rgb(164, 230, 173);
+
+        .__middle-footer {
+            display: flex;
+            margin-bottom: 60px;
+
+            @media screen and (max-width: 768px) {
+                flex-direction: column;
+            }
+
+            .__box {
+                width: 25%;
+                color: $PColor;
+
+                @media screen and (max-width: 768px) {
+                    width: 100%;
+                    margin-bottom: 2rem;
+                }
+
+                a {
+                    transition: 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+                    color: $PColor;
+                    display: block;
+                    margin: 1rem 0;
+                    display: flex;
+                    gap: 1rem;
+
+                    &:hover {
+                        color: $mainColor;
+                        padding-left: 0.5rem;
+                    }
+                }
+
+                &:first-of-type {
+                    margin-right: 2rem;
+
+                    img {
+                        margin-bottom: 2rem;
+                        display: block;
+                        max-width: 100%;
+                    }
+
+                    p {
+                        color: $textColor;
+                        margin-bottom: 0.5rem;
+                        line-height: 1.25;
+
+                        span {
+                            color: $PColor;
+                        }
+                    }
+                }
+
+                h3.__title {
+                    color: $textColor;
+                    margin-bottom: 2rem;
+                    font-size: x-large;
+                }
+            }
         }
-      }
+
+        .__mail {
+            background-color: #edf6fa;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            @include flex-center;
+            justify-content: space-between;
+            gap: 2rem;
+
+            @media screen and (max-width: 992px) {
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: flex-start;
+            }
+
+            .text-box {
+                p {
+                    &:first-of-type {
+                        @include flex-center;
+                        font-weight: bold;
+                        font-size: 2rem;
+                        color: $textColor;
+                        gap: 0.5rem;
+                        margin-bottom: 1rem;
+                    }
+
+                    &:last-of-type {
+                        color: $PColor;
+                        font-size: large;
+                        padding-left: 0.25rem;
+                    }
+                }
+            }
+
+            .__form {
+                flex: 1;
+                width: 100%;
+
+                div {
+                    display: flex;
+                    align-items: stretch;
+                    justify-content: flex-end;
+                }
+
+                input {
+                    background-color: $whiteColor;
+                    border: 1px solid #ddd;
+                    padding: 1rem 0.5rem;
+                    width: 100%;
+                    max-width: 300px;
+                    color: $textColor;
+
+                    @media screen and (max-width: 992px) {
+                        max-width: unset;
+                    }
+                }
+            }
+        }
     }
-  
-  
+}
