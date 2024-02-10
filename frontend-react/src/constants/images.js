@@ -1,11 +1,4 @@
 import LOADING_LOADER from "../assets/loading-loader.gif";
-
-import backgroundfooter from "../assets/backgroundfooter.svg";
-
-
-
-
-
 import NOTFOUND_1 from "../assets/not-found.png";
 import NOTFOUND_2 from "../assets/404.gif";
 import HERO from "../assets/hero.png";
@@ -21,7 +14,4 @@ export const images = {
   CAR_1,
   CAR_2,
   CAR_3,
-  LOADING_LOADER,
-  backgroundfooter
-
 };

@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import "./Navbar.scss";
 import { navLinks } from "../../constants";
 import { Link } from "react-router-dom";
@@ -7,10 +8,7 @@ import { useSelector } from "react-redux";
 
 export const Navbar = () => {
   const { isAuthenticated } = useSelector((state) => state.authentication);
-
-
   const [sidebarIsActive, setActive] = useState(false);
-
 
   return (
     <div className="navbar-container container">
