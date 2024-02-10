@@ -9,7 +9,7 @@ export const Footer = () => {
   return (
     <footer id="footer-app">
       <div className="footer-container container">
-        {/* TODO [alaa] : implement footer from tasks/footer follow screen sizes */}
+        
         <div className="head-footer">
           <h2 className="white-color">
             جاهز لبيع وشراء عربيتك المستعمله معانا ؟
