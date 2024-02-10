@@ -5,7 +5,7 @@
     background-color: #f6f3f3;
 
     .register-container {
-        min-height: 100vh;
+        height: calc(100vh - $navbarHeight); // 80px - بتوع النافبار عشان ياخد الشاشه كامله
         @include flexCenter();
 
         main {

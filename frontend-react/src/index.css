@@ -11,6 +11,7 @@
   --font-size: 14px;
   --thumb-radius: 5px;
   --border-radius: 5px;
+  --navbar-height: 80px;
 }
 
 * {
@@ -36,7 +37,6 @@ body {
   background-color: var(--white);
   color: var(--secondary-color);
 
-  min-height: 5000px;
 }
 
 a {

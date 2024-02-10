@@ -1,9 +1,9 @@
 import React from "react";
 import "./Register.scss";
-import { socialLinks } from "../../constants";
 import { Link } from "react-router-dom";
-import { Button, Input } from "../../components";
+import { Button, Input, SocialLoginButton } from "../../components";
 import { useState } from "react";
+import { BiLogoFacebook, BiLogoGoogle } from "react-icons/bi";
 
 export const Register = () => {
   const [isLogin, setLogin] = useState(true);
@@ -18,7 +18,7 @@ export const Register = () => {
   const submitRegisterHandler = (ev) => {
     ev.preventDefault();
   };
-  console.log(dataForm);
+  
   return (
     <div id="register-page">
       <div className="container register-container">
@@ -127,12 +127,8 @@ const TitleWithLinks = ({ title = "", subTitle = "" }) => {
     <div className="title-container">
       <h1 className="title">{title}</h1>
       <div className="links">
-        {/* here it just update code later for auth for your account */}
-        {socialLinks.map((el, i) => (
-          <Link to={el.link} key={i + el.link} className="icon-container">
-            <el.Icon />
-          </Link>
-        ))}
+        <SocialLoginButton providerIcon={<BiLogoGoogle />} googleAuth={true} />
+        <SocialLoginButton providerIcon={<BiLogoFacebook />} />
       </div>
       <p>{subTitle}</p>
     </div>

@@ -1,9 +1,10 @@
 @import '../../styles/mixins';
+@import '../../App.scss';
 
 #home-header {
     main {
         position: relative;
-        height: calc(100vh - 80px); // 80px - بتوع النافبار عشان ياخد الشاشه كامله
+        height: calc(100vh - $navbarHeight); // 80px - بتوع النافبار عشان ياخد الشاشه كامله
 
         .swiper-wrapper {
             flex: 1;

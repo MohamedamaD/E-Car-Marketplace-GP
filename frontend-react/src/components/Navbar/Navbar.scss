@@ -4,7 +4,7 @@
 $sidebar-width: 250px;
 
 .navbar-container {
-  min-height: 80px;
+  min-height: $navbarHeight;
   @include flexCenter($justify: space-between);
 
   .brand {
@@ -49,11 +49,10 @@ $sidebar-width: 250px;
     border-left: solid rgba(0, 0, 0, 0.1) 2px;
     @include transition();
     animation: sidebar-animation 0.3s linear forwards;
+    display: none;
 
-    @media screen and (min-width: 768px) {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
+    @media screen and (max-width: 768px) {
+      @include flexCenter($direction: column, $justify: normal, $align: normal);
     }
 
     .comp {

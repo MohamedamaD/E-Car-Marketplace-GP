@@ -20,6 +20,7 @@ const App = () => {
   return (
     <Router>
       <Navbar />
+
       <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/buy-car" component={BuyCar} />
@@ -33,7 +34,7 @@ const App = () => {
         <Route path="*" component={NoPage} />
       </Switch>
       <BottomNavbar />
-      {/* <Footer /> */}
+      <Footer />
     </Router>
   );
 };
