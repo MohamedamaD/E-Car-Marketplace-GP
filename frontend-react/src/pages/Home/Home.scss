@@ -1,10 +1,11 @@
-@import '../../App.scss';
+@import "../../App.scss";
+@import "../../styles/_mixins.scss";
 
 .Home {
   .continer1 {
     margin-top: 90px;
     word-spacing: 3px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 
     .start {
       text-align: center;
@@ -27,17 +28,20 @@
     .row {
       display: flex;
       justify-content: center;
-
+      @media screen and (max-width: 760px) {
+        @include flexCenter($direction: column);
+      }
 
       .fcol {
         text-align: right;
-        flex: 1;
-        margin-right: 140px;
+        .row2 {
+          display: flex;
+          justify-content: center;
+        }
 
         h2 {
-
           font-size: 20px;
-          margin-bottom: 10px;
+          margin-bottom: 5px;
         }
 
         h5 {
@@ -49,27 +53,23 @@
 
         Button {
           margin-top: 10px;
-          background-color: $mainColor ;
+          background-color: $mainColor;
           width: 280px;
 
           a {
             text-decoration: none;
-
           }
         }
       }
 
       .fco2 {
-        flex: 1;
-
         img {
-          width: 100%; // Adjust the width as needed
-          max-width: 500px; // Set a max-width to control the size
-          display: block; // Prevents image spacing issues
-          margin: 0 auto; // Centers the image within its container
+          width: 100%;
+          max-width: 500px;
+          display: block;
+          margin: 0 auto;
         }
       }
     }
   }
-
 }
