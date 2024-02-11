@@ -16,12 +16,17 @@ footer#footer-app {
             @include flexCenter($direction: column);
         }
 
+        @media screen and (max-width: 767px) {
+            padding-bottom: 60px;
+        }
+
         .head-footer {
             margin-bottom: $padding-width;
             @include flexCenter($justify: space-between);
 
             @media screen and (max-width: 991px) {
                 order: 2;
+                margin-bottom: unset;
                 flex-direction: column;
                 width: 100%;
                 padding: $padding-width / 2 0;
@@ -122,6 +127,8 @@ footer#footer-app {
         .tail-footer {
             text-align: center;
             margin-top: 30px;
+            order: 3;
+
 
             p {
                 font-size: 14px;
