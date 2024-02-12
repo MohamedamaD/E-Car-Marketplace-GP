@@ -1,0 +1,54 @@
+@import '../../App.scss';
+
+
+.Home {
+    .row {
+        .time-line {
+            flex: 1;
+            padding-left: 1rem;
+
+            ul {
+                padding-right: 0px !important;
+
+                li::before {
+                    padding: 0px !important;
+                }
+            }
+
+        }
+    }
+
+    .time-line-dot {
+        border-style: none;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        background-color: $mainColor;
+    }
+
+    .time-line-connector {
+        background-color: $mainColor;
+        height: 5rem;
+
+
+        @media screen and (max-width: 981px) {
+            height: 7rem;
+        }
+
+        @media screen and (max-width: 760px) {
+            height: 5rem;
+        }
+
+        @media screen and (max-width: 493px) {
+            height: 6rem;
+        }
+
+        @media screen and (max-width: 425px) {
+            height: 7rem;
+        }
+
+        @media screen and (max-width: 375px) {
+            height: 7.5rem;
+        }
+
+    }
+}
