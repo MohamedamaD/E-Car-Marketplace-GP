@@ -1,81 +1,78 @@
 @import "../../App.scss";
-@import "../../styles/_mixins.scss";
+@import "../../styles/mixins";
 
 .Home {
-  .continer1 {
+  .site-work-container {
     margin-top: 90px;
     word-spacing: 3px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
     .start {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 2rem;
 
       h2 {
         font-size: 20px;
         margin-bottom: 5px;
-        color: $mainColor;
       }
 
       h5 {
         font-size: 17px;
-        margin-bottom: 10px;
-        color: var(--p-color);
         font-weight: 400;
       }
     }
 
     .row {
-      display: flex;
-      justify-content: center;
+      @include flexCenter($align: flex-start, $justify: space-between);
+      gap: 1rem;
 
-      @media screen and (max-width: 760px) {
+      @media screen and (max-width: 991px) {
         @include flexCenter($direction: column);
       }
 
-
-      .fcol {
+      .col {
         text-align: right;
- 
-    
-        .row2 {
+
+        .row-2 {
           display: flex;
           justify-content: center;
+
+          .content-container {
+            @media screen and (max-width: 991px) {
+              text-align: left;
+            }
+
+            button {
+              @media screen and (max-width: 991px) {
+                width: 100%;
+              }
+            }
+          }
         }
 
-
         h2 {
-
           font-size: 20px;
-          margin-bottom: 5px;
+          margin-bottom: 0.25rem;
         }
 
         h5 {
           font-size: 17px;
-          margin-bottom: 50px;
-          color: var(--p-color);
+          margin-bottom: 1.5rem;
           font-weight: 400;
         }
 
         Button {
           margin-top: 10px;
-          background-color: $mainColor ;
+          background-color: $mainColor;
           width: 280px;
-
-          a {
-            text-decoration: none;
-
-          }
         }
       }
 
-      .fco2 {
+      .col-2 {
+        @media screen and (max-width: 991px) {}
 
         img {
-          width: 100%; // Adjust the width as needed
-          max-width: 500px; // Set a max-width to control the size
-          display: block; // Prevents image spacing issues
-          margin: 0 auto; // Centers the image within its container
+          max-width: 500px;
+          margin: 0 auto;
         }
       }
     }

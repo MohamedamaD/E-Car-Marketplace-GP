@@ -3,10 +3,9 @@ import TimelineItem from "@mui/lab/TimelineItem";
 import TimelineSeparator from "@mui/lab/TimelineSeparator";
 import TimelineConnector from "@mui/lab/TimelineConnector";
 import TimelineDot from "@mui/lab/TimelineDot";
-import "../TimeLine/TimeLine.scss";
-import "../../index.css";
+import "./BasicTimeLine.scss";
 
-export const TimeLine = () => {
+export const BasicTimeLine = () => {
   return (
     <Timeline>
       <TimelineItem>

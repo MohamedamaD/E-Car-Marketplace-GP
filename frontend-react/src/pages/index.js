@@ -10,3 +10,4 @@ export { Register } from "./Register/Register";
 export { About } from "./About/About";
 export { NoPage } from "./NoPage/NoPage";
 export { Contact } from "./Contact/Contact";
+export { CommonQuestion } from "./CommonQuestion/CommonQuestion";

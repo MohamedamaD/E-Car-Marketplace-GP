@@ -12,6 +12,7 @@ import {
   Recommendation,
   Register,
   Loading,
+  CommonQuestion,
 } from "./pages";
 import { BottomNavbar, Navbar } from "./components";
 import { Footer } from "./containers";
@@ -28,6 +29,7 @@ const App = () => {
         <Route path="/car-details:id" component={CarDetails} />
         <Route path="/user-profile" component={UserProfile} />
         <Route path="/recommendation-car" component={Recommendation} />
+        <Route path="/common-question" component={CommonQuestion} />
         <Route path="/contact-us" component={Contact} />
         <Route path="/about-us" component={About} />
         <Route path="/register" component={Register} />

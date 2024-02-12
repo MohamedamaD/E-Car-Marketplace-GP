@@ -14,6 +14,7 @@ export const navLinks = [
   },
   { title: "من نحن", link: "about-us", Icon: BsShop },
   { title: "تواصل معنا", link: "contact-us", Icon: CiCircleQuestion },
+  { title: "الاسئله الشائعه", link: "common-question", Icon: BiQuestionMark },
 ];
 
 export const staticLinks = [
