@@ -141,6 +141,10 @@ img {
   color: var(--white);
 }
 
+svg.white-color {
+  fill: var(--white);
+}
+
 .black-color {
   color: var(--black);
 }

@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 const initialState = {
   carListings: [],
-  state: "idle",
+  status: "idle",
 };
 
 export const fetchCarListings = createAsyncThunk(
@@ -10,7 +10,7 @@ export const fetchCarListings = createAsyncThunk(
   async () => {
     try {
       const response = await fetch("https://freetestapi.com/api/v1/cars");
-      return response.data;
+      return response.json();
     } catch (error) {
       throw error;
     }

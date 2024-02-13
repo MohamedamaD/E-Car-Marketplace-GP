@@ -6,3 +6,5 @@ export { BottomNavbar } from "./BottomNavbar/BottomNavbar";
 export { SocialLoginButton } from "./SocialLoginButton/SocialLoginButton";
 export { BasicTimeLine } from "./BasicTimeLine/BasicTimeLine";
 export { CarCard } from "./CarCard/CarCard";
+export { ScrollToTop } from "./ScrollToTop/ScrollToTop";
+export { SectionTitle } from "./SectionTitle/SectionTitle";

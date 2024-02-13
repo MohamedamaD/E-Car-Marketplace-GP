@@ -1,20 +1,41 @@
+@import '../../styles/mixins';
+@import '../../App.scss';
+
 .car-card {
     .card-container {
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+        border-radius: $radius;
+        overflow: hidden;
+
         .img-container {
-            img {}
+            border-radius: 0 0 $radius $radius;
+            overflow: hidden;
         }
 
         .txt-container {
-            .car-model {}
+            padding: 1rem;
 
-            .car-make {}
+            .car-price {
+                margin: 0.5rem 0;
+                display: block;
+                @include responsiveFontSize(20px);
 
-            .car-price {}
+                span {
+                    @include responsiveFontSize(14px);
+                }
+            }
 
             .wrapper {
+                @include flexCenter($justify: flex-start);
+                gap: 1rem;
+
                 div {
-                    span {
-                        svg {}
+                    @include flexCenter();
+                    gap: 0.25rem;
+
+                    svg {
+                        fill: $mainColor;
+                        @include responsiveFontSize(20px);
                     }
                 }
             }

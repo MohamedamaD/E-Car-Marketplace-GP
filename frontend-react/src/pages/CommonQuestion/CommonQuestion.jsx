@@ -1,5 +1,6 @@
 import React from "react";
 import "./CommonQuestion.scss";
+
 export const CommonQuestion = () => {
   return (
     <div className="common-question">

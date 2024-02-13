@@ -14,7 +14,7 @@ import {
   Loading,
   CommonQuestion,
 } from "./pages";
-import { BottomNavbar, Navbar } from "./components";
+import { BottomNavbar, Navbar, ScrollToTop } from "./components";
 import { Footer } from "./containers";
 
 const App = () => {
@@ -26,7 +26,7 @@ const App = () => {
         <Route path="/" exact component={Home} />
         <Route path="/buy-car" component={BuyCar} />
         <Route path="/sell-car" component={SellCar} />
-        <Route path="/car-details:id" component={CarDetails} />
+        <Route path="/car-details/:id" component={CarDetails} />
         <Route path="/user-profile" component={UserProfile} />
         <Route path="/recommendation-car" component={Recommendation} />
         <Route path="/common-question" component={CommonQuestion} />
@@ -37,6 +37,7 @@ const App = () => {
       </Switch>
       <BottomNavbar />
       <Footer />
+      <ScrollToTop />
     </Router>
   );
 };
