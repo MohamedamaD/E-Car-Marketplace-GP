@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import "./RecentCars.scss";
-import { CarCard } from "../../components";
+import { Button, CarCard, SectionTitle } from "../../components";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCarListings } from "../../store/slices/dataSlice";
 import { Link } from "react-router-dom";
@@ -17,6 +17,15 @@ export const RecentCars = ({ limit = 4 }) => {
   if (status === "loading") return <Loading />;
   return (
     <div className="recent-cars">
+      <SectionTitle
+        subTitle="مجموعة متنوعة من عربيات"
+        title="أضيف مؤخرا"
+        className="left"
+      >
+        <Link to="/buy-car">
+          <Button value="تصفح كل العربيات" />
+        </Link>
+      </SectionTitle>
       <div className="recent-container">
         <main>
           {carListings.slice(0, limit).map((car) => (

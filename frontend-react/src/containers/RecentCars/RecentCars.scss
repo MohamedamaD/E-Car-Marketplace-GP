@@ -1,7 +1,14 @@
+@import '../../styles/mixins';
+
 .recent-cars {
     margin-bottom: 60px;
 
+    .section-title .section-container {
+        @include flexCenter($justify: space-between);
+    }
+
     .recent-container {
+
         main {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
