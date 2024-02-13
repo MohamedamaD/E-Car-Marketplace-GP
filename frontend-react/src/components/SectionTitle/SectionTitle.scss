@@ -1,0 +1,23 @@
+.section-title {
+    margin-bottom: 2rem;
+    text-align: center;
+
+    &.left {
+        text-align: left;
+    }
+
+    &.left {
+        text-align: right;
+    }
+
+    .section-container {
+        .title {
+            margin-bottom: 0.75rem;
+            font-size: 2em;
+        }
+
+        .subtitle {
+            font-size: 1.25em;
+        }
+    }
+}

@@ -1,0 +1,24 @@
+$size: 50px;
+@import '../../styles/mixins';
+
+.scroll-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+    width: $size;
+    height: $size;
+    @include flexCenter();
+
+    svg {
+        @include responsiveFontSize(18px);
+    }
+
+    &.visible {
+        opacity: 1;
+        visibility: visible;
+    }
+}
