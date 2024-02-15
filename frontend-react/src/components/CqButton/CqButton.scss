@@ -1,0 +1,51 @@
+@import "../../App.scss";
+@import "../../styles/mixins";
+
+main {
+  .cq-button {
+    position: relative;
+    cursor: pointer;
+    padding: 0px 1rem;
+    padding-top: 1rem;
+
+    .btn-title {
+      background-color: $whiteColor;
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+      text-align: right;
+      width: 100%;
+
+      @include responsiveFontSize($baseSize: 14px, $ratio: 1.2);
+
+      &.no-bottom-red {
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
+      }
+    }
+    img {
+      width: 7%;
+      height: 7%;
+      position: absolute;
+      top: 50%;
+      left: 3%;
+
+      @media screen and (max-width: 1024px) {
+        left: 7%;
+      }
+    }
+  }
+  .ans-cq {
+    max-height: 0;
+    background-color: #f9fafb;
+    transition: max-height 2s ease;
+    margin: 0px 1rem;
+    &.hide {
+      visibility: hidden;
+      transition: max-height 0.2s ease;
+    }
+    &.show {
+      visibility: visible;
+      max-height: 450px;
+    }
+  }
+}
