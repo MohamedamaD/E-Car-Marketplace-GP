@@ -5,6 +5,8 @@ import HERO from "../assets/hero.png";
 import CAR_1 from "../assets/car_1.webp";
 import CAR_2 from "../assets/car_2.png";
 import CAR_3 from "../assets/car_mobile_screen.jpg";
+import CQ from"../assets/cq.svg"
+import Arrow from"../assets/arrow.svg"
 
 export const images = {
   LOADING_LOADER,
@@ -14,4 +16,6 @@ export const images = {
   CAR_1,
   CAR_2,
   CAR_3,
+  CQ,
+  Arrow
 };
