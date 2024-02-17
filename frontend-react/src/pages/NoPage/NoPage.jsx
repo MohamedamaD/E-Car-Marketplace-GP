@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./NoPage.scss";
 import { images } from "../../constants";
 import { Link } from "react-router-dom";
 
 export const NoPage = () => {
+  useEffect(() => {
+    window.scrollTo({ top: "80", behavior: "smooth" });
+  }, []);
   return (
     <div id="no-page">
       <div className="container __no-container">

@@ -9,7 +9,11 @@ import { useSelector } from "react-redux";
 export const Navbar = () => {
   const { isAuthenticated } = useSelector((state) => state.authentication);
   const [sidebarIsActive, setActive] = useState(false);
-
+  if (sidebarIsActive) {
+    document.body.classList.add("hidden");
+  } else {
+    document.body.classList.remove("hidden");
+  }
   return (
     <div className="navbar-container container">
       <Link to="/">
@@ -26,6 +30,9 @@ export const Navbar = () => {
         ))}
       </nav>
 
+      {sidebarIsActive && (
+        <div className="overlay" onClick={() => setActive(false)}></div>
+      )}
       {sidebarIsActive && (
         <nav className="side-bar">
           <div className="comp">
@@ -45,6 +52,7 @@ export const Navbar = () => {
               key={navLink.title + i}
               className="sidebar-link"
               to={`/${navLink.link}`}
+              onClick={() => setActive(false)}
             >
               {navLink.title}
               <div className="icon-container">

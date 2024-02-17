@@ -5,6 +5,7 @@ import HERO from "../assets/hero.png";
 import CAR_1 from "../assets/car_1.webp";
 import CAR_2 from "../assets/car_2.png";
 import CAR_3 from "../assets/car_mobile_screen.jpg";
+
 import about1_car from "../assets/about1.webp";
 import about2_car from "../assets/about2.jpg";
 import about3_car from "../assets/about3.jpg";
@@ -14,6 +15,10 @@ import m3_about from "../assets/m3_about.webp";
 import m4_about from "../assets/m4_about.webp";
 import arrow_about from "../assets/arrow_about.webp";
 
+import CQ from"../assets/cq.svg"
+import Arrow from"../assets/arrow.svg"
+
+
 export const images = {
   LOADING_LOADER,
   NOTFOUND_1,
@@ -22,6 +27,7 @@ export const images = {
   CAR_1,
   CAR_2,
   CAR_3,
+
   about1_car,
   about2_car,
   about3_car,
@@ -30,4 +36,8 @@ export const images = {
   m3_about,
   m4_about,
   arrow_about,
+
+  CQ,
+  Arrow
+
 };

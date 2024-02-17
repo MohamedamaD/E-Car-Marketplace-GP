@@ -1,9 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Register.scss";
 import { Link } from "react-router-dom";
-import { Button, Input, SocialLoginButton } from "../../components";
-import { useState } from "react";
-import { BiLogoFacebook, BiLogoGoogle } from "react-icons/bi";
+import { Button, Facebook, Google, Input, Linkedin } from "../../components";
 
 export const Register = () => {
   const [isLogin, setLogin] = useState(true);
@@ -18,7 +16,7 @@ export const Register = () => {
   const submitRegisterHandler = (ev) => {
     ev.preventDefault();
   };
-  
+
   return (
     <div id="register-page">
       <div className="container register-container">
@@ -127,8 +125,9 @@ const TitleWithLinks = ({ title = "", subTitle = "" }) => {
     <div className="title-container">
       <h1 className="title">{title}</h1>
       <div className="links">
-        <SocialLoginButton providerIcon={<BiLogoGoogle />} googleAuth={true} />
-        <SocialLoginButton providerIcon={<BiLogoFacebook />} />
+        <Google />
+        {/* <Facebook /> */}
+        <Linkedin />
       </div>
       <p>{subTitle}</p>
     </div>

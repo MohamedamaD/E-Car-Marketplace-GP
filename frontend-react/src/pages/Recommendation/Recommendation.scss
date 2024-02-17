@@ -1,0 +1,31 @@
+@import '../../styles/mixins';
+@import '../../App.scss';
+
+#recommendation-page {
+    height: calc(100vh - $navbarHeight);
+    background: url('../../assets/recommendation_bg.jpg') no-repeat fixed;
+    background-size: cover;
+    position: relative;
+
+    @include flexCenter();
+
+    .background-overlay {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        background: linear-gradient(to left, $secondaryColor , transparent);
+    }
+
+    .recommendation-container {
+        position: relative;
+        z-index: 1111;
+
+        h1.title {
+            margin-bottom: 1rem;
+        }
+
+        .recommendation-hero {}
+    }
+}

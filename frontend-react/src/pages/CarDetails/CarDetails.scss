@@ -1,0 +1,8 @@
+@import '../../styles/mixins';
+@import '../../App.scss';
+
+#car-details {
+    min-height: calc(100vh - $navbarHeight);
+
+    .car-details-container {}
+}

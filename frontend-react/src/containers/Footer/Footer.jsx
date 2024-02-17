@@ -14,14 +14,20 @@ export const Footer = () => {
             جاهز لبيع وشراء عربيتك المستعمله معانا ؟
           </h2>
           <div className="button-container">
-            <Button className="main-bg-color" value="اشترى عربية" />
-            <Button className="secondary-bg-color" value="بيع عربيتك" />
-            <Button
-              className="white-bg-color secondary-color custom"
-              value="01234"
-            >
-              <MdOutlinePhone />
-            </Button>
+            <Link to="/buy-car">
+              <Button className="main-bg-color" value="اشترى عربية" />
+            </Link>
+            <Link to="/sell-car">
+              <Button className="secondary-bg-color" value="بيع عربيتك" />
+            </Link>
+            <a href="https://wa.me/01234" target="_blank" rel="noreferrer">
+              <Button
+                className="white-bg-color secondary-color custom"
+                value="01234"
+              >
+                <MdOutlinePhone />
+              </Button>
+            </a>
           </div>
         </div>
 

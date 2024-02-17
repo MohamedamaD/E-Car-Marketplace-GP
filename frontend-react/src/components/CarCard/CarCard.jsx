@@ -3,7 +3,6 @@ import { CiCalendarDate } from "react-icons/ci";
 import { TbManualGearbox } from "react-icons/tb";
 import "./CarCard.scss";
 export const CarCard = ({ props }) => {
-  console.log(props);
   return (
     <div className="car-card">
       <div className="card-container">
