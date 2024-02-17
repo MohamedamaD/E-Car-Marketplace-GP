@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchCarListings } from "../../store/slices/dataSlice";
 import { Link } from "react-router-dom";
 import { Loading } from "../../pages";
+import { ApiStatus } from "../../utils";
 
 export const RecentCars = ({ limit = 4 }) => {
   const { carListings, status } = useSelector((state) => state.data);
@@ -14,7 +15,7 @@ export const RecentCars = ({ limit = 4 }) => {
     return () => {};
   }, [dispatch]);
 
-  if (status === "loading") return <Loading />;
+  if (status === ApiStatus.LOADING) return <Loading />;
   return (
     <div className="recent-cars">
       <SectionTitle

@@ -12,6 +12,7 @@
   --thumb-radius: 5px;
   --border-radius: 5px;
   --navbar-height: 80px;
+  --bottom-navbar-height: 80px;
 }
 
 * {
@@ -36,7 +37,10 @@ body {
 
   background-color: var(--white);
   color: var(--secondary-color);
+}
 
+body.hidden {
+  overflow: hidden;
 }
 
 a {
@@ -115,7 +119,7 @@ img {
 }
 
 .overlay {
-  position: absolute;
+  position: fixed;
   left: 0;
   right: 0;
   top: 0;
