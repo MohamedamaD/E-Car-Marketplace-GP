@@ -5,6 +5,12 @@
     align-items: $align;
 }
 
+@mixin GridAuto($gap: 1rem, $minWidth: 300px) {
+    display: grid;
+    gap: $gap;
+    grid-template-columns: repeat(auto-fill, minmax($minWidth, 1fr));
+}
+
 @mixin responsiveFontSize($baseSize: 14px, $ratio: 1.2) {
     font-size: $baseSize;
 

@@ -26,6 +26,33 @@
             margin-bottom: 1rem;
         }
 
-        .recommendation-hero {}
+        .button-container {
+            padding: 0 2rem;
+
+            .search-button {
+                margin: 1rem 0;
+                width: 100%;
+            }
+        }
+
+        .recommendation-hero {
+            .tab-panel {
+                @include flexCenter($justify: flex-start);
+                gap: 1rem;
+            }
+
+            .color-container {
+                @include flexCenter();
+                gap: 1rem;
+
+                span.circle-color {
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 50%;
+                    background-color: $blackColor;
+                    display: inline-block;
+                }
+            }
+        }
     }
 }

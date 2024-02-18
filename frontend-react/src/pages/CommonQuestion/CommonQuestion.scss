@@ -2,8 +2,6 @@
 @import "../../App.scss";
 
 .common-question {
-  img {
-  }
   .cq-title {
     position: absolute;
     top: 45%;
@@ -14,15 +12,18 @@
       top: 35%;
       right: 40%;
     }
+
     @media screen and (max-width: 425px) {
       top: 25%;
       right: 30%;
     }
+
     @media screen and (max-width: 320px) {
       top: 20%;
       right: 25%;
     }
   }
+
   .row {
     @include flexCenter($align: flex-start, $justify: space-between);
     gap: 1rem;
@@ -33,6 +34,7 @@
       @include flexCenter($direction: column);
     }
   }
+
   .f-main-col {
     border-radius: 16px;
     background-color: #f3fffa;
@@ -48,18 +50,19 @@
       background: linear-gradient(90deg, #00ce7c -0.85%, #3b9c53);
       @include responsiveFontSize($baseSize: 12px, $ratio: 1.2);
     }
+
     .s-col-row-header {
-      background: linear-gradient(
-        90deg,
-        #045298 -0.85%,
-        #045298 10.71%,
-        #002d5d
-      );
+      background: linear-gradient(90deg,
+          #045298 -0.85%,
+          #045298 10.71%,
+          #002d5d);
     }
   }
+
   .s-main-col {
     background-color: #e9eaff;
   }
+
   .row-btn {
     @include flexCenter();
     padding-top: 1rem;
@@ -68,11 +71,13 @@
       background-color: $mainColor;
       padding-left: 30%;
       padding-right: 30%;
+
       @media screen and (max-width: 375px) {
         padding-right: 20%;
         padding-left: 20%;
       }
     }
+
     .show-all-cq-s-btn {
       background-color: $secondaryColor;
     }

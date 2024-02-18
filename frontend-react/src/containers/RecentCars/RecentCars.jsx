@@ -21,7 +21,7 @@ export const RecentCars = ({ limit = 4 }) => {
       <SectionTitle
         subTitle="مجموعة متنوعة من عربيات"
         title="أضيف مؤخرا"
-        className="left"
+        className="right"
       >
         <Link to="/buy-car">
           <Button value="تصفح كل العربيات" />

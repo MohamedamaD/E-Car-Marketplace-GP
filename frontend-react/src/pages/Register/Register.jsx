@@ -1,27 +1,72 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Register.scss";
 import { Link } from "react-router-dom";
-import { Button, Facebook, Google, Input, Linkedin } from "../../components";
+import {
+  Alert,
+  Button,
+  Facebook,
+  Google,
+  Input,
+  Linkedin,
+} from "../../components";
+import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../store/slices/authenticationSlice";
 
 export const Register = () => {
+  const history = useHistory();
+  const dispatch = useDispatch();
   const [isLogin, setLogin] = useState(true);
+  const [error, setError] = useState("");
   const [dataForm, setDataForm] = useState({
-    name: "",
+    username: "",
     password: "",
     email: "",
   });
-  const submitLoginHandler = (ev) => {
-    ev.preventDefault();
+  const options = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(dataForm),
   };
-  const submitRegisterHandler = (ev) => {
+  const submitLoginHandler = async (ev) => {
     ev.preventDefault();
+    try {
+      const res = await fetch("http://localhost:5000/user/login", options);
+      console.log(await res.json());
+    } catch (err) {
+      console.log(err);
+    }
   };
-
+  const submitRegisterHandler = async (ev) => {
+    ev.preventDefault();
+    try {
+      const res = await fetch("http://localhost:5000/user/register", options);
+      if (res.status === 201) {
+        dispatch(setUser(dataForm));
+        history.push("/");
+      } else if (res.status === 409) {
+        const { message } = await res.json();
+        setError(message);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  useEffect(() => {
+    const Timeout = setTimeout(() => {
+      setError(null);
+    }, 5000);
+    return () => {
+      clearTimeout(Timeout);
+    };
+  }, [error]);
   return (
     <div id="register-page">
       <div className="container register-container">
+        {error && <Alert message={error} type="error" />}
+
         <main>
-          <div className={isLogin ? "login-form active" : "login-form"}>
+          <div className={`login-form ${isLogin ? "active" : ""}`}>
             <TitleWithLinks
               title="تسجيل"
               subTitle="او استخدم الايميل والرقم السري"
@@ -49,7 +94,7 @@ export const Register = () => {
               <Button value="تسجيل" />
             </form>
           </div>
-          <div className={isLogin ? "register-form" : "register-form active"}>
+          <div className={`register-form ${!isLogin ? "active" : ""}`}>
             <TitleWithLinks
               title="انشاء ايميل"
               subTitle="او استخدم البريد الالكتروني للتسجيل"
@@ -61,7 +106,7 @@ export const Register = () => {
                 type="text"
                 placeholder="اسمك"
                 onChange={(ev) =>
-                  setDataForm({ ...dataForm, name: ev.target.value })
+                  setDataForm({ ...dataForm, username: ev.target.value })
                 }
               />
               <Input
@@ -85,36 +130,35 @@ export const Register = () => {
               <Button value="اشتراك" />
             </form>
           </div>
-
-          <div className={isLogin ? "login-toggle" : "login-toggle active"}>
-            <div className="_container">
-              {isLogin ? <h1>اهلا بيك</h1> : <h1>عودة سعيدة</h1>}
-
-              {isLogin ? (
-                <p>ادخل معلوماتك الشخصيه للاستمتاع بكل مميزاتنا</p>
-              ) : (
-                <p>ادخل البيانات التاليه للتسجيل</p>
-              )}
-              {isLogin ? (
-                <Button
-                  value=" انشاء حساب"
-                  onClick={() => {
-                    setLogin(false);
-                    setDataForm({});
-                  }}
-                />
-              ) : (
-                <Button
-                  value="عندي ايميل"
-                  onClick={() => {
-                    setLogin(true);
-                    setDataForm({});
-                  }}
-                />
-              )}
-            </div>
-          </div>
+          <LoginToggle
+            isLogin={isLogin}
+            setDataForm={setDataForm}
+            setLogin={setLogin}
+          />
         </main>
+      </div>
+    </div>
+  );
+};
+
+const LoginToggle = ({ isLogin, setDataForm, setLogin }) => {
+  return (
+    <div className={`login-toggle ${!isLogin ? "active" : ""}`}>
+      <div className="_container">
+        {isLogin ? <h1>اهلا بيك</h1> : <h1>عودة سعيدة</h1>}
+
+        <p>
+          {isLogin
+            ? "ادخل معلوماتك الشخصيه للاستمتاع بكل مميزاتنا"
+            : "ادخل البيانات التاليه للتسجيل"}
+        </p>
+        <Button
+          value={isLogin ? " انشاء حساب" : "عندي ايميل"}
+          onClick={() => {
+            setLogin(!isLogin);
+            setDataForm({});
+          }}
+        />
       </div>
     </div>
   );
@@ -126,7 +170,7 @@ const TitleWithLinks = ({ title = "", subTitle = "" }) => {
       <h1 className="title">{title}</h1>
       <div className="links">
         <Google />
-        {/* <Facebook /> */}
+        <Facebook />
         <Linkedin />
       </div>
       <p>{subTitle}</p>

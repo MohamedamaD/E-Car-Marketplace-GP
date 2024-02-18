@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import "./Recommendation.scss";
+import { Button, CustomSelect } from "../../components";
+import { CarConstants } from "../../constants";
 
 export const Recommendation = () => {
-  const [value, setValue] = React.useState("appearance");
-
+  const [value, setValue] = useState("appearance");
+  const [color, setColor] = useState("");
+  const [appearance, setAppearance] = useState("");
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -25,15 +28,47 @@ export const Recommendation = () => {
                   <TabList
                     onChange={handleChange}
                     aria-label="lab API tabs example"
+                    textColor="primary"
+                    orientation="horizontal"
                   >
                     <Tab label="المظهر" value="appearance" />
                     <Tab label="الاداء" value="performance" />
                     <Tab label="المزيد" value="more" />
                   </TabList>
                 </Box>
-                <TabPanel value="appearance">Item One</TabPanel>
+                <TabPanel value="appearance" className="tab-panel">
+                  <div className="color-container">
+                    <span
+                      className="circle-color shadow"
+                      style={{ backgroundColor: color }}
+                    ></span>
+                    <CustomSelect
+                      props={{
+                        label: "اللون",
+                        id: "color-select",
+                        state: color,
+                        setState: setColor,
+                        options: CarConstants.colors,
+                      }}
+                    />
+                  </div>
+                  <div className="car-appearance-container">
+                    <CustomSelect
+                      props={{
+                        label: "مظهر العربيه",
+                        id: "appearance-select",
+                        state: appearance,
+                        setState: setAppearance,
+                        options: CarConstants.bodyStyle,
+                      }}
+                    />
+                  </div>
+                </TabPanel>
                 <TabPanel value="performance">Item Two</TabPanel>
-                <TabPanel value="more">Item Three</TabPanel>
+                <TabPanel value="more"></TabPanel>
+                <div className="button-container">
+                  <Button value="بحث" className="main-bg-color search-button" />
+                </div>
               </TabContext>
             </Box>
             <form action=""></form>

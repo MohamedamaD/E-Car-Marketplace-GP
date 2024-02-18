@@ -11,3 +11,6 @@ export { CarCard } from "./CarCard/CarCard";
 export { FullCarCard } from "./FullCarCard/FullCarCard";
 export { ScrollToTop } from "./ScrollToTop/ScrollToTop";
 export { SectionTitle } from "./SectionTitle/SectionTitle";
+export { CustomSelect } from "./CustomSelect/CustomSelect";
+export { SwiperBanner } from "./SwiperBanner/SwiperBanner";
+export { Alert } from "./Alert/Alert";
