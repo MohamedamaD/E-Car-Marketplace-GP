@@ -1,0 +1,183 @@
+@import '../../styles/_mixins.scss';
+@import '../../App.scss';
+@import '../../index.css';
+.about-container{
+    
+        margin-bottom: 25px;
+        
+        
+     .header_container{
+        margin-bottom: 25px;
+       
+
+       .head{
+         @include flexCenter();
+         margin-bottom: 7px;
+         @media screen and (max-width: 991px) {
+          @include flexCenter($direction: column);
+      }
+        
+         .pragraph{
+            margin: 100px;
+            width: 50%;
+            @media screen and (max-width: 991px) {
+              width: 100%;
+              margin: 0px;
+              order: 2;
+          }
+
+            
+           
+            h1{
+            font-weight: 500;
+            margin-bottom: 5px;
+            display: block;
+           
+            }
+            p {
+              @media screen and (max-width: 991px) {
+                margin-top: 20px;
+                margin-bottom: 20px;
+                
+            }
+                
+                font-size: medium;
+                color: $pColor;
+                
+              }
+            }    
+        }
+        img {
+          width: 550px;
+          border-radius: 20%;
+          height: 450px;
+          @media screen and (max-width: 991px) {
+            order: 1;
+            
+        }
+          
+          @include transition( $duration: 0.3s, $timing-function: ease-in-out);
+         
+      }
+      
+      img:hover {
+        filter: grayscale(70%); 
+      }
+   }
+   
+ .middel_cotainer{
+  
+    background-color: $secondaryColor;
+    width: 100%;
+    text-align: center;
+    padding: 10px 10px;
+   
+    
+    h1{
+      
+        color: $whiteColor;
+        margin-top: 5px;
+    }
+    .middel{
+        @include flexCenter( $align:space-between);
+        gap: 2rem;
+        flex-direction: row-reverse;
+        @media screen and (max-width: 991px) {
+          @include flexCenter($direction: column);
+          flex-direction: column-reverse;
+        
+      }
+
+        .arrow{
+          @include flexCenter();
+          @media screen and (max-width: 991px) {
+            @include flexCenter($direction: column);
+           }
+           .ima{
+            img{
+              width: 150px;
+              height: 140px;
+            }
+            p{
+              word-wrap: break-word;
+              width: 100%;
+              max-width: 140px;
+             padding: 7px 7px;
+            }
+           }
+         
+            .arrow_photo{
+              width: 30px;
+              height: 30px;
+              margin: 10px;
+              @media screen and (max-width: 991px) {
+                transform: rotate(90deg);
+             
+               }
+            } 
+
+           
+        }
+        
+    
+
+      }
+  }
+  .tail_container{
+   
+    h1{
+      line-height: 2rem;
+      font-size: calc(1.4rem + 1.8vw);
+      padding: 40px 0px;
+      text-align: center;
+    
+      
+    }
+    .tail{
+     
+      @include flexCenter($justify:space-between);
+      @media screen and (max-width: 991px) {
+        @include flexCenter($direction: column);
+        
+      
+    }
+     
+      a{
+        min-width: 150px;
+        max-width: 150px;
+       align-content: center;
+       
+       
+      
+      
+      .number{
+        
+        width: 4rem;
+        height: 4rem;
+        text-align: center;
+        padding: 1rem;
+        color: $secondaryColor;
+        border-radius: 50% ;
+        border-style: solid;
+        border-color: $secondaryColor;
+
+      }
+      
+      .prag{
+        @media screen and (max-width: 991px) {
+          word-wrap:normal;
+          width: 100%;
+          margin: 0px;
+        }
+        word-wrap: break-word;
+        width: 100%;
+        max-width: 170px;
+       
+      }
+    }
+    
+      
+
+   }
+ }
+}

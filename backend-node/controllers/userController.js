@@ -4,7 +4,7 @@ const User = require("../models/User");
 const validator = require("email-validator");
 
 const registerUser = async (req, res) => {
-  const { username, email, password } = req.body;
+  const { username, email, password, role } = req.body;
 
   try {
     const isValid = validator.validate(email);
@@ -21,18 +21,34 @@ const registerUser = async (req, res) => {
           "The email address is already in use. Please use a different email address.",
       });
     }
-
+    if (!password) {
+      return res.status(409).json({
+        message:
+          "The provided password is not valid or empty. Please enter a valid password.",
+      });
+    }
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = new User({
       username,
       email,
       password: hashedPassword,
+      role,
     });
 
     await newUser.save();
 
-    res.status(201).json({ message: "User registered successfully" });
+    const token = jwt.sign(
+      { userId: newUser._id, email: newUser.email, role: newUser.role },
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" }
+    );
+
+    res.status(201).json({
+      message: "User registered successfully",
+      accessToken: token,
+      user: { email, username, role: newUser.role },
+    });
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal Server Error");
@@ -55,12 +71,19 @@ const loginUser = async (req, res) => {
     }
 
     const token = jwt.sign(
-      { userId: user._id, email: user.email },
+      { userId: user._id, email: user.email, role: user.role },
       process.env.JWT_SECRET,
       { expiresIn: "1h" }
     );
 
-    res.status(200).json({ token });
+    res.status(200).json({
+      accessToken: token,
+      user: {
+        email: user.email,
+        name: user.username,
+        role: user.role,
+      },
+    });
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal Server Error");
