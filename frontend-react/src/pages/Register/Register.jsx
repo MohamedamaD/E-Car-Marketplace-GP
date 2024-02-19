@@ -10,60 +10,58 @@ import {
   Linkedin,
 } from "../../components";
 import { useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setUser } from "../../store/slices/authenticationSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  login,
+  register,
+  resetError,
+} from "../../store/slices/authenticationSlice";
+import { Loading } from "../loading/Loading";
 
 export const Register = () => {
   const history = useHistory();
   const dispatch = useDispatch();
+  const { token, loading, error, isAuthenticated } = useSelector(
+    (state) => state.authentication
+  );
   const [isLogin, setLogin] = useState(true);
-  const [error, setError] = useState("");
   const [dataForm, setDataForm] = useState({
     username: "",
     password: "",
     email: "",
   });
-  const options = {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(dataForm),
-  };
+
   const submitLoginHandler = async (ev) => {
     ev.preventDefault();
-    try {
-      const res = await fetch("http://localhost:5000/user/login", options);
-      console.log(await res.json());
-    } catch (err) {
-      console.log(err);
-    }
+    dispatch(login(dataForm));
   };
+
   const submitRegisterHandler = async (ev) => {
     ev.preventDefault();
-    try {
-      const res = await fetch("http://localhost:5000/user/register", options);
-      if (res.status === 201) {
-        dispatch(setUser(dataForm));
-        history.push("/");
-      } else if (res.status === 409) {
-        const { message } = await res.json();
-        setError(message);
-      }
-    } catch (err) {
-      console.log(err);
-    }
+    dispatch(register(dataForm));
   };
   useEffect(() => {
     const Timeout = setTimeout(() => {
-      setError(null);
+      dispatch(resetError());
     }, 5000);
     return () => {
       clearTimeout(Timeout);
     };
   }, [error]);
+  useEffect(() => {
+    if (isAuthenticated) {
+      history.goBack();
+    }
+    return () => {};
+  }, [isAuthenticated]);
+
+  if (loading) {
+    return <Loading />;
+  }
   return (
     <div id="register-page">
       <div className="container register-container">
-        {error && <Alert message={error} type="error" />}
+        {error && <Alert message={error} type="error" lang="en" dir="ltr" />}
 
         <main>
           <div className={`login-form ${isLogin ? "active" : ""}`}>

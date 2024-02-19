@@ -11,34 +11,5 @@
             border-radius: 0 0 $radius $radius;
             overflow: hidden;
         }
-
-        .txt-container {
-            padding: 1rem;
-
-            .car-price {
-                margin: 0.5rem 0;
-                display: block;
-                @include responsiveFontSize(20px);
-
-                span {
-                    @include responsiveFontSize(14px);
-                }
-            }
-
-            .wrapper {
-                @include flexCenter($justify: flex-start);
-                gap: 1rem;
-
-                div {
-                    @include flexCenter();
-                    gap: 0.25rem;
-
-                    svg {
-                        fill: $mainColor;
-                        @include responsiveFontSize(20px);
-                    }
-                }
-            }
-        }
     }
 }

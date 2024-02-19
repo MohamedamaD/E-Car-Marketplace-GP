@@ -14,3 +14,5 @@ export { SectionTitle } from "./SectionTitle/SectionTitle";
 export { CustomSelect } from "./CustomSelect/CustomSelect";
 export { SwiperBanner } from "./SwiperBanner/SwiperBanner";
 export { Alert } from "./Alert/Alert";
+export { UserMenu } from "./UserMenu/UserMenu";
+export { BodyCard } from "./BodyCard/BodyCard";

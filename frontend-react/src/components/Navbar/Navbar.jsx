@@ -5,10 +5,12 @@ import { Link } from "react-router-dom";
 import { BiMenu, BiUser, BiLogOutCircle } from "react-icons/bi";
 import { Button } from "../Button/Button";
 import { useSelector } from "react-redux";
+import { UserMenu } from "../UserMenu/UserMenu";
 
 export const Navbar = () => {
   const { isAuthenticated } = useSelector((state) => state.authentication);
   const [sidebarIsActive, setActive] = useState(false);
+  const [menuIsOpen, setOpen] = useState(false);
   if (sidebarIsActive) {
     document.body.classList.add("hidden");
   } else {
@@ -72,19 +74,20 @@ export const Navbar = () => {
 
       <div className="user-profile">
         {isAuthenticated ? (
-          <div className="icon-container">
+          <div className="icon-container" onClick={() => setOpen(true)}>
             <BiUser />
           </div>
         ) : (
-          <div className="profile-container">
-            <Link to="/register">
-              <Button value="تسجيل" />
-            </Link>
-            <div className="icon-container sidebar-toggle">
-              <BiMenu onClick={() => setActive(true)} />
-            </div>
-          </div>
+          <Link to="/register">
+            <Button value="تسجيل" />
+          </Link>
         )}
+        <div className="profile-container">
+          <div className="icon-container sidebar-toggle">
+            <BiMenu onClick={() => setActive(true)} />
+          </div>
+        </div>
+        {menuIsOpen && <UserMenu setOpen={setOpen} />}
       </div>
     </div>
   );

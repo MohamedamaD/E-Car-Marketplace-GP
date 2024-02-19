@@ -43,24 +43,20 @@ export const Recommendation = () => {
                       style={{ backgroundColor: color }}
                     ></span>
                     <CustomSelect
-                      props={{
-                        label: "اللون",
-                        id: "color-select",
-                        state: color,
-                        setState: setColor,
-                        options: CarConstants.colors,
-                      }}
+                      label="اللون"
+                      id="color-select"
+                      state={color}
+                      setState={setColor}
+                      options={CarConstants.colors}
                     />
                   </div>
                   <div className="car-appearance-container">
                     <CustomSelect
-                      props={{
-                        label: "مظهر العربيه",
-                        id: "appearance-select",
-                        state: appearance,
-                        setState: setAppearance,
-                        options: CarConstants.bodyStyle,
-                      }}
+                      label="مظهر العربيه"
+                      id="appearance-select"
+                      state={appearance}
+                      setState={setAppearance}
+                      options={CarConstants.bodyStyle}
                     />
                   </div>
                 </TabPanel>

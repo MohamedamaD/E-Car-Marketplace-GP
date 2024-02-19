@@ -2,9 +2,13 @@
 
 .alert-container {
     position: fixed;
-    top: 20px;
+    bottom: 80px;
     left: 50%;
     transform: translateX(-50%);
     z-index: $mediumOrder;
     width: 80%;
+
+    * {
+        color: unset;
+    }
 }

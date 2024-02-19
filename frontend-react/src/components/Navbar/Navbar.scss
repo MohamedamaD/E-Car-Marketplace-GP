@@ -6,6 +6,7 @@ $sidebar-width: 250px;
 .navbar-container {
   min-height: $navbarHeight;
   @include flexCenter($justify: space-between);
+  position: relative;
 
   .brand {
     img {}
@@ -23,6 +24,9 @@ $sidebar-width: 250px;
   }
 
   .user-profile {
+    @include flexCenter();
+    gap: 1rem;
+
     .profile-container {
       @include flexCenter();
       gap: 1rem;

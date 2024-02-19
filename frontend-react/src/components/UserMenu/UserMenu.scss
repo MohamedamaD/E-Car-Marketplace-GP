@@ -1,0 +1,53 @@
+@import '../../App.scss';
+@import '../../styles/mixins';
+
+.user-menu {
+    min-width: 200px;
+    position: absolute;
+    top: 100%;
+    left: 20px;
+    z-index: $highOrder - 1;
+    background-color: $whiteColor;
+
+    nav {
+        padding: 0.5rem;
+
+        .custom-btn {
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        a {
+            @include flexCenter($justify: flex-start);
+            @include transition();
+            gap: 0.5rem;
+            padding: 1rem;
+
+            &:hover {
+                background-color: $mainColor;
+
+                * {
+                    color: $whiteColor
+                }
+            }
+
+            .icon {
+                @include flexCenter();
+
+                svg {
+                    @include responsiveFontSize($baseSize: 1.2em);
+                }
+            }
+        }
+    }
+}
+
+.touch-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: $mediumOrder - 1;
+    cursor: pointer;
+}

@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import "./SwiperBanner.scss";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -12,26 +12,26 @@ import {
 } from "react-icons/bi";
 
 export const SwiperBanner = () => {
-  const prev = useRef(null);
-  const next = useRef(null);
   return (
     <div className="swiper-banner">
       <Swiper
         className="rounded"
         modules={[Navigation, Pagination]}
-        navigation={{ prevEl: prev.current, nextEl: next.current }}
+        navigation={{ prevEl: ".left-arrow", nextEl: ".right-arrow" }}
         pagination={{ clickable: true }}
       >
-        {[images.CAR_1, images.CAR_1, images.CAR_1].map((el, i) => (
-          <SwiperSlide key={i}>
-            <img src={el} alt="" />
-          </SwiperSlide>
-        ))}
+        {[images.CAR_BANNER_1, images.CAR_BANNER_2, images.CAR_BANNER_3].map(
+          (el, i) => (
+            <SwiperSlide key={i}>
+              <img src={el} alt="" />
+            </SwiperSlide>
+          )
+        )}
 
-        <div className="left-arrow icon-container" ref={prev}>
+        <div className="left-arrow icon-container">
           <BiSolidLeftArrowCircle />
         </div>
-        <div className="right-arrow icon-container" ref={next}>
+        <div className="right-arrow icon-container">
           <BiSolidRightArrowCircle />
         </div>
       </Swiper>

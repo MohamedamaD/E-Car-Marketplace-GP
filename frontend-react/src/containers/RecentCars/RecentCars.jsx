@@ -11,7 +11,7 @@ export const RecentCars = ({ limit = 4 }) => {
   const { carListings, status } = useSelector((state) => state.data);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchCarListings());
+    dispatch(fetchCarListings(8));
     return () => {};
   }, [dispatch]);
 
@@ -29,7 +29,7 @@ export const RecentCars = ({ limit = 4 }) => {
       </SectionTitle>
       <div className="recent-container">
         <main>
-          {carListings.slice(0, limit).map((car) => (
+          {carListings.map((car) => (
             <Link key={car?.id} to={`/car-details/${car?.id}`}>
               <CarCard props={car} />
             </Link>

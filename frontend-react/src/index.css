@@ -148,6 +148,9 @@ img {
 svg.white-color {
   fill: var(--white);
 }
+svg.main-color {
+  fill: var(--main-color);
+}
 
 .black-color {
   color: var(--black);

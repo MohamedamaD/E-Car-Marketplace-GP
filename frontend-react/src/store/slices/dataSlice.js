@@ -8,9 +8,25 @@ const initialState = {
 
 export const fetchCarListings = createAsyncThunk(
   "data/fetchCarListings",
-  async () => {
+  async (limit = 10) => {
     try {
-      const response = await fetch("https://freetestapi.com/api/v1/cars");
+      const response = await fetch(
+        `https://freetestapi.com/api/v1/cars?limit=${limit}`
+      );
+      return response.json();
+    } catch (error) {
+      throw error;
+    }
+  }
+);
+
+export const fetchCarByName = createAsyncThunk(
+  "data/fetchCarByName",
+  async (title) => {
+    try {
+      const response = await fetch(
+        `https://freetestapi.com/api/v1/cars?search=${title}`
+      );
       return response.json();
     } catch (error) {
       throw error;
@@ -56,6 +72,17 @@ const dataSlice = createSlice({
         state.currentCar = action.payload;
       })
       .addCase(fetchCarById.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      })
+      .addCase(fetchCarByName.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchCarByName.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.carListings = action.payload;
+      })
+      .addCase(fetchCarByName.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
       });

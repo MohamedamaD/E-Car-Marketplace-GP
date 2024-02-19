@@ -15,9 +15,12 @@ import m3_about from "../assets/m3_about.webp";
 import m4_about from "../assets/m4_about.webp";
 import arrow_about from "../assets/arrow_about.webp";
 
-import CQ from"../assets/cq.svg"
-import Arrow from"../assets/arrow.svg"
+import CQ from "../assets/cq.svg";
+import Arrow from "../assets/arrow.svg";
 
+import CAR_BANNER_1 from "../assets/car_banner_1.jpg";
+import CAR_BANNER_2 from "../assets/car_banner_2.jpg";
+import CAR_BANNER_3 from "../assets/car_banner_3.jpg";
 
 export const images = {
   LOADING_LOADER,
@@ -38,6 +41,9 @@ export const images = {
   arrow_about,
 
   CQ,
-  Arrow
+  Arrow,
 
+  CAR_BANNER_1,
+  CAR_BANNER_2,
+  CAR_BANNER_3,
 };

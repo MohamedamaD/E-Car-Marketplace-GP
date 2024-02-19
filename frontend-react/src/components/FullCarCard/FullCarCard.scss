@@ -1,9 +1,92 @@
+@import '../../styles/mixins';
+@import '../../App.scss';
+$border: 1px solid #eee;
+
 .full-car-card {
+    display: flex;
+    gap: 2rem;
+
+    @media screen and (max-width: 991px) {
+        flex-direction: column;
+    }
+
+    .txt-container,
+    .img-container {
+        width: 50%;
+
+        @media screen and (max-width: 991px) {
+            width: 100%;
+        }
+    }
+
     .img-container {
         img {}
     }
-    .txt-container {
 
+    .txt-container {
+        padding: 1rem;
+
+        .features-container {
+            padding: 1rem 0;
+            border-bottom: $border;
+
+            div {
+                @include flexCenter($justify: flex-start);
+                gap: 1rem;
+
+                span {
+                    font-weight: bold;
+                    text-align: center;
+                }
+            }
+        }
+
+        .wrapper-container {
+            padding: 1rem 0;
+            border-bottom: $border;
+
+            span.title {
+                margin-bottom: 0.5rem;
+                @include responsiveFontSize($baseSize: 1em);
+            }
+
+            p {
+                @include flexCenter($justify: flex-start);
+                gap: 0.5rem;
+                @include responsiveFontSize($baseSize: 16px);
+            }
+        }
+
+        .button-container {
+            @include flexCenter($justify: flex-start);
+            gap: 1rem;
+            padding: 1rem 0;
+
+            button {
+                width: 100%;
+                font-weight: bold;
+            }
+        }
+
+        .alert-wrapper {
+
+            .alert-container {
+                position: unset;
+                width: unset;
+                transform: unset;
+            }
+        }
+
+        .body-container {
+            border-bottom: $border;
+            padding: 0 0 1rem;
+
+            .wrapper {
+                div {
+                    width: unset;
+                }
+            }
+        }
     }
-    
+
 }

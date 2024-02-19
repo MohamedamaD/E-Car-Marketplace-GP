@@ -19,7 +19,7 @@ export const CarDetails = () => {
   return (
     <div id="car-details">
       <div className="container car-details-container">
-        <FullCarCard props={currentCar}/>
+        <FullCarCard props={currentCar} />
       </div>
     </div>
   );

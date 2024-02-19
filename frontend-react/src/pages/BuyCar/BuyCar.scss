@@ -2,13 +2,25 @@
 @import '../../App.scss';
 
 #buy-car-page {
+    padding: 60px 0;
+
     .buy-car-container {
+        main {
+            display: flex;
+            gap: 2rem;
+
+            @media screen and (max-width: 991px) {
+                flex-direction: column;
+            }
+        }
+
+
         .section-title {
             border-bottom: 1px solid #eee;
             padding-bottom: 0.5rem;
 
             .title {
-                font-size: 1.2em;
+                font-size: 1.4em;
                 margin: 0;
                 color: $blackColor;
             }
@@ -19,14 +31,31 @@
         }
 
         .filters {
+            width: 250px;
+
+            @media screen and (max-width: 991px) {
+                width: 100%;
+            }
+
             h4.title {
                 margin-bottom: 1rem;
+            }
 
-                .price {}
+            .section-container {
+                .subtitle {
+                    margin-bottom: .5rem;
+                }
+
+                margin-bottom: 1.5rem;
             }
         }
 
         .car-market {
+            width: calc(100% - (2rem + 250px));
+
+            @media screen and (max-width: 991px) {
+                width: 100%;
+            }
 
             .cars-container {
                 @include GridAuto();
