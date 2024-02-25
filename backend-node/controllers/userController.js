@@ -38,16 +38,16 @@ const registerUser = async (req, res) => {
 
     await newUser.save();
 
-    const token = jwt.sign(
-      { userId: newUser._id, email: newUser.email, role: newUser.role },
-      process.env.JWT_SECRET,
-      { expiresIn: "1h" }
-    );
+    const token = jwt.sign({ ...newUser }, process.env.JWT_SECRET, {
+      expiresIn: "1h",
+    });
 
     res.status(201).json({
       message: "User registered successfully",
       accessToken: token,
-      user: { email, username, role: newUser.role },
+      user: newUser,
+
+      // user: { email, username, role: newUser.role },
     });
   } catch (error) {
     console.error(error);
@@ -70,19 +70,19 @@ const loginUser = async (req, res) => {
       return res.status(401).json({ message: "Invalid password" });
     }
 
-    const token = jwt.sign(
-      { userId: user._id, email: user.email, role: user.role },
-      process.env.JWT_SECRET,
-      { expiresIn: "1h" }
-    );
+    const token = jwt.sign({ ...user }, process.env.JWT_SECRET, {
+      expiresIn: "1h",
+    });
 
     res.status(200).json({
       accessToken: token,
-      user: {
-        email: user.email,
-        name: user.username,
-        role: user.role,
-      },
+      user,
+      message: "Login successful"
+      // user: {
+      //   email: user.email,
+      //   name: user.username,
+      //   role: user.role,
+      // },
     });
   } catch (error) {
     console.error(error);
@@ -90,7 +90,86 @@ const loginUser = async (req, res) => {
   }
 };
 
+const updateUser = async (req, res) => {
+  try {
+    const { username, newPassword, phoneNumber } = req.body;
+
+    const user = await User.findById(req.user._id);
+
+    if (user.password === newPassword) {
+      return res.status(409).json({ message: "Same password try another one" });
+    }
+    if (!username) {
+      return res.status(409).json({ message: "Invalid username" });
+    }
+
+    if (username) {
+      user.username = username;
+    }
+
+    if (newPassword) {
+      const salt = await bcrypt.genSalt(10);
+      user.password = await bcrypt.hash(newPassword, salt);
+    }
+    if (!phoneNumber) {
+      return res.status(409).json({ message: "Invalid phoneNumber" });
+    }
+    user.phoneNumber = phoneNumber;
+
+    await user.save();
+
+    res.status(200).json({ message: "User updated successfully", success: true});
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
+  }
+};
+
+const completeInformation = async (req, res) => {
+  try {
+    const { phoneNumber, address, role } = req.body;
+
+    if (!phoneNumber || !address) {
+      //|| !images
+      return res
+        .status(401)
+        .json({ message: "Missing Data Please Enter Missing Data" });
+    }
+
+    const updatedUser = await User.findOneAndUpdate(
+      { email: req.user.email },
+      {
+        phoneNumber,
+        address,
+        role,
+        // licensePictures: images,
+        lastModificationDate: new Date(),
+        isNewUser: false,
+      }
+    );
+    await updatedUser.save();
+
+    res.status(200).json({
+      message: "User updated successfully",
+      user: updatedUser,
+      success: true,
+    });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
+  }
+};
+
+const safeHouse = async (req, res) => {
+  res
+    .status(200)
+    .json({ message: "token is valid and user is authorized", user: req.user });
+};
+
 module.exports = {
   registerUser,
   loginUser,
+  updateUser,
+  completeInformation,
+  safeHouse,
 };

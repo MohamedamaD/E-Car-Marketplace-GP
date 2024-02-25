@@ -4,18 +4,20 @@ import { Button, CarCard, SectionTitle } from "../../components";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCarListings } from "../../store/slices/dataSlice";
 import { Link } from "react-router-dom";
-import { Loading } from "../../pages";
 import { ApiStatus } from "../../utils";
+import { Loading } from "../../pages";
 
 export const RecentCars = ({ limit = 4 }) => {
-  const { carListings, status } = useSelector((state) => state.data);
+  const { carListings, status: dataLoading } = useSelector(
+    (state) => state.data
+  );
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchCarListings(8));
     return () => {};
   }, [dispatch]);
+  if (dataLoading === ApiStatus.LOADING) return <Loading />;
 
-  if (status === ApiStatus.LOADING) return <Loading />;
   return (
     <div className="recent-cars">
       <SectionTitle

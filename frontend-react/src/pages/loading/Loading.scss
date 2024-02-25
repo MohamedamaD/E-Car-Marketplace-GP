@@ -1,9 +1,16 @@
-@import '../../styles/_mixins.scss';
+@import '../../styles/mixins';
+@import '../../App.scss';
+
 
 #loading-page {
     background-color: #cee3e2;
     height: 100vh;
+    width: 100vw;
     @include flexCenter();
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: $highOrder;
 
     .container {
         img {

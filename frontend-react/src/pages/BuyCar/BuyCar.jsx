@@ -14,7 +14,9 @@ import { CarConstants, SortingList } from "../../constants";
 import { fetchCarByName, fetchCarListings } from "../../store/slices/dataSlice";
 
 export const BuyCar = ({ limit = 8 }) => {
-  const { carListings, status } = useSelector((state) => state.data);
+  const { carListings, status: dataLoading } = useSelector(
+    (state) => state.data
+  );
   const [sort, setSort] = useState("default");
   const [carName, setCarName] = useState("default");
   const [transmissions, setTransmissions] = useState("default");
@@ -39,7 +41,7 @@ export const BuyCar = ({ limit = 8 }) => {
     return () => {};
   }, [carName, dispatch]);
 
-  if (status === ApiStatus.LOADING) return <Loading />;
+  if (dataLoading === ApiStatus.LOADING) return <Loading />;
   return (
     <div id="buy-car-page">
       <div className="buy-car-container container">

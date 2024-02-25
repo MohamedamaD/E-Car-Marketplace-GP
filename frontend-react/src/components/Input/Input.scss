@@ -1,9 +1,10 @@
 @import '../../App.scss';
 @import '../../styles/mixins';
 
-input.custom-input {
+input.custom-input,
+textarea.custom-textarea {
     width: 100%;
-    height: 36px;
+    height: 3rem;
     border-radius: $radius;
     padding-left: 12px;
     font-size: 14px;
@@ -14,6 +15,7 @@ input.custom-input {
     color: rgb(33, 49, 60);
     background-color: rgb(255, 255, 255);
     padding-right: 12px;
+    font-size: 1.25em;
 
     &:hover,
     &:focus {

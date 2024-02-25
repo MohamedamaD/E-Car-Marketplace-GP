@@ -2,11 +2,9 @@
 @import '../../App.scss';
 
 #recommendation-page {
-    height: calc(100vh - $navbarHeight);
     background: url('../../assets/recommendation_bg.jpg') no-repeat fixed;
     background-size: cover;
     position: relative;
-
     @include flexCenter();
 
     .background-overlay {

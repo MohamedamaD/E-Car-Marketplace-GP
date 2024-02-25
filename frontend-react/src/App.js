@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import {
   BuyCar,
@@ -11,13 +11,28 @@ import {
   UserProfile,
   Recommendation,
   Register,
-  Loading,
+  MissingInformation,
+  Showrooms,
   CommonQuestion,
+  ShowroomOwner,
+  Showroom,
 } from "./pages";
 import { BottomNavbar, Navbar, ScrollToTop } from "./components";
-import { Footer } from "./containers";
+import { Footer, MessageAlerts } from "./containers";
+import { useDispatch } from "react-redux";
+import { safeHouse } from "./store/slices/authenticationSlice";
 
 const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const fetchData = async (req, res) => {
+      await dispatch(safeHouse());
+    };
+    fetchData();
+    return () => {};
+  }, [dispatch]);
+
   return (
     <Router>
       <Navbar />
@@ -28,15 +43,21 @@ const App = () => {
         <Route path="/sell-car" component={SellCar} />
         <Route path="/car-details/:id" component={CarDetails} />
         <Route path="/user-profile" component={UserProfile} />
+        <Route path="/missing-information" component={MissingInformation} />
         <Route path="/recommendation-car" component={Recommendation} />
         <Route path="/common-question" component={CommonQuestion} />
+        <Route path="/showrooms" component={Showrooms} />
+        <Route path="/showroom-owner" component={ShowroomOwner} />
+        <Route path="/showroom/:id" component={Showroom} />
         <Route path="/contact-us" component={Contact} />
         <Route path="/about-us" component={About} />
         <Route path="/register" component={Register} />
         <Route path="*" component={NoPage} />
       </Switch>
+
       <BottomNavbar />
       <Footer />
+      <MessageAlerts />
       <ScrollToTop />
     </Router>
   );

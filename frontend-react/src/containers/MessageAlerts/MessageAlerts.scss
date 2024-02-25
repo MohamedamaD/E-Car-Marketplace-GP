@@ -1,0 +1,20 @@
+@import '../../App.scss';
+@import '../../styles/mixins';
+
+.message-alerts {
+    position: fixed;
+    bottom: 80px;
+    left: 0%;
+    right: 0%;
+    z-index: $mediumOrder;
+    padding: 1rem;
+
+    .message-alerts-container {
+        @include flexCenter($direction: column);
+        gap: 1rem;
+
+        .alert-container {
+            width: 100%;
+        }
+    }
+}

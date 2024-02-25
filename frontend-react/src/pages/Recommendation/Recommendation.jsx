@@ -16,7 +16,7 @@ export const Recommendation = () => {
     setValue(newValue);
   };
   return (
-    <div id="recommendation-page">
+    <div id="recommendation-page" className="layout-page">
       <div className="background-overlay"></div>
       <div className="recommendation-container container">
         <main className="recommendation-hero">

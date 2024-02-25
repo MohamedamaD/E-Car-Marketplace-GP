@@ -7,6 +7,6 @@ v2 : present
 @main goals
 	-- 3rd part auth & JWT auth -> achieved
 	-- basic user db using node and mongo -> achieved
-	-- [home, common-question, about-us] pages -> achieved
-	-- buy/sell/recommendation-car pages -> present
-	-- 3 AI modules under developing one of them running 
+	-- home, common-question, about-us, contact-us, login, register pages -> achieved
+	-- buy/sell/recommendation-car/cardetails pages -> achieved
+	-- 2 AI modules under developing one of them running 

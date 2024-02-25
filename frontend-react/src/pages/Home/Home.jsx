@@ -1,6 +1,6 @@
 import React from "react";
 import "./Home.scss";
-import { Header, RecentCars, SiteWork } from "../../containers";
+import { BannerUploader, Header, RecentCars, SiteWork } from "../../containers";
 import { Banner } from "../../components";
 
 export const Home = () => {
@@ -9,6 +9,7 @@ export const Home = () => {
       <Header />
       <Banner />
       <div className="container">
+        <BannerUploader />
         <RecentCars />
       </div>
       <div className="container home-container">

@@ -1,11 +1,6 @@
-import { BiCog, BiInfoCircle, BiUserCircle } from "react-icons/bi";
+import { BiCog, BiUserCircle } from "react-icons/bi";
 
 export const UserLinks = [
-  {
-    Icon: <BiInfoCircle />,
-    title: "استكمال البيانات",
-    link: "/user-information",
-  },
   {
     Icon: <BiCog />,
     title: "الاعدادات",

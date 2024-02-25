@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import "./SellCar.scss";
-import { Button, CustomSelect } from "../../components";
+import { Button, CustomSelect, ImageUploader } from "../../components";
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import TextField from "@mui/material/TextField";
-import { BiUpload } from "react-icons/bi";
 
 export const SellCar = () => {
   const [value, setValue] = useState("car-details");
@@ -34,17 +33,15 @@ export const SellCar = () => {
   };
 
   const handleSubmit = () => {
-    // Perform submission logic (save to database, etc.)
     console.log("Car Details:", carDetails);
     console.log("Images:", images);
-    // Reset form or redirect to a thank-you page
   };
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
   return (
-    <div id="sell-car">
+    <div id="sell-car" className="layout-page">
       <div className="overlay"></div>
       <div className="sell-car-container container">
         <main>
@@ -122,28 +119,11 @@ export const SellCar = () => {
                   </div>
                 </TabPanel>
                 <TabPanel value="car-images">
-                  <div className="image-upload-container">
-                    <div className="upload-input shadow">
-                      <input
-                        type="file"
-                        accept="image/*"
-                        multiple
-                        onChange={handleImageUpload}
-                        id="image-upload-input"
-                      />
-                      <BiUpload className="main-color" />
-                    </div>
-                    <div className="images">
-                      {images.map((image, i) => (
-                        <img
-                          src={URL.createObjectURL(image)}
-                          alt={`Car ${i + 1}`}
-                          key={i}
-                          className="rounded"
-                        />
-                      ))}
-                    </div>
-                  </div>
+                  <ImageUploader
+                    handleImageUpload={handleImageUpload}
+                    images={images}
+                    setImages={setImages}
+                  />
                 </TabPanel>
                 <div className="send-container">
                   <Button

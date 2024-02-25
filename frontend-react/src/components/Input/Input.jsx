@@ -8,6 +8,8 @@ export const Input = ({
   type = "text",
   placeholder = "",
   onChange = () => {},
+  onClick = () => {},
+  ...rest
 }) => {
   return (
     <input
@@ -17,6 +19,9 @@ export const Input = ({
       placeholder={placeholder}
       className={`custom-input ${className}`}
       onChange={onChange}
+      onClick={onClick}
+      value={value}
+      {...rest}
     />
   );
 };

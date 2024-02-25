@@ -7,6 +7,7 @@
   --white: #fff;
   --black: #000;
   --p-color: #667085;
+  --page-background-color: #f4f7fc;
 
   --font-size: 14px;
   --thumb-radius: 5px;
@@ -148,6 +149,7 @@ img {
 svg.white-color {
   fill: var(--white);
 }
+
 svg.main-color {
   fill: var(--main-color);
 }
@@ -182,4 +184,32 @@ svg.main-color {
 
 .shadow {
   box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+}
+
+.layout-page {
+  min-height: calc(100vh - var(--navbar-height));
+  padding: 60px 0;
+  background-color: var(--page-background-color);
+}
+
+.layout-page main>section {
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.layout-page section>.section-title {
+  margin-bottom: unset;
+}
+
+label.custom-label {
+  font-size: 1.3em;
+  margin-bottom: 0.5rem;
+  display: inline-block;
+}
+
+input,
+textarea,
+select,
+option {
+  text-transform: none !important;
 }

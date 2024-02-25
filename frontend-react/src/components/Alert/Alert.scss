@@ -1,12 +1,10 @@
 @import '../../App.scss';
 
 .alert-container {
-    position: fixed;
-    bottom: 80px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: $mediumOrder;
-    width: 80%;
+    .message-value {
+        padding: 0 1rem;
+        font-size: 1.3em;
+    }
 
     * {
         color: unset;

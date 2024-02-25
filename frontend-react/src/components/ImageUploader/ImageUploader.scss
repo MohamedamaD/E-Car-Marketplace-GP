@@ -1,0 +1,70 @@
+@import '../../App.scss';
+@import '../../styles/mixins';
+
+
+.image-upload-container {
+    @include flexCenter($direction: column);
+    gap: 1rem;
+
+    .image-viewer {
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        backdrop-filter: blur(3px);
+        background: #00000051;
+        @include flexCenter();
+        gap: 1rem;
+
+        .wrapper-container {
+            z-index: $mediumOrder;
+            @include flexCenter($direction: column);
+            gap: 1rem;
+        }
+
+        .wrapper {
+            @include flexCenter($align: stretch);
+            gap: 1rem;
+        }
+
+        .overlay {
+            cursor: pointer;
+        }
+
+        .img-container {
+            z-index: $mediumOrder;
+        }
+    }
+
+    .upload-input {
+        width: 100px;
+        height: 100px;
+        position: relative;
+        @include flexCenter();
+
+        input {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        svg {
+            @include responsiveFontSize($baseSize: 2em);
+        }
+    }
+
+    .images {
+        @include flexCenter($justify: flex-start);
+        gap: 1rem;
+        cursor: pointer;
+
+        img {
+            width: 100px;
+        }
+    }
+}

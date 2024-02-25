@@ -16,3 +16,4 @@ export { SwiperBanner } from "./SwiperBanner/SwiperBanner";
 export { Alert } from "./Alert/Alert";
 export { UserMenu } from "./UserMenu/UserMenu";
 export { BodyCard } from "./BodyCard/BodyCard";
+export { ImageUploader } from "./ImageUploader/ImageUploader";

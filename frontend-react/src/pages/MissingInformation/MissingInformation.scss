@@ -1,0 +1,90 @@
+@import '../../App.scss';
+@import '../../styles/mixins';
+
+#missing-information {
+    .missing-information-container {
+        main {
+            margin-bottom: 1rem;
+
+            .other-data {
+                .input-field {
+                    margin-bottom: 1rem;
+                }
+
+                .addresses-container {
+                    .address-wrapper {
+                        @include flexCenter($justify: flex-start);
+                        flex-wrap: wrap;
+                        gap: 1rem;
+
+                        span.address {
+                            @include flexCenter();
+                            padding: 0.75rem 1rem;
+                            gap: .25rem;
+                            cursor: pointer;
+
+                            @include responsiveFontSize($baseSize: 16px);
+
+                            svg {
+                                @include responsiveFontSize($baseSize: 1.1em);
+                            }
+                        }
+                    }
+
+                    .add-address-container {
+                        margin-bottom: 1rem;
+
+                        .input-field {
+                            margin-bottom: 0 !important;
+                        }
+
+                        @include flexCenter($justify: flex-start, $align: flex-end);
+                        gap: 1rem;
+                    }
+
+                    Button.disabled {
+                        cursor: not-allowed;
+                    }
+
+                    .error-container {
+                        font-weight: bold;
+
+
+                        span {
+                            color: red !important;
+                        }
+                    }
+                }
+            }
+
+            .common-info {
+                .input-field {
+                    margin-bottom: 1rem;
+                }
+
+                .wrapper {
+                    @include flexCenter($justify: space-between);
+                    gap: 1rem;
+                    margin-bottom: 1rem;
+
+                    @media screen and (max-width: 767px) {
+                        flex-wrap: wrap;
+                    }
+
+                    .input-field {
+                        margin-bottom: unset;
+
+                        @media screen and (max-width: 767px) {
+                            width: 100%;
+                        }
+                    }
+                }
+
+                .image-upload-container {
+                    align-items: flex-start;
+                    margin-top: 1rem;
+                }
+            }
+        }
+    }
+}

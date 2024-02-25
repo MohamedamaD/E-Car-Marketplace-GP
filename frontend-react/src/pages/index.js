@@ -10,4 +10,8 @@ export { Register } from "./Register/Register";
 export { About } from "./About/About";
 export { NoPage } from "./NoPage/NoPage";
 export { Contact } from "./Contact/Contact";
+export { MissingInformation } from "./MissingInformation/MissingInformation";
+export { Showrooms } from "./Showrooms/Showrooms";
+export { Showroom } from "./Showroom/Showroom";
+export { ShowroomOwner } from "./ShowroomOwner/ShowroomOwner";
 export { CommonQuestion } from "./CommonQuestion/CommonQuestion";

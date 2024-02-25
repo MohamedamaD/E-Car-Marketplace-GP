@@ -1,27 +1,16 @@
 import React, { useEffect, useState } from "react";
 import "./Register.scss";
 import { Link } from "react-router-dom";
-import {
-  Alert,
-  Button,
-  Facebook,
-  Google,
-  Input,
-  Linkedin,
-} from "../../components";
+import { Button, Facebook, Google, Input, Linkedin } from "../../components";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  login,
-  register,
-  resetError,
-} from "../../store/slices/authenticationSlice";
+import { login, register } from "../../store/slices/authenticationSlice";
 import { Loading } from "../loading/Loading";
 
 export const Register = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const { token, loading, error, isAuthenticated } = useSelector(
+  const { isAuthenticated, loading } = useSelector(
     (state) => state.authentication
   );
   const [isLogin, setLogin] = useState(true);
@@ -40,29 +29,17 @@ export const Register = () => {
     ev.preventDefault();
     dispatch(register(dataForm));
   };
-  useEffect(() => {
-    const Timeout = setTimeout(() => {
-      dispatch(resetError());
-    }, 5000);
-    return () => {
-      clearTimeout(Timeout);
-    };
-  }, [error]);
+
   useEffect(() => {
     if (isAuthenticated) {
       history.goBack();
     }
     return () => {};
-  }, [isAuthenticated]);
-
-  if (loading) {
-    return <Loading />;
-  }
+  }, [isAuthenticated, history]);
+  if (loading) return <Loading />;
   return (
-    <div id="register-page">
+    <div id="register-page" className="layout-page">
       <div className="container register-container">
-        {error && <Alert message={error} type="error" lang="en" dir="ltr" />}
-
         <main>
           <div className={`login-form ${isLogin ? "active" : ""}`}>
             <TitleWithLinks
@@ -74,7 +51,9 @@ export const Register = () => {
                 id="email-login-field"
                 name="email-login-field"
                 type="email"
+                required
                 placeholder="ادخل الايميل"
+                value={dataForm.email}
                 onChange={(ev) =>
                   setDataForm({ ...dataForm, email: ev.target.value })
                 }
@@ -83,6 +62,8 @@ export const Register = () => {
                 id="password-login-field"
                 name="password-login-field"
                 type="password"
+                required
+                value={dataForm.password}
                 placeholder="ادخل الرقم السري"
                 onChange={(ev) =>
                   setDataForm({ ...dataForm, password: ev.target.value })
@@ -103,6 +84,8 @@ export const Register = () => {
                 name="name-register-field"
                 type="text"
                 placeholder="اسمك"
+                required
+                value={dataForm.username}
                 onChange={(ev) =>
                   setDataForm({ ...dataForm, username: ev.target.value })
                 }
@@ -111,6 +94,8 @@ export const Register = () => {
                 id="email-register-field"
                 name="email-register-field"
                 type="email"
+                required
+                value={dataForm.email}
                 placeholder="ايميلك"
                 onChange={(ev) =>
                   setDataForm({ ...dataForm, email: ev.target.value })
@@ -120,7 +105,9 @@ export const Register = () => {
                 id="password-register-field"
                 name="password-register-field"
                 type="password"
+                required
                 placeholder="رقمك السري"
+                value={dataForm.password}
                 onChange={(ev) =>
                   setDataForm({ ...dataForm, password: ev.target.value })
                 }

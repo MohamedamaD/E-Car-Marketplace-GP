@@ -1,0 +1,27 @@
+@import '../../styles/mixins';
+
+#contact-page {
+    @include flexCenter();
+
+    .contact-container {
+        .form-container {
+            form#contact-form {
+
+                textarea,
+                input {
+                    margin-bottom: 1rem;
+                }
+
+                textarea.custom-textarea {
+                    height: 300px;
+                    resize: none;
+                    padding: 2rem;
+                }
+
+                button.custom-btn {
+                    min-width: 250px;
+                }
+            }
+        }
+    }
+}
