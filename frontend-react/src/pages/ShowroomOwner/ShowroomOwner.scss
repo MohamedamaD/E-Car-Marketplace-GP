@@ -1,0 +1,59 @@
+@import '../../App.scss';
+@import '../../styles/mixins';
+
+#showroom-owner-page {
+    .showroom-owner-container {
+        main {
+            section.create-showroom {
+                .input-field {
+                    margin-bottom: 1rem;
+                }
+
+                .addresses-container {
+                    .address-wrapper {
+                        @include flexCenter($justify: flex-start);
+                        flex-wrap: wrap;
+                        gap: 1rem;
+
+                        span.address {
+                            @include flexCenter();
+                            padding: 0.75rem 1rem;
+                            gap: .25rem;
+                            cursor: pointer;
+
+                            @include responsiveFontSize($baseSize: 16px);
+
+                            svg {
+                                @include responsiveFontSize($baseSize: 1.1em);
+                            }
+                        }
+                    }
+
+                    .add-address-container {
+                        margin-bottom: 1rem;
+
+                        .input-field {
+                            margin-bottom: 0 !important;
+                        }
+
+                        @include flexCenter($justify: flex-start, $align: flex-end);
+                        gap: 1rem;
+                    }
+
+                    Button.disabled {
+                        cursor: not-allowed;
+                    }
+
+                    .error-container {
+                        font-weight: bold;
+
+
+                        span {
+                            color: red !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -148,7 +148,7 @@ const completeInformation = async (req, res) => {
       }
     );
     await updatedUser.save();
-
+    
     res.status(200).json({
       message: "User updated successfully",
       user: updatedUser,
