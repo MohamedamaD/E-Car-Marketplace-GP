@@ -25,6 +25,9 @@ const createShowroom = async (req, res) => {
     return res.status(400).json({ message: "invalid locations" });
   }
 
+  const session = await Showroom.startSession();
+  session.startTransaction();
+
   try {
     const showroom = await Showroom.create(value);
 
@@ -42,32 +45,32 @@ const createShowroom = async (req, res) => {
 
     const createdLocations = await ShowroomLocation.create(locs);
 
+    const updatedShowroom = await Showroom.findByIdAndUpdate(
+      showroom.id,
+      {
+        $push: { locationsIDs: { $each: createdLocations } },
+      },
+      { new: true }
+    );
+
+    await session.commitTransaction();
+    session.endSession();
+
     res.status(201).json({
       message: "showroom created successfully",
-      showroom,
-      createdLocations,
+      showroom: updatedShowroom,
+      locations: createdLocations,
     });
   } catch (e) {
+    await session.abortTransaction();
+    session.endSession();
     res.status(500).json({ error: e });
   }
 };
 
 const getAllShowrooms = async (req, res) => {
   try {
-    // const showrooms = await Showroom.find();
-    // const locations = await ShowroomLocation.find()
-    //   .populate("showroomId")
-    //   .exec();
-    // Showroom.find().then(async (showrooms) => {
-    //   // console.log(showrooms);
-    //   res.json(showrooms);
-
-    //   // const r = await ShowroomLocation.populate(showrooms, {
-    //   //   path: "locationId",
-    //   // });
-    //   // console.log(r);
-    // });
-    const showrooms = await Showroom.find();
+    const showrooms = await Showroom.find({}).populate("locationsIDs");
 
     res.status(200).json({ message: "success", showrooms });
   } catch (error) {
@@ -76,9 +79,80 @@ const getAllShowrooms = async (req, res) => {
   }
 };
 
-const getShowroomById = async (req, res) => {};
-const updateShowroom = async (req, res) => {};
-const deleteShowroom = async (req, res) => {};
+const getShowroomById = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const showroom = await Showroom.findById(id).populate("locationsIDs");
+
+    if (!showroom) {
+      return res.status(409).json({ error: "Showroom not found" });
+    }
+
+    res.json({ message: "operation success", showroom });
+  } catch (error) {
+    res.status(500).send("Internal Server Error");
+  }
+};
+const updateShowroom = async (req, res) => {
+  const { id } = req.params;
+  const { phoneNumber, showroomName } = req.body;
+
+  try {
+    const updatedShowroom = await Showroom.findByIdAndUpdate(
+      id,
+      { phoneNumber, showroomName },
+      { new: true }
+    );
+    res.json({
+      message: "Showroom updated successfully",
+      showroom: updatedShowroom,
+    });
+  } catch (err) {
+    res.status(500).send("Internal Server Error");
+  }
+};
+const deleteShowroom = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const showroom = await Showroom.findById(id);
+
+    if (!showroom) {
+      return res.status(409).json({ message: "Showroom not found" });
+    }
+    const locationIds = showroom.locationsIDs;
+
+    await Showroom.findByIdAndDelete(id);
+
+    await ShowroomLocation.deleteMany({ _id: { $in: locationIds } });
+
+    res.json({
+      message: "Showroom and associated locations deleted successfully",
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Internal Server Error");
+  }
+};
+
+const getUserShowrooms = async (req, res) => {
+  try {
+    const userId = req.user;
+
+    const showrooms = await Showroom.find({ userID: userId }).populate(
+      "locationsIDs"
+    );
+
+    if (showrooms.length < 0) {
+      res.status(409).json({ message: "empty showrooms", showrooms: [] });
+    }
+
+    res.json({ showrooms });
+  } catch (error) {
+    console.error("Error retrieving showrooms:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
 
 module.exports = {
   createShowroom,
@@ -86,4 +160,5 @@ module.exports = {
   updateShowroom,
   deleteShowroom,
   getAllShowrooms,
+  getUserShowrooms,
 };
