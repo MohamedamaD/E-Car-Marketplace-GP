@@ -8,6 +8,7 @@ const showroomSchema = Joi.object({
   userID: Joi.string().required(),
 });
 
+const idSchema = Joi.string().hex().length(24);
 const locationNameSchema = Joi.string().required();
 
 const createShowroom = async (req, res) => {
@@ -83,14 +84,21 @@ const getShowroomById = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const showroom = await Showroom.findById(id).populate("locationsIDs");
+    const { error, value } = idSchema.validate(id);
+
+    if (error) {
+      return res.status(409).json({ message: "invalid id" });
+    }
+
+    const showroom = await Showroom.findById(value).populate("locationsIDs");
 
     if (!showroom) {
-      return res.status(409).json({ error: "Showroom not found" });
+      return res.status(409).json({ message: "Showroom not found" });
     }
 
     res.json({ message: "operation success", showroom });
   } catch (error) {
+    console.log(error);
     res.status(500).send("Internal Server Error");
   }
 };

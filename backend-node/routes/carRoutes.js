@@ -6,11 +6,10 @@ const {
   deleteCar,
 } = require("../controllers/carController");
 const authenticateUser = require("../middleware/authenticateUser");
-const validateRole = require("../middleware/validateRole");
 
 const router = express.Router();
 
-router.post("/", authenticateUser, validateRole, createCar);
+router.post("/", authenticateUser, createCar);
 router.get("/:id", getCarById);
 router.patch("/:id", updateCar);
 router.delete("/:id", deleteCar);

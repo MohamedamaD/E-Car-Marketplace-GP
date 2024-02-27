@@ -57,7 +57,7 @@ export const safeHouse = createAsyncThunk(
     }
 
     try {
-      const response = await api.get("/user/safehouse", {
+      const response = await api.get("/user/safeHouse", {
         headers: { "x-auth-token": token },
       });
       return response.data;
@@ -139,6 +139,9 @@ const authenticationSlice = createSlice({
       console.log(action);
       state.error = action.payload;
     },
+    setSuccess: (state, action) => {
+      state.success = action.payload;
+    },
     resetSuccess: (state) => {
       state.success = null;
     },
@@ -190,6 +193,8 @@ const authenticationSlice = createSlice({
       .addCase(updateUserInfo.fulfilled, (state, action) => {
         state.loading = false;
         state.success = action.payload.message;
+        state.user = action.payload.user;
+        state.token = action.payload.accessToken;
       })
       .addCase(updateUserInfo.rejected, (state, action) => {
         state.loading = false;
@@ -227,6 +232,12 @@ const authenticationSlice = createSlice({
       }),
 });
 
-export const { setUser, clearUser, resetError, resetSuccess, setError } =
-  authenticationSlice.actions;
+export const {
+  setUser,
+  clearUser,
+  resetError,
+  resetSuccess,
+  setError,
+  setSuccess,
+} = authenticationSlice.actions;
 export default authenticationSlice.reducer;

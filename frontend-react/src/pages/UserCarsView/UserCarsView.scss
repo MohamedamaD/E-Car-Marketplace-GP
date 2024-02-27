@@ -1,0 +1,25 @@
+@import '../../styles/mixins';
+@import '../../App.scss';
+
+#cars-view {
+    .cars-view-container {
+        .empty-container {
+            min-height: 300px;
+            @include flexCenter($direction: column);
+            gap: 1rem;
+
+            svg {
+                @include responsiveFontSize($baseSize: 3em);
+            }
+
+            p {
+                @include responsiveFontSize($baseSize: 1.5em);
+                text-align: center
+            }
+        }
+
+        .cars-section {
+            @include GridAuto();
+        }
+    }
+}

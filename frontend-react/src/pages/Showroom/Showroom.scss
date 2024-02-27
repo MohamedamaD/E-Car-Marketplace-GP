@@ -1,0 +1,28 @@
+@import '../../styles/mixins';
+@import '../../App.scss';
+
+#showroom-page {
+    .showroom-container {
+        .locations-section {
+            h1.title {
+                margin-bottom: 1rem;
+            }
+
+            .location-container {
+                .location-wrapper {
+                    cursor: pointer;
+                }
+
+                @include flexCenter($justify: flex-start);
+                gap: 1rem;
+                flex-wrap: wrap;
+
+                p {
+                    padding: 1rem;
+                    min-width: 100px;
+                    text-align: start;
+                }
+            }
+        }
+    }
+}

@@ -6,6 +6,7 @@ const userRoutes = require("./routes/userRoutes");
 const showroomRoutes = require("./routes/showroomRoutes");
 const carRoutes = require("./routes/carRoutes");
 const mediaRoutes = require("./routes/mediaRoutes");
+const locationsRoutes = require("./routes/locationsRoutes");
 
 const connectDB = require("./db/config");
 
@@ -22,6 +23,7 @@ app.use("/uploads", express.static("uploads"));
 app.use("/user", userRoutes);
 app.use("/showrooms", showroomRoutes);
 app.use("/cars", carRoutes);
+app.use("/locations", locationsRoutes);
 app.use("/media", mediaRoutes);
 
 app.listen(port, () => {

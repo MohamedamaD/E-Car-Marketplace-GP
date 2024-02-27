@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { signOut } from "../../store/slices/authenticationSlice";
 import { UserLinks, UserRoles } from "../../constants";
 import { Button } from "../Button/Button";
-import { BiInfoCircle, BiShow } from "react-icons/bi";
+import { BiCar, BiInfoCircle, BiShow } from "react-icons/bi";
 export const UserMenu = ({ setOpen }) => {
   const { user } = useSelector((state) => state.authentication);
   console.log(user);
@@ -41,6 +41,18 @@ export const UserMenu = ({ setOpen }) => {
                 <BiShow />
               </div>
               <span>معارضي</span>
+            </Link>
+          )}
+          {user?.role === "seller" && (
+            <Link
+              to="/my-cars"
+              className="rounded"
+              onClick={() => setOpen(false)}
+            >
+              <div className="icon">
+                <BiCar />
+              </div>
+              <span>عربياتي</span>
             </Link>
           )}
           {UserLinks.map((item, index) => (

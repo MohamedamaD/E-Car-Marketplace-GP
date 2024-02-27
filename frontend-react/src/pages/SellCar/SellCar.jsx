@@ -1,22 +1,29 @@
 import React, { useState } from "react";
 import "./SellCar.scss";
 import { Button, CustomSelect, ImageUploader } from "../../components";
+import { useDispatch } from "react-redux";
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import TextField from "@mui/material/TextField";
+import { sellCar } from "../../store/slices/dataSlice";
+import { CarConstants } from "../../constants";
+import { setError, setSuccess } from "../../store/slices/authenticationSlice";
+import { useHistory } from "react-router-dom";
 
 export const SellCar = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
   const [value, setValue] = useState("car-details");
   const [carDetails, setCarDetails] = useState({
-    brand: "",
+    make: "",
     model: "",
     year: "",
     mileage: "",
     transmission: "",
-    trafficUnit: "",
+    license: "",
   });
   const [images, setImages] = useState([]);
 
@@ -32,9 +39,15 @@ export const SellCar = () => {
     setImages((prev) => [...prev, ...selectedImages]);
   };
 
-  const handleSubmit = () => {
-    console.log("Car Details:", carDetails);
-    console.log("Images:", images);
+  const handleSubmit = async () => {
+    const res = await dispatch(sellCar({ ...carDetails }));
+    if (res.meta?.requestStatus === "fulfilled") {
+      dispatch(setSuccess("car is successfully sell"));
+      history.push("/my-cars");
+    } else {
+      console.log(res);
+      dispatch(setError("missing data"));
+    }
   };
 
   const handleChange = (event, newValue) => {
@@ -71,11 +84,11 @@ export const SellCar = () => {
                     <CustomSelect
                       label="ماركة العربية"
                       id="brand-select"
-                      state={carDetails.brand}
+                      state={carDetails.make}
                       setState={(value) =>
-                        handleCarDetailsChange("brand", value)
+                        handleCarDetailsChange("make", value)
                       }
-                      options={[]}
+                      options={CarConstants.brands}
                     />
                     <CustomSelect
                       label="الموديل"
@@ -84,7 +97,7 @@ export const SellCar = () => {
                       setState={(value) =>
                         handleCarDetailsChange("model", value)
                       }
-                      options={[]}
+                      options={CarConstants.models}
                     />
                     <TextField
                       label="السنة"
@@ -107,13 +120,13 @@ export const SellCar = () => {
                       setState={(value) =>
                         handleCarDetailsChange("transmission", value)
                       }
-                      options={[]}
+                      options={CarConstants.transmissionTypes}
                     />
                     <TextField
                       label="وحدة مرور التابعة للعربية"
-                      value={carDetails.trafficUnit}
+                      value={carDetails.license}
                       onChange={(e) =>
-                        handleCarDetailsChange("trafficUnit", e.target.value)
+                        handleCarDetailsChange("license", e.target.value)
                       }
                     />
                   </div>
@@ -128,7 +141,9 @@ export const SellCar = () => {
                 <div className="send-container">
                   <Button
                     value="التحقق"
+                    type="submit"
                     className="main-bg-color send-button"
+                    onClick={handleSubmit}
                   />
                 </div>
               </TabContext>

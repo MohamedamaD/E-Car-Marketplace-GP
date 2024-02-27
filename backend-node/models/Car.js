@@ -9,8 +9,8 @@ const carSchema = new mongoose.Schema({
   transmission: { type: String },
   license: { type: String },
   images: [{ type: String }],
-  showroomId: { type: mongoose.Schema.Types.ObjectId, ref: "Showroom" },
-  locationId: { type: mongoose.Schema.Types.ObjectId, ref: "Location" },
+  showroomID: { type: mongoose.Schema.Types.ObjectId, ref: "Showroom" },
+  locationID: { type: mongoose.Schema.Types.ObjectId, ref: "Location" },
   owner: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
 });
 

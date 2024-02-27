@@ -5,15 +5,16 @@ const {
   updateUser,
   completeInformation,
   safeHouse,
+  getPersonalCars,
 } = require("../controllers/userController");
 const authenticateUser = require("../middleware/authenticateUser");
 const upload = require("../middleware/imageUploader");
 
 const router = express.Router();
-router.get("/safehouse", authenticateUser, safeHouse);
+router.get("/safeHouse", authenticateUser, safeHouse);
 router.post("/register", registerUser);
 router.post("/login", loginUser);
-
+router.get("/cars", authenticateUser, getPersonalCars);
 router.put("/profile", authenticateUser, updateUser);
 router.put(
   "/complete-information",

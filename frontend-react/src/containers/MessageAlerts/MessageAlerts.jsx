@@ -23,7 +23,6 @@ export const MessageAlerts = () => {
       clearTimeout(id);
     };
   }, [dispatch, error, success]);
-  console.log(error);
   return (
     <div className="message-alerts">
       <div className="container message-alerts-container">

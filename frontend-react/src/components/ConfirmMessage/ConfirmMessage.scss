@@ -1,0 +1,40 @@
+@import '../../App.scss';
+@import '../../styles/mixins';
+
+.confirm-message {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    z-index: $highOrder;
+    @include flexCenter();
+
+    .overlay {
+        z-index: 1;
+        cursor: pointer;
+    }
+
+    .confirm-message-container {
+        position: relative;
+        z-index: $highOrder;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+
+        h1 {
+            color: rgb(223, 4, 4);
+            margin-bottom: 1rem;
+            @include responsiveFontSize($baseSize: 2em);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .button-container {
+            @include flexCenter($justify: flex-start);
+            gap: 1rem;
+        }
+    }
+}

@@ -6,14 +6,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { Loading } from "../loading/Loading";
 import {
   setError,
-  signOut,
   updateUserInfo,
 } from "../../store/slices/authenticationSlice";
-import { useHistory } from "react-router-dom";
 
 export const UserProfile = () => {
   const { user, loading } = useSelector((state) => state.authentication);
-  const history = useHistory();
   const dispatch = useDispatch();
   const [isEditing, setEditing] = useState(false);
   const [dataForm, setDataForm] = useState({
@@ -26,13 +23,9 @@ export const UserProfile = () => {
     setDataForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const updateHandler = async (event) => {
+  const updateHandler = (event) => {
     event.preventDefault();
-    const res = await dispatch(updateUserInfo(dataForm));
-    if (res.payload?.success) {
-      dispatch(signOut());
-      history.push("/register");
-    }
+    dispatch(updateUserInfo(dataForm));
   };
 
   const clickHandler = (event) => {

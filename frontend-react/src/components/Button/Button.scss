@@ -4,3 +4,13 @@
     cursor: pointer;
     font-size: large;
 }
+
+.delete-button {
+    background-color: rgb(182, 5, 5);
+    margin: 1rem 0;
+}
+
+button:disabled {
+    cursor: not-allowed;
+    background-color: gray;
+}

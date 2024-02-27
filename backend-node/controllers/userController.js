@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const validator = require("email-validator");
+const Car = require("../models/Car");
 
 const registerUser = async (req, res) => {
   const { username, email, password, role } = req.body;
@@ -77,7 +78,7 @@ const loginUser = async (req, res) => {
     res.status(200).json({
       accessToken: token,
       user,
-      message: "Login successful"
+      message: "Login successful",
       // user: {
       //   email: user.email,
       //   name: user.username,
@@ -118,7 +119,16 @@ const updateUser = async (req, res) => {
 
     await user.save();
 
-    res.status(200).json({ message: "User updated successfully", success: true});
+    const token = jwt.sign({ ...user }, process.env.JWT_SECRET, {
+      expiresIn: "1h",
+    });
+
+    res.status(200).json({
+      message: "User updated successfully",
+      success: true,
+      user,
+      accessToken: token,
+    });
   } catch (error) {
     console.error(error.message);
     res.status(500).send("Internal Server Error");
@@ -145,10 +155,11 @@ const completeInformation = async (req, res) => {
         // licensePictures: images,
         lastModificationDate: new Date(),
         isNewUser: false,
-      }
+      },
+      { new: true }
     );
     await updatedUser.save();
-    
+
     res.status(200).json({
       message: "User updated successfully",
       user: updatedUser,
@@ -166,10 +177,20 @@ const safeHouse = async (req, res) => {
     .json({ message: "token is valid and user is authorized", user: req.user });
 };
 
+const getPersonalCars = async (req, res) => {
+  try {
+    const cars = await Car.find({ owner: req.user._id });
+    res.status(200).json({ cars });
+  } catch (error) {
+    res.status(500).send("Internal Server Error");
+  }
+};
+
 module.exports = {
   registerUser,
   loginUser,
   updateUser,
   completeInformation,
+  getPersonalCars,
   safeHouse,
 };

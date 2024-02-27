@@ -40,6 +40,8 @@ export const checkError = (error) => {
       return "هنالك معلومات لم تكتب بشكل صحيح";
     case "Rejected":
       return "طلبك مرفوض";
+    case "missing data":
+      return "ادخل البيانات كامله";
     case "":
       return "";
     case "press edit first":
@@ -57,6 +59,8 @@ export const checkSuccess = (success) => {
       return "اهلا بيك";
     case "Login successful":
       return "تم التسجيل بنجاح";
+    case "car is successfully sell":
+      return "تم عرض العربيه بنجاح";
     default:
       return "";
   }

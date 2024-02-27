@@ -35,6 +35,18 @@ export const CarConstants = {
       arValue: "شكل 3",
     },
   ],
+  brands: [
+    { value: "Toyota", arValue: "تويوتا" },
+    { value: "Honda", arValue: "هوندا" },
+    { value: "Ford", arValue: "فورد" },
+    { value: "Chevrolet", arValue: "شيفروليه" },
+    { value: "Nissan", arValue: "نيسان" },
+    { value: "BMW", arValue: "بي إم دبليو" },
+    { value: "Mercedes-Benz", arValue: "مرسيدس بنز" },
+    { value: "Audi", arValue: "أودي" },
+    { value: "Lexus", arValue: "لكزس" },
+    { value: "Hyundai", arValue: "هيونداي" },
+  ],
   models: [
     { value: "Corolla", arValue: "كورولا" },
     { value: "Civic", arValue: "سيفيك" },
@@ -42,6 +54,16 @@ export const CarConstants = {
     { value: "Equinox", arValue: "ايكوينوكس" },
     { value: "Altima", arValue: "التيما" },
     { value: "3 Series", arValue: "السلسلة 3" },
+    { value: "Toyota Camry", arValue: "تويوتا كامري" },
+    { value: "Honda Accord", arValue: "هوندا أكورد" },
+    { value: "Ford Mustang", arValue: "فورد موستانج" },
+    { value: "Chevrolet Malibu", arValue: "شيفروليه ماليبو" },
+    { value: "Nissan Altima", arValue: "نيسان التيما" },
+    { value: "BMW 3 Series", arValue: "بي إم دبليو الفئة 3" },
+    { value: "Mercedes-Benz C-Class", arValue: "مرسيدس بنز الفئة C" },
+    { value: "Audi A4", arValue: "أودي A4" },
+    { value: "Lexus ES", arValue: "لكزس ES" },
+    { value: "Hyundai Sonata", arValue: "هيونداي سوناتا" },
     { value: "Model 3", arValue: "موديل 3" },
     { value: "Q5", arValue: "كيو 5" },
     { value: "E-Class", arValue: "الفئة E" },
@@ -67,10 +89,29 @@ export const CarConstants = {
     { value: "Fusion", arValue: "فيوجن" },
     { value: "Telluride", arValue: "تيلورايد" },
   ],
-  transmissions: [
-    { value: "Automatic", arValue: "أوتوماتيك" },
-    { value: "CVT", arValue: "متغيرة السرعة" },
-    { value: "Manual", arValue: "يدوي" },
+  transmissionTypes: [
+    {
+      value: "automatic",
+      arValue: "أوتوماتيك",
+    },
+    {
+      value: "manual",
+      arValue: "يدوي",
+    },
+    {
+      value: "continuously-variable",
+      arValue: "متغيرة السرعة",
+    },
     { value: "Electric", arValue: "كهربائي" },
+
+    {
+      value: "semi-automatic",
+      arValue: "شبه أوتوماتيك",
+    },
+    {
+      value: "dual-clutch",
+      arValue: "دبل كلاتش",
+    },
+    { value: "CVT", arValue: "متغيرة السرعة" },
   ],
 };
