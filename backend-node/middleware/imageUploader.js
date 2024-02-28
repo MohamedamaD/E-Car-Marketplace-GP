@@ -2,14 +2,10 @@ const multer = require("multer");
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    const userId = req.user._id;
-    const userUploadsFolder = `uploads/${userId}/`;
-    fs.mkdirSync(userUploadsFolder, { recursive: true });
-
-    cb(null, userUploadsFolder);
+    cb(null, "uploads");
   },
   filename: (req, file, cb) => {
-    cb(null, Date.now() + "-" + file.originalname);
+    cb(null, Date.now() + file?.originalname);
   },
 });
 

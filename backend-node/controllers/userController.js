@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const validator = require("email-validator");
 const Car = require("../models/Car");
+const generateToken = require("../utils/jwtUtils");
 
 const registerUser = async (req, res) => {
   const { username, email, password, role } = req.body;
@@ -137,13 +138,13 @@ const updateUser = async (req, res) => {
 
 const completeInformation = async (req, res) => {
   try {
-    const { phoneNumber, address, role } = req.body;
+    const { phoneNumber, street, city, country, role } = req.body;
+    const address = { street, city, country };
+    const avatar = req.files.avatar[0];
+    const license = req.files.license;
 
-    if (!phoneNumber || !address) {
-      //|| !images
-      return res
-        .status(401)
-        .json({ message: "Missing Data Please Enter Missing Data" });
+    if (!avatar || !license) {
+      return res.status(400).json({ error: "No file uploaded" });
     }
 
     const updatedUser = await User.findOneAndUpdate(
@@ -152,18 +153,22 @@ const completeInformation = async (req, res) => {
         phoneNumber,
         address,
         role,
-        // licensePictures: images,
         lastModificationDate: new Date(),
         isNewUser: false,
+        avatar: avatar.path,
+        $push: { licensePictures: license.map((img) => img.path) },
       },
       { new: true }
     );
     await updatedUser.save();
 
+    const token = generateToken({ ...updatedUser });
+
     res.status(200).json({
       message: "User updated successfully",
       user: updatedUser,
       success: true,
+      token,
     });
   } catch (error) {
     console.error(error.message);

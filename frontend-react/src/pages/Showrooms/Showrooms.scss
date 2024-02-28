@@ -1,0 +1,29 @@
+@import '../../styles/mixins';
+@import '../../App.scss';
+
+#showrooms-page {
+    .showrooms-container {
+        .showrooms-section {
+            @include GridAuto();
+
+            a {
+                h3 {
+                    min-width: 100px;
+                    padding: 1rem;
+                    text-align: center;
+                }
+            }
+        }
+
+        .pagination-section {
+            @include flexCenter($justify: space-between);
+        }
+
+        .search-section {
+            .search-container {
+                @include flexCenter();
+                gap: 1rem;
+            }
+        }
+    }
+}

@@ -6,6 +6,7 @@ const userSchema = new mongoose.Schema({
   username: { type: String, required: true },
   email: { type: String, unique: true, required: true },
   password: { type: String, required: true },
+  avatar: { type: String },
   role: {
     type: String,
     enum: ["seller", "buyer", "showroom-owner", "admin"],
@@ -23,6 +24,8 @@ const userSchema = new mongoose.Schema({
     city: { type: String },
     country: { type: String },
   },
+
+  banners: [{ type: String }],
 });
 
 const User = mongoose.model("User", userSchema);

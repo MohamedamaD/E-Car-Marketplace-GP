@@ -7,12 +7,13 @@ import {
 } from "../../components";
 import { useDispatch, useSelector } from "react-redux";
 import "./UserCarsView.scss";
-import { getPersonalCars } from "../../store/slices/dataSlice";
+import { getPersonalCars } from "../../store/slices/carsSlice";
 import { Link } from "react-router-dom";
 import { BiPlus } from "react-icons/bi";
+import { Loading } from "../loading/Loading";
 export const UserCarsView = () => {
   const dispatch = useDispatch();
-  const { cars } = useSelector((state) => state.data);
+  const { cars, loading } = useSelector((state) => state.cars);
   const [confirmPanelIsVisible, setVisible] = useState(false);
   const [id, setID] = useState("");
   const emptyCars = cars?.length <= 0;
@@ -23,6 +24,9 @@ export const UserCarsView = () => {
     fetchData();
     return () => {};
   }, [dispatch]);
+  
+  if (loading) return <Loading />;
+
   return (
     <div className="layout-page" id="cars-view">
       <div className="container cars-view-container">

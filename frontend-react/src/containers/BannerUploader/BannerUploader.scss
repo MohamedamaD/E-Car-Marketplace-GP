@@ -1,8 +1,13 @@
 .banner-uploader {
     padding: 60px 0;
+    text-align: center;
 
     .image-upload-container {
-        align-items: flex-start;
+        flex-direction: row;
         margin-bottom: 1rem;
+    }
+
+    button {
+        min-width: calc(200px + 1rem);
     }
 }

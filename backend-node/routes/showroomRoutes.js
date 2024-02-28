@@ -11,11 +11,10 @@ const authenticateUser = require("../middleware/authenticateUser");
 
 const router = express.Router();
 
-router.post("/", authenticateUser, createShowroom);
 router.get("/user/", authenticateUser, getUserShowrooms);
 router.get("/:id", getShowroomById);
 router.get("/", getAllShowrooms);
+router.post("/", authenticateUser, createShowroom);
 router.patch("/:id", updateShowroom);
 router.delete("/:id", deleteShowroom);
-
 module.exports = router;

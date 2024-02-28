@@ -7,7 +7,7 @@ export const ImageUploader = ({
   handleImageUpload,
   images,
   setImages,
-  name="",
+  name = "",
 }) => {
   const [targetImg, setTargetImg] = useState("");
   return (
@@ -24,17 +24,19 @@ export const ImageUploader = ({
         />
         <BiUpload className="main-color" />
       </div>
-      <div className="images">
-        {images.map((image, i) => (
-          <img
-            src={URL.createObjectURL(image)}
-            alt={`Car ${i + 1}`}
-            key={i}
-            onClick={() => setTargetImg(image)}
-            className="rounded"
-          />
-        ))}
-      </div>
+      {images?.length > 0 && (
+        <div className="images">
+          {images.map((image, i) => (
+            <img
+              src={URL.createObjectURL(image)}
+              alt={`Car ${i + 1}`}
+              key={i}
+              onClick={() => setTargetImg(image)}
+              className="rounded"
+            />
+          ))}
+        </div>
+      )}
       {targetImg && (
         <div className="image-viewer">
           <div className="overlay" onClick={() => setTargetImg("")}></div>

@@ -61,9 +61,12 @@
     .images {
         @include flexCenter($justify: flex-start);
         gap: 1rem;
+        flex-wrap: wrap;
         cursor: pointer;
 
         img {
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
             width: 100px;
         }
     }

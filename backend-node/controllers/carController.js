@@ -7,6 +7,7 @@ const carValidationSchema = Joi.object({
   make: Joi.string().required(),
   model: Joi.string().required(),
   year: Joi.number().required(),
+  price: Joi.number().required(),
   mileage: Joi.number(),
   color: Joi.string(),
   transmission: Joi.string(),
@@ -92,7 +93,7 @@ const deleteCar = async (req, res) => {
     if (error) {
       return res.status(409).json({ message: "invalid id" });
     }
-    console.log(value);
+
     await Car.findByIdAndDelete(value);
     res.status(204).end();
   } catch (error) {

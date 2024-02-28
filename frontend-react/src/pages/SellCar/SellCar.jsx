@@ -8,7 +8,7 @@ import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import TextField from "@mui/material/TextField";
-import { sellCar } from "../../store/slices/dataSlice";
+import { sellCar } from "../../store/slices/carsSlice";
 import { CarConstants } from "../../constants";
 import { setError, setSuccess } from "../../store/slices/authenticationSlice";
 import { useHistory } from "react-router-dom";
@@ -24,6 +24,7 @@ export const SellCar = () => {
     mileage: "",
     transmission: "",
     license: "",
+    price: "",
   });
   const [images, setImages] = useState([]);
 
@@ -40,14 +41,20 @@ export const SellCar = () => {
   };
 
   const handleSubmit = async () => {
-    const res = await dispatch(sellCar({ ...carDetails }));
-    if (res.meta?.requestStatus === "fulfilled") {
-      dispatch(setSuccess("car is successfully sell"));
-      history.push("/my-cars");
-    } else {
-      console.log(res);
-      dispatch(setError("missing data"));
-    }
+    const formData = new FormData();
+
+    Object.keys(carDetails).forEach((key) => {
+      formData.append(key, carDetails[key]);
+    });
+    console.log(formData.get("model"));
+    // const res = await dispatch(sellCar({ ...carDetails }));
+    // if (res.meta?.requestStatus === "fulfilled") {
+    //   dispatch(setSuccess("car is successfully sell"));
+    //   history.push("/my-cars");
+    // } else {
+    //   console.log(res);
+    //   dispatch(setError("missing data"));
+    // }
   };
 
   const handleChange = (event, newValue) => {
@@ -111,6 +118,13 @@ export const SellCar = () => {
                       value={carDetails.mileage}
                       onChange={(e) =>
                         handleCarDetailsChange("mileage", e.target.value)
+                      }
+                    />
+                    <TextField
+                      label="السعر"
+                      value={carDetails.price}
+                      onChange={(e) =>
+                        handleCarDetailsChange("price", e.target.value)
                       }
                     />
                     <CustomSelect

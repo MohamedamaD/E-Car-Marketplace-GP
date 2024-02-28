@@ -71,9 +71,26 @@ const createShowroom = async (req, res) => {
 
 const getAllShowrooms = async (req, res) => {
   try {
-    const showrooms = await Showroom.find({}).populate("locationsIDs");
+    const page = parseInt(req.query.page) || 1;
+    const pageSize = parseInt(req.query.pageSize) || 12;
+    const searchQuery = req.query.search || "";
 
-    res.status(200).json({ message: "success", showrooms });
+    const query = {};
+    if (searchQuery) {
+      query.showroomName = { $regex: new RegExp(searchQuery, "i") };
+    }
+
+    const totalShowrooms = await Showroom.countDocuments(query);
+    const totalPages = Math.ceil(totalShowrooms / pageSize);
+
+    const skip = (page - 1) * pageSize;
+
+    const showrooms = await Showroom.find(query)
+      .populate("locationsIDs")
+      .skip(skip)
+      .limit(pageSize);
+
+    res.status(200).json({ message: "success", showrooms, totalPages });
   } catch (error) {
     console.error("Error getting showrooms:", error);
     res.status(500).send("Internal Server Error");

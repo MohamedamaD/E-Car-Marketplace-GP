@@ -61,7 +61,22 @@ export const checkSuccess = (success) => {
       return "تم التسجيل بنجاح";
     case "car is successfully sell":
       return "تم عرض العربيه بنجاح";
+    case "upload banner successfully":
+      return "تم نشر الاعلان بنجاح";
     default:
       return "";
+  }
+};
+
+export const translateRole = (role) => {
+  switch (role) {
+    case "buyer":
+      return "مشتري";
+    case "seller":
+      return "تاجر";
+    case "showroom-owner":
+      return "صاحب معرض";
+    default:
+      return "فارغ";
   }
 };

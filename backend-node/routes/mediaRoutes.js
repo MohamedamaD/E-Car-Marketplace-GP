@@ -1,8 +1,10 @@
 const express = require("express");
-const { createBanner } = require("../controllers/mediaController");
-const upload = require("../middleware/imageUploader");
+const { createBanner, getBanners } = require("../controllers/mediaController");
+const upload = require("../middleware/bannerUploader");
+const authenticateUser = require("../middleware/authenticateUser");
 
 const router = express.Router();
-router.post("/banner", upload.single("banner"), createBanner);
+router.get("/banner", getBanners);
+router.post("/banner", authenticateUser, upload.single("banner"), createBanner);
 
 module.exports = router;

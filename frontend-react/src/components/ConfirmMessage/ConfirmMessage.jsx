@@ -2,14 +2,18 @@ import React, { useState } from "react";
 import "./ConfirmMessage.scss";
 import { Input } from "../Input/Input";
 import { Button } from "../Button/Button";
-import { deleteCar } from "../../store/slices/dataSlice";
-import { useDispatch } from "react-redux";
+import { deleteCar } from "../../store/slices/carsSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { Loading } from "../../pages/loading/Loading";
 
 export const ConfirmMessage = ({ id, setVisible }) => {
+  const { loading } = useSelector((state) => state.cars);
+
   const dispatch = useDispatch();
   const [value, setValue] = useState("");
 
   const confirmed = value === "تأكيد";
+  if (loading) return <Loading />;
   return (
     <div className="confirm-message">
       <div className="overlay" onClick={() => setVisible(false)}></div>

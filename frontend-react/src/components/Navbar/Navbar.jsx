@@ -27,7 +27,7 @@ export const Navbar = () => {
       <nav className="nav-bar">
         {navLinks.map((navLink, i) => (
           <Link key={navLink.title + i} to={`/${navLink.link}`}>
-            {navLink.title}
+            <span> {navLink.title}</span>
           </Link>
         ))}
       </nav>

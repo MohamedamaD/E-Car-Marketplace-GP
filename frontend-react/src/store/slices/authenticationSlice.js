@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getToken, removeToken, setToken } from "../../utils";
-import api from "../../services/api";
+import api, { formDataApi } from "../../services/api";
 
 export const signOut = createAsyncThunk("authentication/signOut", async () => {
   removeToken();
@@ -31,13 +31,14 @@ export const completeInformation = createAsyncThunk(
     }
 
     try {
-      const response = await api.put(
+      const response = await formDataApi.patch(
         "/user/complete-information",
-        {
-          ...payload,
-        },
+        payload,
         { headers: { "x-auth-token": token } }
       );
+
+      setToken(response.data.token);
+
       return response.data;
     } catch (error) {
       if (!error.response) {
@@ -228,7 +229,8 @@ const authenticationSlice = createSlice({
       })
       .addCase(completeInformation.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload?.message || action.error.message;
+        state.error = action.payload.error || action.payload?.message;
+        console.log(state.error);
       }),
 });
 

@@ -1,17 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "./Showroom.scss";
 import { CarCard, SectionTitle } from "../../components";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchShowroom } from "../../store/slices/dataSlice";
+import { fetchShowroom } from "../../store/slices/showroomsSlice";
+import { Loading } from "../loading/Loading";
 export const Showroom = () => {
   const { id } = useParams();
-  const { showroom } = useSelector((state) => state.data);
+  const { currentShowroom, cars, loading } = useSelector(
+    (state) => state.showrooms
+  );
   const dispatch = useDispatch();
-  const [cars, setCars] = useState([]);
-  const showroomName = `معرض ${showroom?.showroomName || ""}`;
-  const phoneNumber = showroom?.phoneNumber || "";
-  const locations = showroom?.locationsIDs || [];
+  const showroomName = `معرض ${currentShowroom?.showroomName || ""}`;
+  const phoneNumber = currentShowroom?.phoneNumber || "";
+  const locations = currentShowroom?.locationsIDs || [];
   useEffect(() => {
     const fetchData = () => {
       dispatch(fetchShowroom(id));
@@ -19,14 +21,17 @@ export const Showroom = () => {
     fetchData();
     return () => {};
   }, [id, dispatch]);
-  console.log(showroom);
+  console.log(currentShowroom);
+  if (loading) {
+    return <Loading />;
+  }
   return (
     <div className="layout-page" id="showroom-page">
       <div className="showroom-container container">
         <main>
           <section className="rounded white-bg-color">
             <SectionTitle
-              title={showroomName} // showroom?.name
+              title={showroomName}
               subTitle="تصفح المعارض والعربيات"
               className="right"
             />
@@ -53,7 +58,7 @@ export const Showroom = () => {
               ))}
             </div>
           </section>
-          {cars.length > 0 && (
+          {/* {cars.length > 0 && (
             <section className="rounded white-bg-color cars-section">
               <h1 className="title main-color">السيارات</h1>
               <div className="cars-container">
@@ -62,7 +67,7 @@ export const Showroom = () => {
                 ))}
               </div>
             </section>
-          )}
+          )} */}
         </main>
       </div>
     </div>

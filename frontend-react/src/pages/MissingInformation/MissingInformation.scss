@@ -6,6 +6,41 @@
         main {
             margin-bottom: 1rem;
 
+            .avatar-section {
+                text-align: center;
+
+                .avatar-container {
+                    width: 150px;
+                    height: 150px;
+                    @include flexCenter();
+                    position: relative;
+                    z-index: 1;
+                    border-radius: 50%;
+                    overflow: hidden;
+                    margin: auto;
+
+                    img {
+                        aspect-ratio: 1/1;
+                        object-fit: cover;
+                    }
+
+                    svg {
+                        @include responsiveFontSize($baseSize: 3em);
+                    }
+
+                    input[type="file"] {
+                        opacity: 0;
+                        position: absolute;
+                        left: 0;
+                        right: 0;
+                        top: 0;
+                        bottom: 0;
+                        z-index: 0;
+                        cursor: pointer;
+                    }
+                }
+            }
+
             .common-info {
                 .input-field {
                     margin-bottom: 1rem;

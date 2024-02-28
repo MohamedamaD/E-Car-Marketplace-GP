@@ -8,9 +8,11 @@ import {
   setError,
   updateUserInfo,
 } from "../../store/slices/authenticationSlice";
+import { translateRole } from "../../utils";
 
 export const UserProfile = () => {
   const { user, loading } = useSelector((state) => state.authentication);
+  const role = translateRole(user?.role);
   const dispatch = useDispatch();
   const [isEditing, setEditing] = useState(false);
   const [dataForm, setDataForm] = useState({
@@ -60,6 +62,16 @@ export const UserProfile = () => {
               subTitle="كن حريصا ف التعديل والتغير في معلوماتك والا سوف يتم حظرك"
             />
           </section>
+          <section className="white-bg-color rounded avatar">
+            <div className="avatar-container shadow">
+              {user?.avatar && (
+                <img
+                  src={`http://localhost:5000/${user.avatar}`}
+                  alt="avatar"
+                />
+              )}
+            </div>
+          </section>
 
           <section className="rounded white-bg-color content">
             <div className="form-container">
@@ -97,6 +109,19 @@ export const UserProfile = () => {
                       className={`${!isEditing ? "disabled" : ""}`}
                     />
                   </div>
+                </div>
+                <div className="input-field">
+                  <label className="custom-label" htmlFor="email">
+                    نوع الحساب
+                  </label>
+                  <Input
+                    id="role"
+                    name=""
+                    value={role}
+                    readOnly
+                    disabled
+                    className="disabled"
+                  />
                 </div>
                 <div className="input-field">
                   <label className="custom-label" htmlFor="email">

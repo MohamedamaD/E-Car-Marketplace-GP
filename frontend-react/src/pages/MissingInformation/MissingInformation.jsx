@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Button, ImageUploader, Input, SectionTitle } from "../../components";
 import "./MissingInformation.scss";
 
@@ -14,6 +14,9 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { Loading } from "../loading/Loading";
 import { useHistory } from "react-router-dom";
+import { BiPlus } from "react-icons/bi";
+import { formDataApi } from "../../services/api";
+import { getToken } from "../../utils";
 
 export const MissingInformation = () => {
   const dispatch = useDispatch();
@@ -22,6 +25,7 @@ export const MissingInformation = () => {
   const { loading, user } = useSelector((state) => state.authentication);
   const [role, setRole] = useState("seller");
   const [images, setImages] = useState([]);
+  const [avatar, setAvatar] = useState(null);
 
   const [dataForm, setDataForm] = useState({
     phoneNumber: "",
@@ -31,6 +35,7 @@ export const MissingInformation = () => {
       country: "",
     },
   });
+  const formRef = useRef(null);
   const handleAddressChange = (field, e) => {
     setDataForm({
       ...dataForm,
@@ -49,22 +54,17 @@ export const MissingInformation = () => {
     setRole(event.target.value);
   };
 
-  const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
-    dispatch(
-      completeInformation({
-        ...dataForm,
-        images,
-        role,
-      })
-    );
+    const formData = new FormData(formRef.current);
+    console.log(formData);
+    dispatch(completeInformation(formData));
 
-    dispatch(signOut());
-    history.push("/register");
+    history.push("/");
   };
   if (loading) return <Loading />;
 
-  console.log(role);
+  console.log(avatar);
   return (
     <div id="missing-information" className="layout-page">
       <form
@@ -72,6 +72,8 @@ export const MissingInformation = () => {
         name="user-form"
         id="user-form"
         encType="multipart/form-data"
+        ref={formRef}
+        method="post"
         onSubmit={submitHandler}
       >
         <div className="missing-information-container container">
@@ -83,13 +85,35 @@ export const MissingInformation = () => {
                 subTitle="بالرجاء ملئ هذه البياانات لعدم حذف الحساب ولكي تستخدم مميزات الموقع كامله"
               />
             </section>
+            <section className="rounded white-bg-color avatar-section">
+              <div className="input-field">
+                <label htmlFor="avatar" className="custom-label">
+                  الصوره الشخصيه
+                </label>
+                <div className="avatar-container shadow">
+                  {!avatar ? (
+                    <BiPlus />
+                  ) : (
+                    <img src={URL.createObjectURL(avatar)} alt="avatar" />
+                  )}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    name="avatar"
+                    id="avatar"
+                    // required
+                    onChange={(ev) => setAvatar(ev.target.files[0])}
+                  />
+                </div>
+              </div>
+            </section>
             <section className="rounded white-bg-color">
               <div className="input-field">
                 <label className="custom-label">حدد هدفك</label>
                 <RadioGroup
                   row
                   aria-labelledby="user-role-label"
-                  name="user-role"
+                  name="role"
                   id="user-role"
                   value={role}
                   onChange={handleChange}
@@ -113,9 +137,9 @@ export const MissingInformation = () => {
                 </label>
                 <Input
                   id="phone-number"
-                  type="phone"
+                  name="phoneNumber"
                   value={dataForm.phoneNumber}
-                  required
+                  // required
                   onChange={(e) => {
                     setDataForm({
                       ...dataForm,
@@ -132,7 +156,7 @@ export const MissingInformation = () => {
                   <Input
                     id="street"
                     value={dataForm.address.street}
-                    required
+                    // required
                     name="street"
                     onChange={(e) => handleAddressChange("street", e)}
                   />
@@ -144,7 +168,7 @@ export const MissingInformation = () => {
                   <Input
                     id="city"
                     name="city"
-                    required
+                    // required
                     value={dataForm.address.city}
                     onChange={(e) => handleAddressChange("city", e)}
                   />
@@ -156,7 +180,7 @@ export const MissingInformation = () => {
                   <Input
                     id="country"
                     name="country"
-                    required
+                    // required
                     value={dataForm.address.country}
                     onChange={(e) => handleAddressChange("country", e)}
                   />
@@ -169,9 +193,9 @@ export const MissingInformation = () => {
                 <ImageUploader
                   handleImageUpload={handleImageUpload}
                   images={images}
-                  required
+                  // required
                   setImages={setImages}
-                  name="images"
+                  name="license"
                 />
               </div>
             </section>
