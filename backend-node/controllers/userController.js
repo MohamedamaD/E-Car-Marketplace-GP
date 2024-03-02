@@ -4,6 +4,15 @@ const User = require("../models/User");
 const validator = require("email-validator");
 const Car = require("../models/Car");
 const generateToken = require("../utils/jwtUtils");
+const Joi = require("joi");
+
+const UpdateSchema = Joi.object({
+  username: Joi.string().min(4).message("Please enter a valid username"),
+  password: Joi.string().min(4).message("Please enter a valid password"),
+  phoneNumber: Joi.string()
+    .pattern(/^[0-9]{11}$/)
+    .message("Please enter a valid phone number."),
+});
 
 const registerUser = async (req, res) => {
   const { username, email, password, role } = req.body;
@@ -94,29 +103,23 @@ const loginUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
   try {
-    const { username, newPassword, phoneNumber } = req.body;
-
     const user = await User.findById(req.user._id);
 
-    if (user.password === newPassword) {
-      return res.status(409).json({ message: "Same password try another one" });
-    }
-    if (!username) {
-      return res.status(409).json({ message: "Invalid username" });
+    const { error, value } = UpdateSchema.validate(req.body);
+
+    if (error) {
+      return res.status(409).json({ error: error.details[0].message });
     }
 
-    if (username) {
-      user.username = username;
+    if (user.password === value.password) {
+      return res.status(409).json({ error: "Same password try another one" });
     }
 
-    if (newPassword) {
-      const salt = await bcrypt.genSalt(10);
-      user.password = await bcrypt.hash(newPassword, salt);
-    }
-    if (!phoneNumber) {
-      return res.status(409).json({ message: "Invalid phoneNumber" });
-    }
-    user.phoneNumber = phoneNumber;
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(value.password, salt);
+
+    user.username = value.username;
+    user.phoneNumber = value.phoneNumber;
 
     await user.save();
 
@@ -182,20 +185,10 @@ const safeHouse = async (req, res) => {
     .json({ message: "token is valid and user is authorized", user: req.user });
 };
 
-const getPersonalCars = async (req, res) => {
-  try {
-    const cars = await Car.find({ owner: req.user._id });
-    res.status(200).json({ cars });
-  } catch (error) {
-    res.status(500).send("Internal Server Error");
-  }
-};
-
 module.exports = {
   registerUser,
   loginUser,
   updateUser,
   completeInformation,
-  getPersonalCars,
   safeHouse,
 };

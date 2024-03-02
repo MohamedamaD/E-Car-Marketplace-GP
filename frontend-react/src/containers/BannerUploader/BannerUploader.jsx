@@ -1,11 +1,13 @@
 import React, { useRef, useState } from "react";
 import "./BannerUploader.scss";
 import { Button, ImageUploader, SectionTitle } from "../../components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createBanner } from "../../store/slices/mediaSlice";
-import { setError, setSuccess } from "../../store/slices/authenticationSlice";
+import { isFulfilled } from "../../utils";
+import { Loading } from "../../pages/loading/Loading";
 export const BannerUploader = () => {
   const [selectedFile, setSelectedFile] = useState([]);
+  const { loading } = useSelector((state) => state.media);
   const dispatch = useDispatch();
   const formRef = useRef(null);
 
@@ -16,14 +18,14 @@ export const BannerUploader = () => {
   const handleUpload = async (ev) => {
     ev.preventDefault();
     const formData = new FormData(formRef.current);
-    const res = await dispatch(createBanner(formData));
-    if (res.payload.success) {
+    const response = await dispatch(createBanner(formData));
+
+    if (isFulfilled(response)) {
       setSelectedFile([]);
-      dispatch(setSuccess("upload banner successfully"));
     } else {
-      dispatch(setError("Rejected"));
     }
   };
+  if (loading) return <Loading />;
   return (
     <div className="banner-uploader">
       <SectionTitle

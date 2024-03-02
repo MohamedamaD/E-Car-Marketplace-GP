@@ -8,6 +8,7 @@ import {
   // fetchShowroomsAndHandleSearch,
 } from "../../store/slices/showroomsSlice";
 import { Loading } from "../loading/Loading";
+import { Pagination } from "../../containers/Pagination/Pagination";
 export const Showrooms = () => {
   const [searchValue, setSearchValue] = useState("");
   const { showrooms, currentPage, totalPages, loading, error } = useSelector(
@@ -71,22 +72,9 @@ export const Showrooms = () => {
             ))}
           </section>
           <section className="rounded white-bg-color pagination-section">
-            <Button
-              onClick={() =>
-                dispatch(
-                  fetchShowroomsAndHandlePagination(
-                    currentPage - 1,
-                    searchValue
-                  )
-                )
-              }
-              disabled={currentPage === 1}
-              value="السابق"
-            />
-
-            <span>{`صفحه ${currentPage} من اصل  ${totalPages}`}</span>
-            <Button
-              onClick={() =>
+            <Pagination
+              currentPage={currentPage}
+              nextClick={() =>
                 dispatch(
                   fetchShowroomsAndHandlePagination(
                     currentPage + 1,
@@ -94,9 +82,15 @@ export const Showrooms = () => {
                   )
                 )
               }
-              className="main-bg-color"
-              disabled={currentPage === totalPages}
-              value="التالي"
+              totalPages={totalPages}
+              prevClick={() =>
+                dispatch(
+                  fetchShowroomsAndHandlePagination(
+                    currentPage - 1,
+                    searchValue
+                  )
+                )
+              }
             />
           </section>
         </main>

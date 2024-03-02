@@ -1,34 +1,51 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./MessageAlerts.scss";
-import { Alert } from "../../components";
+import Alert from "@mui/material/Alert";
 import { useSelector } from "react-redux";
 import { checkError, checkSuccess } from "../../utils";
-import {
-  resetError,
-  resetSuccess,
-} from "../../store/slices/authenticationSlice";
 import { useDispatch } from "react-redux";
-export const MessageAlerts = () => {
-  const dispatch = useDispatch();
-  const { error, success } = useSelector((state) => state.authentication);
-  const checkedErrorMessage = checkError(error);
-  const checkedSuccessMessage = checkSuccess(success);
+import Snackbar from "@mui/material/Snackbar";
+import { closeMessage } from "../../store/slices/messageSlice";
 
-  useEffect(() => {
-    const id = setTimeout(() => {
-      dispatch(resetError());
-      dispatch(resetSuccess());
-    }, 4000);
-    return () => {
-      clearTimeout(id);
-    };
-  }, [dispatch, error, success]);
+export const MessageAlerts = () => {
+  const { message, type, open } = useSelector((state) => state.messages);
+  const dispatch = useDispatch();
+  const checkedMessage =
+    type === "success" ? checkSuccess(message) : checkError(message);
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    dispatch(closeMessage());
+  };
+
   return (
-    <div className="message-alerts">
-      <div className="container message-alerts-container">
-        {error && <Alert message={checkedErrorMessage} />}
-        {success && <Alert message={checkedSuccessMessage} type="success" />}
-      </div>
+    <div>
+      <Snackbar
+        open={open}
+        className="message-container"
+        autoHideDuration={3000}
+        onClose={handleClose}
+      >
+        <Alert
+          onClose={handleClose}
+          severity={type}
+          variant="filled"
+          sx={{ width: "100%", minWidth: "200px" }}
+          style={{
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: "0.5rem",
+            color: "white",
+          }}
+          lang="ar"
+          dir="rtl"
+        >
+          {checkedMessage}
+        </Alert>
+      </Snackbar>
     </div>
   );
 };

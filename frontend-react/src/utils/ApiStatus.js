@@ -4,4 +4,7 @@ export const ApiStatus = {
   FAILED: "failed",
 };
 
-
+export const isFulfilled = (response) => {
+  if (response.meta?.requestStatus === "fulfilled") return true;
+  return false;
+};

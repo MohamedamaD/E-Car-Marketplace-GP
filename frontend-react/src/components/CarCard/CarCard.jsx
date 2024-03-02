@@ -7,7 +7,10 @@ export const CarCard = ({ props }) => {
     <div className="car-card">
       <div className="card-container">
         <div className="img-container">
-          <img src={props?.image} alt="car-imag" />
+          <img
+            src={`${process.env.REACT_APP_ORIGIN_URL}/${props?.images[0]}`}
+            alt="car-imag"
+          />
         </div>
         <BodyCard props={props} />
       </div>

@@ -7,7 +7,7 @@ import {
   Autoplay,
 } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { images } from "../../constants";
+import { hero, images } from "../../constants";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -21,23 +21,23 @@ export const Header = () => {
     slidesPerView: 1,
     navigation: true,
     pagination: { clickable: true },
-    autoplay: { delay: 1000, disableOnInteraction: false },
+    autoplay: { delay: 3000, disableOnInteraction: false },
   };
 
   return (
     <header id="home-header">
       <main>
         <Swiper {...swiperOptions}>
-          <SwiperSlide>
-            <div className="overlay"></div>
-            <img src={images.HERO} alt="car" className="slider-opacity" />
-            <div className="text-overlay">
-              <h1 className="white-color">عربيات مستعملة بدون تنازلات!</h1>
-              <p className="secondary-color">
-                اشتري أو بيع عربية مستعملة بسهولة وآمان
-              </p>
-            </div>
-          </SwiperSlide>
+          {hero.map((item, i) => (
+            <SwiperSlide key={i}>
+              <div className="overlay"></div>
+              <img src={item.img} alt="car" className="slider-opacity" />
+              <div className="text-overlay">
+                <h1 className="white-color">{item.h1}</h1>
+                <p className="white-color">{item.p}</p>
+              </div>
+            </SwiperSlide>
+          ))}
         </Swiper>
       </main>
     </header>

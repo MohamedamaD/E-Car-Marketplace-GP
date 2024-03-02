@@ -1,10 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { formDataApi } from "../../services/api";
 import { getToken, setToken } from "../../utils";
+import { openMessage } from "./messageSlice";
 
 export const createBanner = createAsyncThunk(
   "media/createBanner",
-  async (formData, { rejectWithValue }) => {
+  async (formData, { rejectWithValue, dispatch }) => {
     const token = getToken();
 
     if (!token) {
@@ -18,11 +19,14 @@ export const createBanner = createAsyncThunk(
         },
       });
       setToken(response.data.token);
+      dispatch(openMessage(response.data.message, "success"));
       return response.data;
     } catch (error) {
       if (!error.response) {
         throw error;
       }
+      dispatch(openMessage(error.response.data.error, "error"));
+
       return rejectWithValue(error.response.data);
     }
   }

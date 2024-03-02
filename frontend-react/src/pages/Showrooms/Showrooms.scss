@@ -15,10 +15,6 @@
             }
         }
 
-        .pagination-section {
-            @include flexCenter($justify: space-between);
-        }
-
         .search-section {
             .search-container {
                 @include flexCenter();

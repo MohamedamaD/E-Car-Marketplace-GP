@@ -16,7 +16,7 @@ import { Loading } from "../loading/Loading";
 import { useHistory } from "react-router-dom";
 import { BiPlus } from "react-icons/bi";
 import { formDataApi } from "../../services/api";
-import { getToken } from "../../utils";
+import { getToken, isFulfilled } from "../../utils";
 
 export const MissingInformation = () => {
   const dispatch = useDispatch();
@@ -57,14 +57,16 @@ export const MissingInformation = () => {
   const submitHandler = async (event) => {
     event.preventDefault();
     const formData = new FormData(formRef.current);
-    console.log(formData);
-    dispatch(completeInformation(formData));
 
-    history.push("/");
+    const response = await dispatch(completeInformation(formData));
+    if (isFulfilled(response)) {
+      history.push("/");
+    } else {
+      history.go(0);
+    }
   };
   if (loading) return <Loading />;
 
-  console.log(avatar);
   return (
     <div id="missing-information" className="layout-page">
       <form

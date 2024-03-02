@@ -5,6 +5,7 @@ import { Button } from "../Button/Button";
 import { deleteCar } from "../../store/slices/carsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Loading } from "../../pages/loading/Loading";
+import { isFulfilled } from "../../utils";
 
 export const ConfirmMessage = ({ id, setVisible }) => {
   const { loading } = useSelector((state) => state.cars);
@@ -37,9 +38,10 @@ export const ConfirmMessage = ({ id, setVisible }) => {
             className="delete-button"
             disabled={!confirmed}
             onClick={async () => {
-              const res = await dispatch(deleteCar(id));
-              if (!res.error) {
+              const response = await dispatch(deleteCar(id));
+              if (isFulfilled(response)) {
                 setVisible(false);
+              } else {
               }
             }}
           />

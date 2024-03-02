@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getToken, removeToken, setToken } from "../../utils";
 import api, { formDataApi } from "../../services/api";
+import { openMessage } from "./messageSlice";
 
 export const signOut = createAsyncThunk("authentication/signOut", async () => {
   removeToken();
@@ -8,22 +9,29 @@ export const signOut = createAsyncThunk("authentication/signOut", async () => {
 
 export const login = createAsyncThunk(
   "authentication/login",
-  async (payload, { rejectWithValue }) => {
+  async (payload, { rejectWithValue, dispatch }) => {
     try {
       const response = await api.post("/user/login", { ...payload });
       setToken(response.data.accessToken);
+      dispatch(openMessage(response.data.message, "success"));
+
       return response.data;
     } catch (error) {
       if (!error.response) {
         throw error;
       }
+      dispatch(
+        openMessage(error.response.data.message || "invalid login", "error")
+      );
+
       return rejectWithValue(error.response.data);
     }
   }
 );
+
 export const completeInformation = createAsyncThunk(
   "authentication/completeInformation ",
-  async (payload, { rejectWithValue }) => {
+  async (payload, { rejectWithValue, dispatch }) => {
     const token = getToken();
 
     if (!token) {
@@ -38,12 +46,16 @@ export const completeInformation = createAsyncThunk(
       );
 
       setToken(response.data.token);
+      dispatch(openMessage(response.data.message, "success"));
 
       return response.data;
     } catch (error) {
       if (!error.response) {
         throw error;
       }
+      dispatch(
+        openMessage(error.response.data.error || "missing information", "error")
+      );
       return rejectWithValue(error.response.data);
     }
   }
@@ -73,15 +85,24 @@ export const safeHouse = createAsyncThunk(
 
 export const register = createAsyncThunk(
   "authentication/register",
-  async (payload, { rejectWithValue }) => {
+  async (payload, { rejectWithValue, dispatch }) => {
     try {
       const response = await api.post("/user/register", { ...payload });
       setToken(response.data.accessToken);
+      dispatch(openMessage(response.data.message, "success"));
+
       return response.data;
     } catch (error) {
       if (!error.response) {
         throw error;
       }
+      dispatch(
+        openMessage(
+          error.response.data.message || "error occur invalid registration",
+          "error"
+        )
+      );
+
       return rejectWithValue(error.response.data);
     }
   }
@@ -89,24 +110,31 @@ export const register = createAsyncThunk(
 
 export const updateUserInfo = createAsyncThunk(
   "authentication/updateUserInfo",
-  async (payload, { rejectWithValue }) => {
+  async (payload, { rejectWithValue, dispatch }) => {
     const token = localStorage.getItem("token");
 
     if (!token) {
       throw new Error("Token not found");
     }
-
     try {
       const response = await api.put(
         "/user/profile",
         { ...payload },
         { headers: { "x-auth-token": token } }
       );
+      dispatch(openMessage(response.data.message, "success"));
+
       return response.data;
     } catch (error) {
       if (!error.response) {
         throw error;
       }
+      dispatch(
+        openMessage(
+          error.response.data.error || "Internal Server Error",
+          "error"
+        )
+      );
       return rejectWithValue(error.response.data);
     }
   }
@@ -159,33 +187,27 @@ const authenticationSlice = createSlice({
         state.loading = true;
       })
       .addCase(login.fulfilled, (state, action) => {
-        const { accessToken, user, message } = action.payload;
+        const { accessToken, user } = action.payload;
         state.token = accessToken;
         state.user = user;
         state.loading = false;
         state.isAuthenticated = true;
-        state.success = message;
       })
       .addCase(login.rejected, (state, action) => {
         state.loading = false;
-        state.error =
-          action.payload?.message || action.error.message || "invalid login";
       })
       .addCase(register.pending, (state, action) => {
         state.loading = true;
       })
       .addCase(register.fulfilled, (state, action) => {
-        const { accessToken, user, message } = action.payload;
+        const { accessToken, user } = action.payload;
         state.token = accessToken;
         state.user = user;
-        state.success = message;
         state.loading = false;
         state.isAuthenticated = true;
       })
       .addCase(register.rejected, (state, action) => {
         state.loading = false;
-        state.error =
-          action.payload?.message || "error occur invalid registration";
       })
 
       .addCase(updateUserInfo.pending, (state, action) => {
@@ -193,16 +215,11 @@ const authenticationSlice = createSlice({
       })
       .addCase(updateUserInfo.fulfilled, (state, action) => {
         state.loading = false;
-        state.success = action.payload.message;
         state.user = action.payload.user;
         state.token = action.payload.accessToken;
       })
       .addCase(updateUserInfo.rejected, (state, action) => {
         state.loading = false;
-        state.error =
-          action.payload?.message ||
-          action.error.message ||
-          "Internal Server Error";
       })
       .addCase(safeHouse.pending, (state, action) => {
         state.loading = true;
@@ -225,12 +242,9 @@ const authenticationSlice = createSlice({
       .addCase(completeInformation.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload.user;
-        state.success = action.payload.message;
       })
       .addCase(completeInformation.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload.error || action.payload?.message;
-        console.log(state.error);
       }),
 });
 

@@ -8,3 +8,4 @@ export { CarConstants } from "./CarConstants";
 export { UserLinks } from "./UserLinks";
 export { SortingList } from "./SortingList";
 export { UserRoles } from "./UserRoles";
+export { hero } from "./hero";

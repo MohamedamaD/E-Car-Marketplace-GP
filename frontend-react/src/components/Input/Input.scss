@@ -22,3 +22,9 @@ textarea.custom-textarea {
         box-shadow: rgba($color: #009b5d, $alpha: .6) 0px 0px 0px 3px;
     }
 }
+
+textarea.custom-textarea {
+    height: 150px;
+    resize: none;
+    padding-top: 0.5rem;
+}

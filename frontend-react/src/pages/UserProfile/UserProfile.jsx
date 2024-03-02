@@ -8,7 +8,7 @@ import {
   setError,
   updateUserInfo,
 } from "../../store/slices/authenticationSlice";
-import { translateRole } from "../../utils";
+import { isFulfilled, translateRole } from "../../utils";
 
 export const UserProfile = () => {
   const { user, loading } = useSelector((state) => state.authentication);
@@ -25,9 +25,12 @@ export const UserProfile = () => {
     setDataForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const updateHandler = (event) => {
+  const updateHandler = async (event) => {
     event.preventDefault();
-    dispatch(updateUserInfo(dataForm));
+    const response = await dispatch(updateUserInfo(dataForm));
+    if (isFulfilled(response)) {
+    } else {
+    }
   };
 
   const clickHandler = (event) => {
@@ -75,7 +78,12 @@ export const UserProfile = () => {
 
           <section className="rounded white-bg-color content">
             <div className="form-container">
-              <form action="" name="user-form" id="user-form">
+              <form
+                action=""
+                name="user-form"
+                id="user-form"
+                onSubmit={updateHandler}
+              >
                 <div className="input-field">
                   <label className="custom-label" htmlFor="username">
                     الاسم
@@ -167,7 +175,7 @@ export const UserProfile = () => {
                     value="تعديل"
                     type="submit"
                     className="main-bg-color send-button"
-                    onClick={updateHandler}
+                    // onClick={updateHandler}
                   />
                 )}
               </form>
@@ -178,5 +186,3 @@ export const UserProfile = () => {
     </div>
   );
 };
-
-// TODO : in next release we should to handle error messages globally

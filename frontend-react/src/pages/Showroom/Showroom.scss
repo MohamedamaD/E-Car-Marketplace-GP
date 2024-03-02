@@ -3,6 +3,21 @@
 
 #showroom-page {
     .showroom-container {
+        .empty-section {
+            @include flexCenter($direction: column);
+            text-align: center;
+
+            p {
+                @include responsiveFontSize($baseSize: 2em);
+            }
+
+            svg {
+                font-size: 80px;
+            }
+
+            gap: 1rem;
+        }
+
         .locations-section {
             h1.title {
                 margin-bottom: 1rem;

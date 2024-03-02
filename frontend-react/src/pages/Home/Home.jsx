@@ -10,7 +10,7 @@ export const Home = () => {
       <Banner />
       <div className="container">
         <BannerUploader />
-        <RecentCars />
+        {/* <RecentCars /> */}
       </div>
       <div className="container home-container">
         <SiteWork />

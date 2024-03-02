@@ -18,3 +18,4 @@ export { UserMenu } from "./UserMenu/UserMenu";
 export { BodyCard } from "./BodyCard/BodyCard";
 export { ImageUploader } from "./ImageUploader/ImageUploader";
 export { ConfirmMessage } from "./ConfirmMessage/ConfirmMessage";
+export { CustomCompo } from "./CustomCompo/CustomCompo";

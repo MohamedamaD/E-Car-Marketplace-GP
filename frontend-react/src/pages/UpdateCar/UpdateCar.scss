@@ -1,0 +1,18 @@
+@import '../../styles/mixins';
+
+#update-car-page {
+    .update-car-container {
+        .form-section {
+            form {
+                .form-container {
+                    @include GridAuto();
+                    margin-bottom: 1rem;
+                }
+
+                button {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}

@@ -4,6 +4,7 @@ import dataReducer from "./slices/dataSlice";
 import showroomsReducer from "./slices/showroomsSlice";
 import mediaReducer from "./slices/mediaSlice";
 import carsReducer from "./slices/carsSlice";
+import messageReducer from "./slices/messageSlice";
 
 export const store = configureStore({
   reducer: {
@@ -12,5 +13,6 @@ export const store = configureStore({
     media: mediaReducer,
     data: dataReducer,
     cars: carsReducer,
+    messages: messageReducer,
   },
 });

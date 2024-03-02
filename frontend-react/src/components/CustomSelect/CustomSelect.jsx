@@ -5,7 +5,15 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
-export const CustomSelect = ({ state, setState, label, options, id }) => {
+export const CustomSelect = ({
+  state,
+  setState,
+  label,
+  options,
+  id,
+  name,
+  ...rest
+}) => {
   const handleChange = (event) => {
     setState(event.target.value);
   };
@@ -19,7 +27,9 @@ export const CustomSelect = ({ state, setState, label, options, id }) => {
           value={state}
           label={label}
           autoWidth
+          name={name}
           onChange={handleChange}
+          {...rest}
         >
           <MenuItem value={"default"}>
             <em>اختر شيء</em>

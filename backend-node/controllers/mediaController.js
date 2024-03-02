@@ -14,7 +14,12 @@ const createBanner = async (req, res, next) => {
       { new: true }
     );
     const token = generateToken({ ...user });
-    res.json({ success: true, filePath, token });
+    res.status(201).json({
+      success: true,
+      message: "upload banner successfully",
+      filePath,
+      token,
+    });
   } catch (error) {
     res.status(500).json({ message: "Internal Server Error", error });
   }

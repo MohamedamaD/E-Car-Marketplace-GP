@@ -16,12 +16,6 @@
         main {
             position: relative;
             z-index: $lowOrder + 1;
-            // background: #00000046;
-            // backdrop-filter: blur(2px);
-
-            // * {
-            //     color: #fff;
-            // }
 
             .title {
                 @include responsiveFontSize($baseSize: 4em);
@@ -30,7 +24,12 @@
             }
 
             .form-container {
-                @include GridAuto($minWidth: 150px);
+                @include GridAuto($minWidth: 250px);
+                margin-bottom: 1rem;
+            }
+
+            .description {
+                margin-bottom: 1rem;
             }
 
             .send-container {

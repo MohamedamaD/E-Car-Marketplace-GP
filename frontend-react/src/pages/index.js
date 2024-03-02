@@ -15,4 +15,5 @@ export { Showrooms } from "./Showrooms/Showrooms";
 export { Showroom } from "./Showroom/Showroom";
 export { ShowroomOwner } from "./ShowroomOwner/ShowroomOwner";
 export { UserCarsView } from "./UserCarsView/UserCarsView";
+export { UpdateCar } from "./UpdateCar/UpdateCar.jsx";
 export { CommonQuestion } from "./CommonQuestion/CommonQuestion";

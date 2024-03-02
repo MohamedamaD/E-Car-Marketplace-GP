@@ -16,6 +16,7 @@ import {
   CommonQuestion,
   ShowroomOwner,
   Showroom,
+  UpdateCar,
   UserCarsView,
 } from "./pages";
 import { BottomNavbar, Navbar, ScrollToTop } from "./components";
@@ -44,6 +45,7 @@ const App = () => {
         <Route path="/sell-car" component={SellCar} />
         <Route path="/my-cars" component={UserCarsView} />
         <Route path="/car-details/:id" component={CarDetails} />
+        <Route path="/update-car/:id" component={UpdateCar} />
         <Route path="/user-profile" component={UserProfile} />
         <Route path="/missing-information" component={MissingInformation} />
         <Route path="/recommendation-car" component={Recommendation} />

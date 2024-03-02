@@ -42,8 +42,12 @@ export const checkError = (error) => {
       return "طلبك مرفوض";
     case "missing data":
       return "ادخل البيانات كامله";
-    case "":
-      return "";
+    case "Please enter a valid username":
+      return "ادخل اسم صحيح";
+    case "Please enter a valid password":
+      return "ادخل رقم سري قوي";
+    case "Please enter a valid phone number.":
+      return "ادخل رقم هاتف صحيح";
     case "press edit first":
       return "اضغط تعديل اولا";
     default:
@@ -63,6 +67,8 @@ export const checkSuccess = (success) => {
       return "تم عرض العربيه بنجاح";
     case "upload banner successfully":
       return "تم نشر الاعلان بنجاح";
+    case "car deleted successfully":
+      return "تم ازاله السياره";
     default:
       return "";
   }
