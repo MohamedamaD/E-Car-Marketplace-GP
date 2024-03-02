@@ -23,6 +23,7 @@ import { BottomNavbar, Navbar, ScrollToTop } from "./components";
 import { Footer, MessageAlerts } from "./containers";
 import { useDispatch } from "react-redux";
 import { safeHouse } from "./store/slices/authenticationSlice";
+import AddressDetails from "./pages/AddressDetails/AddressDetails";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -56,6 +57,7 @@ const App = () => {
         <Route path="/contact-us" component={Contact} />
         <Route path="/about-us" component={About} />
         <Route path="/register" component={Register} />
+        <Route path="/address/:address" component={AddressDetails} />
         <Route path="*" component={NoPage} />
       </Switch>
 
