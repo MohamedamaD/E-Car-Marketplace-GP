@@ -1,5 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import api from "../../services/api";
+import api, { formDataApi } from "../../services/api";
+import { getToken } from "../../utils";
+import { openMessage } from "./messageSlice";
 
 export const fetchShowrooms = createAsyncThunk(
   "showrooms/fetchShowrooms",
@@ -28,7 +30,7 @@ export const fetchShowroomsAndHandlePagination =
 
 export const fetchShowroom = createAsyncThunk(
   "showrooms/fetchShowroom",
-  async (id, { rejectWithValue }) => {
+  async (id, { rejectWithValue, dispatch }) => {
     try {
       const response = await api.get(`/showrooms/${id}`);
 
@@ -37,6 +39,7 @@ export const fetchShowroom = createAsyncThunk(
       if (!error.response) {
         throw error;
       }
+      // dispatch(set);
       return rejectWithValue(error.response.data);
     }
   }
@@ -44,12 +47,14 @@ export const fetchShowroom = createAsyncThunk(
 
 const initialState = {
   showrooms: [],
+  currentShowroomCars: [],
   currentShowroom: null,
   loading: false,
   error: null,
   currentPage: 1,
   pageSize: 12,
   totalPages: 0,
+  notFound: false,
 };
 
 const showroomsSlice = createSlice({
@@ -76,14 +81,18 @@ const showroomsSlice = createSlice({
       })
       .addCase(fetchShowroom.pending, (state) => {
         state.loading = true;
+        state.notFound = false;
       })
       .addCase(fetchShowroom.fulfilled, (state, action) => {
         state.loading = false;
+        state.notFound = false;
         state.currentShowroom = action.payload.showroom;
+        state.currentShowroomCars = action.payload.cars;
       })
       .addCase(fetchShowroom.rejected, (state, action) => {
-        state.loading = true;
+        state.loading = false;
         state.error = action.error.message;
+        state.notFound = true;
       });
   },
 });

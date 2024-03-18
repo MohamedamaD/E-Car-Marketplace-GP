@@ -1,0 +1,25 @@
+@import '../../styles/mixins';
+@import '../../App.scss';
+
+.showroom-card {
+
+    .showroom-card-container {
+        padding: 1rem;
+        border-bottom: 1px solid #eee;
+
+        details {
+            display: block;
+
+            summary {
+                cursor: pointer;
+                @include responsiveFontSize(1.5em);
+
+                &.showroom-name {
+                    width: fit-content;
+                    padding-bottom: 0.5rem;
+                    border-bottom: 2px solid $mainColor;
+                }
+            }
+        }
+    }
+}

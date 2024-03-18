@@ -18,14 +18,31 @@ export const createBanner = createAsyncThunk(
           "x-auth-token": token,
         },
       });
-      setToken(response.data.token);
+
       dispatch(openMessage(response.data.message, "success"));
       return response.data;
     } catch (error) {
       if (!error.response) {
         throw error;
       }
-      dispatch(openMessage(error.response.data.error, "error"));
+      dispatch(openMessage(error.response.data.message, "error"));
+
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const getTrendingBanners = createAsyncThunk(
+  "media/getTrendingBanners",
+  async (_, { rejectWithValue, dispatch }) => {
+    try {
+      const response = await formDataApi.get("/media/latest-banners");
+      return response.data;
+    } catch (error) {
+      if (!error.response) {
+        throw error;
+      }
+      dispatch(openMessage(error.response.data.message, "error"));
 
       return rejectWithValue(error.response.data);
     }
@@ -33,7 +50,7 @@ export const createBanner = createAsyncThunk(
 );
 
 const initialState = {
-  banner: [],
+  banners: [],
   loading: false,
   error: null,
   success: null,
@@ -53,8 +70,20 @@ const mediaSlice = createSlice({
         state.success = action.payload.success;
       })
       .addCase(createBanner.rejected, (state, action) => {
+        state.loading = false;
+        console.log(action);
+        state.error = action.payload.message || action.error.message;
+      })
+
+      .addCase(getTrendingBanners.pending, (state) => {
         state.loading = true;
-        state.error = action.error.message;
+      })
+      .addCase(getTrendingBanners.fulfilled, (state, action) => {
+        state.loading = false;
+        state.banners = action.payload.banners;
+      })
+      .addCase(getTrendingBanners.rejected, (state, action) => {
+        state.loading = false;
       });
   },
 });

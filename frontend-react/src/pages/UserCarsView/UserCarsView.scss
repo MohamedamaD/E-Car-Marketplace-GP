@@ -20,6 +20,24 @@
 
         .cars-section {
             @include GridAuto();
+
+            .car-container {
+                @include flexCenter($direction: column, $justify: space-between, $align: flex-start);
+                gap: 1rem;
+
+                .car-card-wrapper {
+                    display: block;
+                }
+
+                .buttons-container {
+                    @include flexCenter($justify: flex-start);
+                    gap: 1rem;
+
+                    * {
+                        margin: unset;
+                    }
+                }
+            }
         }
     }
 }

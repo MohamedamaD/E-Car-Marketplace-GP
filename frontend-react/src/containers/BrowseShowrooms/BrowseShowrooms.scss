@@ -1,0 +1,22 @@
+@import '../../styles/mixins';
+@import '../../App.scss';
+
+.browse-showroom {
+    .cards-container {
+        margin-bottom: 1rem;
+
+        .wrapper {
+            @include flexCenter($justify: flex-start, $align: baseline);
+            gap: 1rem;
+
+            a {
+                font-weight: 500;
+                font-size: 18px;
+            }
+
+            .showroom-card {
+                width: 100%;
+            }
+        }
+    }
+}

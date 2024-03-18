@@ -10,6 +10,12 @@
         .img-container {
             border-radius: 0 0 $radius $radius;
             overflow: hidden;
+            height: 300px;
+
+            img {
+                object-fit: cover;
+                aspect-ratio: 1 / 1;
+            }
         }
     }
 }

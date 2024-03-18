@@ -1,24 +1,33 @@
+const Car = require("../models/Car");
 const Showroom = require("../models/showroom");
 const ShowroomLocation = require("../models/ShowroomLocation");
 const Joi = require("joi");
 
 const showroomSchema = Joi.object({
   showroomName: Joi.string().required(),
-  phoneNumber: Joi.string(),
+  description: Joi.string(),
+  image: Joi.string(),
   userID: Joi.string().required(),
 });
 
 const idSchema = Joi.string().hex().length(24);
-const locationNameSchema = Joi.string().required();
+const locationSchema = Joi.object({
+  name: Joi.string().required(),
+  phone: Joi.string().required(),
+  address: Joi.string().required(),
+});
 
 const createShowroom = async (req, res) => {
-  const { phoneNumber, showroomName, locations } = req.body;
+  const { showroomName, locations, description } = req.body;
+  const image = req.file;
+
   const { error, value } = showroomSchema.validate({
     showroomName,
-    phoneNumber,
+    description,
+    image: image.path,
     userID: req.user._id,
   });
-
+  // console.log(req.body);
   if (error) {
     return res.status(400).json({ message: error.details[0].message });
   }
@@ -31,21 +40,22 @@ const createShowroom = async (req, res) => {
 
   try {
     const showroom = await Showroom.create(value);
-
     const { error: err, value: val } = Joi.array()
-      .items(locationNameSchema)
+      .items(locationSchema)
       .validate(locations);
+
+    // console.log(locations);
     if (err) {
       return res.status(400).json({ message: err.details[0].message });
     }
 
-    const locs = val.map((locationName) => ({
-      locationName,
+    const locs = val.map((item) => ({
+      ...item,
       showroomId: showroom.id,
     }));
 
     const createdLocations = await ShowroomLocation.create(locs);
-
+    // console.log(locs);
     const updatedShowroom = await Showroom.findByIdAndUpdate(
       showroom.id,
       {
@@ -77,7 +87,7 @@ const getAllShowrooms = async (req, res) => {
 
     const query = {};
     if (searchQuery) {
-      query.showroomName = { $regex: new RegExp(searchQuery, "i") };
+      query.name = { $regex: new RegExp(searchQuery, "i") };
     }
 
     const totalShowrooms = await Showroom.countDocuments(query);
@@ -85,10 +95,7 @@ const getAllShowrooms = async (req, res) => {
 
     const skip = (page - 1) * pageSize;
 
-    const showrooms = await Showroom.find(query)
-      .populate("locationsIDs")
-      .skip(skip)
-      .limit(pageSize);
+    const showrooms = await Showroom.find(query).skip(skip).limit(pageSize);
 
     res.status(200).json({ message: "success", showrooms, totalPages });
   } catch (error) {
@@ -107,13 +114,13 @@ const getShowroomById = async (req, res) => {
       return res.status(409).json({ message: "invalid id" });
     }
 
-    const showroom = await Showroom.findById(value).populate("locationsIDs");
+    const showroom = await Showroom.findById(value);
 
     if (!showroom) {
       return res.status(409).json({ message: "Showroom not found" });
     }
-
-    res.json({ message: "operation success", showroom });
+    const cars = await Car.find({ showroomID: id });
+    res.json({ message: "operation success", showroom, cars });
   } catch (error) {
     console.log(error);
     res.status(500).send("Internal Server Error");
@@ -178,6 +185,22 @@ const getUserShowrooms = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+const updateShowroomImage = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const image = req.file;
+    console.log(image);
+    const showroom = await Showroom.findByIdAndUpdate(
+      id,
+      { image: image.path },
+      { new: true }
+    );
+
+    res.json({ message: "updated", showroom });
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
 
 module.exports = {
   createShowroom,
@@ -186,4 +209,5 @@ module.exports = {
   deleteShowroom,
   getAllShowrooms,
   getUserShowrooms,
+  updateShowroomImage,
 };

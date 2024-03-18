@@ -1,15 +1,15 @@
 import React from "react";
 import "./BottomNavbar.scss";
 import { Link, useLocation } from "react-router-dom";
-import { staticLinks } from "../../constants";
 
-export const BottomNavbar = () => {
+export const BottomNavbar = ({ links }) => {
   const loc = useLocation().pathname.substr(1);
+
   return (
     <div className="bottom-navbar">
       <div className="container">
         <nav>
-          {staticLinks.map((item, index) => (
+          {links.map((item, index) => (
             <Link
               to={item.link}
               className={loc === item.link ? "active" : "p-color"}

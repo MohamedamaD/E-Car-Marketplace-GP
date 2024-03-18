@@ -1,0 +1,80 @@
+@import '../../styles/mixins';
+@import '../../App.scss';
+
+#edit-showroom-page {
+    .edit-showroom-container {
+        .input-field {
+            margin-bottom: 1rem;
+        }
+
+        section {
+            &.avatar {
+                button {
+                    position: relative;
+                    min-width: 250px;
+                    margin: auto;
+                    display: block;
+
+                    &:not(:last-of-type) {
+                        margin-bottom: 1rem;
+                    }
+
+                    input {
+                        @include positioning(absolute);
+                        cursor: pointer;
+                        opacity: 0;
+                    }
+                }
+
+                .image-container {
+                    position: relative;
+
+                    img {
+                        height: 300px;
+                        margin-bottom: 1rem;
+                        object-fit: cover;
+
+                        &.new-image {
+                            @include positioning(absolute);
+                            clip-path: polygon(100% 0, 100% 50%, 100% 100%, 35% 100%, 60% 50%, 35% 0);
+                        }
+                    }
+                }
+            }
+
+            &.showroom-info {}
+
+            &.not-found {
+                @include flexCenter();
+                font-size: 20px;
+            }
+
+            &.locations-info {
+                .location-wrapper {
+                    @include flexCenter($justify: flex-start, $align: flex-start);
+                    gap: 1rem;
+                    margin-bottom: 1rem;
+
+                    &:last-of-type {
+                        margin-bottom: unset;
+                    }
+
+                    .location-details {
+                        width: 100%;
+                        margin: unset;
+                    }
+                }
+            }
+
+            &.options-buttons {
+                @include flexCenter($justify: flex-start);
+                flex-wrap: wrap;
+                gap: 1rem;
+
+                button {
+                    margin: unset;
+                }
+            }
+        }
+    }
+}

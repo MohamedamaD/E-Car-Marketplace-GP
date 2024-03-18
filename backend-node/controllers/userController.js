@@ -143,10 +143,9 @@ const completeInformation = async (req, res) => {
   try {
     const { phoneNumber, street, city, country, role } = req.body;
     const address = { street, city, country };
-    const avatar = req.files.avatar[0];
-    const license = req.files.license;
+    const license = req.files;
 
-    if (!avatar || !license) {
+    if (!license) {
       return res.status(400).json({ error: "No file uploaded" });
     }
 
@@ -158,11 +157,11 @@ const completeInformation = async (req, res) => {
         role,
         lastModificationDate: new Date(),
         isNewUser: false,
-        avatar: avatar.path,
         $push: { licensePictures: license.map((img) => img.path) },
       },
       { new: true }
     );
+
     await updatedUser.save();
 
     const token = generateToken({ ...updatedUser });
@@ -185,10 +184,34 @@ const safeHouse = async (req, res) => {
     .json({ message: "token is valid and user is authorized", user: req.user });
 };
 
+const changeAvatar = async (req, res) => {
+  try {
+    const userID = req.user._id;
+    const avatar = req.file;
+    console.log(avatar);
+    if (!avatar) {
+      res.status(400).json({ error: "images is missing" });
+    } else {
+      const user = await User.findByIdAndUpdate(
+        userID,
+        {
+          avatar: avatar.path,
+        },
+        { new: true }
+      );
+      const token = generateToken({ ...user });
+      res.json({ message: "avatar update successfully", user, token });
+    }
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
 module.exports = {
   registerUser,
   loginUser,
   updateUser,
   completeInformation,
   safeHouse,
+  changeAvatar,
 };

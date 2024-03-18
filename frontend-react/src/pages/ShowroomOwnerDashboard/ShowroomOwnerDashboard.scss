@@ -1,0 +1,26 @@
+@import '../../styles/mixins';
+@import '../../App.scss';
+
+#showroom-owner-dashboard-page,
+#seller-dashboard-page {
+    @include flexCenter();
+
+    .links-section {
+        a {
+            @include responsiveFontSize(1.25em);
+            @include transition();
+
+            display: block;
+            margin-bottom: 1rem;
+
+            &:last-of-type {
+                margin-bottom: unset;
+            }
+
+            &:hover {
+                transform: translateX(-1rem);
+                color: $mainColor;
+            }
+        }
+    }
+}

@@ -2,46 +2,57 @@ import React, { useEffect, useState } from "react";
 import "./BuyCar.scss";
 import {
   CarCard,
+  CustomCompo,
   CustomSelect,
+  RangeSlider,
   SectionTitle,
   SwiperBanner,
 } from "../../components";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { ApiStatus, compareFeature, sortCars } from "../../utils";
 import { Loading } from "../loading/Loading";
 import { CarConstants, SortingList } from "../../constants";
-import { fetchCarByName, fetchCarListings } from "../../store/slices/dataSlice";
+import { Models, Transmission } from "../../constants/CarConstants";
+import { BiDownArrowAlt } from "react-icons/bi";
+import { Pagination } from "../../containers";
+import { getCarsAndHandlePagination } from "../../store/slices/carsSlice";
+import { Link } from "react-router-dom";
 
-export const BuyCar = ({ limit = 8 }) => {
-  const { carListings, status: dataLoading } = useSelector(
-    (state) => state.data
-  );
-  const [sort, setSort] = useState("default");
-  const [carName, setCarName] = useState("default");
-  const [transmissions, setTransmissions] = useState("default");
-
-  const sortedCars =
-    transmissions === "default"
-      ? sortCars(sort, carListings)
-      : compareFeature(
-          transmissions,
-          "transmission",
-          sortCars(sort, carListings)
-        );
-
+export const BuyCar = () => {
   const dispatch = useDispatch();
+  const { cars, loading, totalPages, currentPage } = useSelector(
+    (state) => state.cars
+  );
+  const [range, setRange] = useState([0, 100000]);
+  const [sort, setSort] = useState("default");
+  const [transmissionsState, setTransmissionsState] = useState([]);
+  const [modelsState, setModelsState] = useState([]);
 
-  useEffect(() => {
-    if (carName !== "default") {
-      dispatch(fetchCarByName(carName));
+  const changeStateHandler = (prev, element) => {
+    let next = [...prev];
+    const index = next.indexOf(element);
+    if (index !== -1) {
+      next.splice(index, 1);
     } else {
-      dispatch(fetchCarListings(8));
+      next.push(element);
     }
+    return next;
+  };
+  console.log(modelsState);
+  useEffect(() => {
+    dispatch(
+      getCarsAndHandlePagination(
+        currentPage,
+        sort,
+        modelsState,
+        transmissionsState,
+        range[0],
+        range[1]
+      )
+    );
     return () => {};
-  }, [carName, dispatch]);
+  }, [dispatch, transmissionsState, modelsState]);
 
-  if (dataLoading === ApiStatus.LOADING) return <Loading />;
+  if (loading) return <Loading />;
   return (
     <div id="buy-car-page">
       <div className="buy-car-container container">
@@ -52,37 +63,70 @@ export const BuyCar = ({ limit = 8 }) => {
         />
         <main>
           <div className="filters">
-            <h4 className="title secondary-color">حدد بحثك</h4>
+            <p className="title secondary-color">حدد بحثك</p>
             <section>
-              {/* <div className="section-container">
+              <div className="section-container">
                 <h4 className="subtitle secondary-color">السعر</h4>
-              </div> */}
-              <div className="section-container">
-                <h4 className="subtitle secondary-color">الماركة و الموديل</h4>
-                <CustomSelect
-                  state={carName}
-                  setState={setCarName}
-                  label=""
-                  options={CarConstants.models}
-                  id="model-select"
+                <RangeSlider
+                  value={range}
+                  min={0}
+                  max={100000}
+                  setValue={setRange}
                 />
               </div>
-              <div className="section-container">
-                <h4 className="subtitle secondary-color">ناقل الحركة</h4>
-                <CustomSelect
-                  state={transmissions}
-                  setState={setTransmissions}
-                  label=""
-                  options={CarConstants.transmissions}
-                  id="transmissions-select"
-                />
-              </div>
+
+              <details>
+                <summary className="subtitle secondary-color">
+                  <span>الماركة</span>
+                  <BiDownArrowAlt />
+                </summary>
+                <div className="data-wrapper">
+                  {Models.map((el, i) => (
+                    <p
+                      className={`shadow rounded ${
+                        modelsState.includes(el) ? "active" : ""
+                      }`}
+                      key={i}
+                      onClick={() => {
+                        setModelsState((prev) => {
+                          return changeStateHandler(prev, el);
+                        });
+                      }}
+                    >
+                      {el}
+                    </p>
+                  ))}
+                </div>
+              </details>
+              <details>
+                <summary className="subtitle secondary-color">
+                  <span>ناقل الحركه</span>
+                  <BiDownArrowAlt />
+                </summary>
+                <div className="data-wrapper">
+                  {Transmission.map((el, i) => (
+                    <p
+                      className={`shadow rounded ${
+                        transmissionsState.includes(el) ? "active" : ""
+                      }`}
+                      key={i}
+                      onClick={() => {
+                        setTransmissionsState((prev) => {
+                          return changeStateHandler(prev, el);
+                        });
+                      }}
+                    >
+                      {el}
+                    </p>
+                  ))}
+                </div>
+              </details>
             </section>
           </div>
           <div className="car-market">
             <SwiperBanner />
             <div className="sort-container">
-              <p className="p-color">{sortedCars.length} عربيات</p>
+              <p className="p-color">{cars.length} عربيات</p>
               <div className="select-container">
                 <span>ترتيب حسب</span>
                 <CustomSelect
@@ -95,12 +139,44 @@ export const BuyCar = ({ limit = 8 }) => {
               </div>
             </div>
             <div className="cars-container">
-              {sortedCars.slice(0, limit).map((car) => (
-                <Link key={car?.id} to={`/car-details/${car?.id}`}>
+              {cars.map((car) => (
+                <Link key={car?._id} to={`/car-details/${car?._id}`}>
                   <CarCard props={car} />
                 </Link>
               ))}
             </div>
+            {cars.length !== 0 && (
+              <div className="rounded white-bg-color pagination-section">
+                <Pagination
+                  currentPage={currentPage}
+                  nextClick={() =>
+                    dispatch(
+                      getCarsAndHandlePagination(
+                        currentPage + 1,
+                        sort,
+                        modelsState,
+                        transmissionsState,
+                        range[0],
+                        range[1]
+                      )
+                    )
+                  }
+                  totalPages={totalPages}
+                  prevClick={() =>
+                    dispatch(
+                      getCarsAndHandlePagination(
+                        currentPage - 1,
+                        sort,
+                        modelsState,
+                        transmissionsState,
+                        range[0],
+                        range[1]
+                      )
+                    )
+                  }
+                />
+              </div>
+            )}
           </div>
         </main>
       </div>

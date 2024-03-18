@@ -18,16 +18,25 @@ import {
   Showroom,
   UpdateCar,
   UserCarsView,
+  AddressDetails,
+  EditShowroom,
 } from "./pages";
 import { BottomNavbar, Navbar, ScrollToTop } from "./components";
 import { Footer, MessageAlerts } from "./containers";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { safeHouse } from "./store/slices/authenticationSlice";
-import AddressDetails from "./pages/AddressDetails/AddressDetails";
+import {
+  getBarLinksForUserRole,
+  getLinksForUserRole,
+  getRoutesForUserRole,
+} from "./utils/routeUtils";
 
 const App = () => {
   const dispatch = useDispatch();
-
+  const { user } = useSelector((state) => state.authentication);
+  const routesForUserRole = getRoutesForUserRole(user?.role);
+  const navLinks = getLinksForUserRole(user?.role);
+  const barLinks = getBarLinksForUserRole(user?.role);
   useEffect(() => {
     const fetchData = async (req, res) => {
       await dispatch(safeHouse());
@@ -38,30 +47,32 @@ const App = () => {
 
   return (
     <Router>
-      <Navbar />
+      <Navbar links={navLinks} />
 
       <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/buy-car" component={BuyCar} />
-        <Route path="/sell-car" component={SellCar} />
-        <Route path="/my-cars" component={UserCarsView} />
         <Route path="/car-details/:id" component={CarDetails} />
-        <Route path="/update-car/:id" component={UpdateCar} />
         <Route path="/user-profile" component={UserProfile} />
-        <Route path="/missing-information" component={MissingInformation} />
         <Route path="/recommendation-car" component={Recommendation} />
-        <Route path="/common-question" component={CommonQuestion} />
-        <Route path="/showrooms" component={Showrooms} />
-        <Route path="/showroom-owner" component={ShowroomOwner} />
-        <Route path="/showroom/:id" component={Showroom} />
         <Route path="/contact-us" component={Contact} />
         <Route path="/about-us" component={About} />
         <Route path="/register" component={Register} />
+        <Route path="/showrooms" component={Showrooms} />
+        <Route path="/showroom/:id" component={Showroom} />
+        <Route path="/missing-information" component={MissingInformation} />
+        <Route path="/common-question" component={CommonQuestion} />
+
+        {routesForUserRole.map((route, index) => (
+          <Route key={index} path={route.path} component={route.component} />
+        ))}
+
+        <Route path="/update-car/:id" component={UpdateCar} />
         <Route path="/address/:address" component={AddressDetails} />
         <Route path="*" component={NoPage} />
       </Switch>
 
-      <BottomNavbar />
+      <BottomNavbar links={barLinks} />
       <Footer />
       <MessageAlerts />
       <ScrollToTop />

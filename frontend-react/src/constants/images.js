@@ -21,6 +21,7 @@ import arrow_about from "../assets/arrow_about.webp";
 
 import CQ from "../assets/cq.svg";
 import Arrow from "../assets/arrow.svg";
+import EMPTY_AVATAR from "../assets/empy-avatar.jpg";
 
 import CAR_BANNER_1 from "../assets/car_banner_1.jpg";
 import CAR_BANNER_2 from "../assets/car_banner_2.jpg";
@@ -50,6 +51,7 @@ export const images = {
 
   CQ,
   Arrow,
+  EMPTY_AVATAR,
 
   CAR_BANNER_1,
   CAR_BANNER_2,

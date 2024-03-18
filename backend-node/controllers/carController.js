@@ -119,4 +119,59 @@ const deleteCar = async (req, res) => {
 //   }
 // };
 
-module.exports = { createCar, getCarById, updateCar, deleteCar };
+const getCars = async (req, res, next) => {
+  try {
+    const { make, transmission, minPrice, maxPrice, sortBy, page, pageSize } =
+      req.query;
+
+    const filter = {};
+    if (make) filter.make = make;
+    if (transmission) filter.transmission = transmission;
+    if (minPrice !== 0 || maxPrice !== 0) {
+      filter.price = {};
+      if (minPrice) filter.price.$gte = parseInt(minPrice);
+      if (maxPrice) filter.price.$lte = parseInt(maxPrice);
+    }
+    const sortOptions = {};
+    if (sortBy) {
+      switch (sortBy) {
+        case "lowToHigh":
+          sortOptions.price = 1;
+          break;
+        case "highToLow":
+          sortOptions.price = -1;
+          break;
+        case "oldToNew":
+          sortOptions.year = 1;
+          break;
+        case "newToOld":
+          sortOptions.year = -1;
+          break;
+        case "mileageLowToHigh":
+          sortOptions.mileage = 1;
+          break;
+        case "mileageHighToLow":
+          sortOptions.mileage = -1;
+          break;
+        default:
+          break;
+      }
+    }
+
+    const currentPage = parseInt(page) || 1;
+    const ps = parseInt(pageSize) || 10;
+    const skip = (currentPage - 1) * ps;
+
+    const cars = await Car.find(filter).sort(sortOptions).skip(skip).limit(ps);
+    console.log(filter, sortOptions);
+    const totalCarsCount = await Car.countDocuments(filter);
+
+    res.status(200).json({ success: true, cars, totalCarsCount });
+  } catch (error) {
+    console.log(error);
+    res
+      .status(500)
+      .json({ success: false, message: "Internal Server Error", error });
+  }
+};
+module.exports = { createCar, getCarById, updateCar, deleteCar, getCars };

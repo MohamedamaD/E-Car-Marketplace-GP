@@ -13,23 +13,8 @@ const storage = multer.diskStorage({
     cb(null, userUploadsDir);
   },
   filename: function (req, file, cb) {
-    const userId = req.user._id;
-    const isAvatar = file.fieldname === "avatar";
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-
-    if (isAvatar) {
-      cb(
-        null,
-        "user-avatar" +
-          "-" +
-          userId +
-          "-" +
-          uniqueSuffix +
-          path.extname(file.originalname)
-      );
-    } else {
-      cb(null, "license-img-" + uniqueSuffix + path.extname(file.originalname));
-    }
+    cb(null, "license-img-" + uniqueSuffix + path.extname(file.originalname));
   },
 });
 const upload = multer({ storage: storage });

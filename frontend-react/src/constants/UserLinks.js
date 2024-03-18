@@ -3,8 +3,8 @@ import { BiCog, BiUserCircle } from "react-icons/bi";
 export const UserLinks = [
   {
     Icon: <BiCog />,
-    title: "الاعدادات",
-    link: "/settings",
+    title: "ادارة",
+    link: "/manage",
   },
   {
     Icon: <BiUserCircle />,

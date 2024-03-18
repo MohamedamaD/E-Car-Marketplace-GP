@@ -1,14 +1,17 @@
 import React from "react";
 import "./FullCarCard.scss";
 import { Alert, BodyCard, Button } from "../";
-import { BiLocationPlus } from "react-icons/bi";
+import { BiAbacus, BiLocationPlus } from "react-icons/bi";
 
 export const FullCarCard = ({ props }) => {
   console.log(props);
   return (
     <div className="full-car-card">
       <div className="img-container">
-        <img src={props?.image} alt="car" />
+        <img
+          src={`${process.env.REACT_APP_ORIGIN_URL}/${props?.images[0]}`}
+          alt="car"
+        />
       </div>
       <div className="txt-container shadow rounded">
         <BodyCard props={props} />
@@ -17,6 +20,13 @@ export const FullCarCard = ({ props }) => {
           <p>
             <BiLocationPlus className="main-color" />
             <span>هذا عنوان سوف يتم تغيره بالاصلي لاحقا</span>
+          </p>
+        </div>
+        <div className="wrapper-container">
+          <span className="title p-color">الترخيص</span>
+          <p>
+            <BiAbacus className="main-color" />
+            <span>{props?.license}</span>
           </p>
         </div>
         <div className="features-container">

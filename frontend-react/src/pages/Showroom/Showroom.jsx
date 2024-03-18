@@ -1,20 +1,22 @@
 import React, { useEffect } from "react";
 import "./Showroom.scss";
-import { CarCard, SectionTitle } from "../../components";
-import { useParams } from "react-router-dom";
+import { CarCard, LocationCard, SectionTitle } from "../../components";
+import { useParams, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchShowroom } from "../../store/slices/showroomsSlice";
 import { Loading } from "../loading/Loading";
-import { BiError } from "react-icons/bi";
+import { EmptySection } from "../../containers/EmptySection/EmptySection";
+import { images } from "../../constants";
 export const Showroom = () => {
   const { id } = useParams();
-  const { currentShowroom, cars, loading } = useSelector(
+  const { currentShowroom, currentShowroomCars, loading } = useSelector(
     (state) => state.showrooms
   );
   const dispatch = useDispatch();
-  const showroomName = `معرض ${currentShowroom?.showroomName || ""}`;
-  const phoneNumber = currentShowroom?.phoneNumber || "";
-  const locations = currentShowroom?.locationsIDs || [];
+  const name = `معرض ${currentShowroom?.name || ""}`;
+  const description =
+    currentShowroom?.description || "تصفح المعرض والعربيات بكل سهوله";
+  const locations = currentShowroom?.locations || [];
   useEffect(() => {
     const fetchData = () => {
       dispatch(fetchShowroom(id));
@@ -22,7 +24,7 @@ export const Showroom = () => {
     fetchData();
     return () => {};
   }, [id, dispatch]);
-  console.log(currentShowroom);
+  console.log(currentShowroomCars);
   if (loading) {
     return <Loading />;
   }
@@ -30,55 +32,50 @@ export const Showroom = () => {
     <div className="layout-page" id="showroom-page">
       <div className="showroom-container container">
         <main>
-          <section className="rounded white-bg-color">
+          <section className="rounded white-bg-color title-section">
+            <div className="image-container rounded">
+              <img
+                src={
+                  currentShowroom?.image
+                    ? `http://localhost:5000/${currentShowroom?.image}`
+                    : images.EMPTY_AVATAR
+                }
+                alt="showroom-avatar"
+              />
+            </div>
             <SectionTitle
-              title={showroomName}
-              subTitle="تصفح المعارض والعربيات"
+              title={name}
+              subTitle={description}
               className="right"
             />
           </section>
           {locations.length > 0 && (
             <section className="rounded white-bg-color locations-section">
-              <h1 className="title main-color">اختار فرعك</h1>
+              <h1 className="title black-color">الفروع</h1>
               <div className="location-container">
-                {locations.map((item, i) => (
-                  <div
-                    key={item?._id}
-                    className="shadow location-wrapper"
-                    onClick={async () => {
-                      // const res = await dispatch(getLocation(item?._id));
-                      // setCars(res.payload.cars);
-                    }}
-                  >
-                    <p className="secondary-color">
-                      <span>فرع</span> <span>{item?.locationName}</span>
-                    </p>
-                    <p className="phone">
-                      <span>رقم الهاتف</span> <span>{phoneNumber}</span>
-                    </p>
-                  </div>
+                {locations.map((item) => (
+                  <LocationCard props={item} key={item?._id} />
                 ))}
               </div>
             </section>
           )}
 
           {locations.length <= 0 && (
-            <section className="rounded white-bg-color empty-section">
-              <BiError className="main-color" />
-              <p>هذا المعرض بدون فروع وعربيات في الوقت الحالي شكرا لك</p>
-            </section>
+            <EmptySection title="هذا المعرض بدون فروع وعربيات في الوقت الحالي شكرا لك" />
           )}
 
-          {/* {cars.length > 0 && (
+          {currentShowroomCars.length > 0 && (
             <section className="rounded white-bg-color cars-section">
-              <h1 className="title main-color">السيارات</h1>
+              <p className="title main-color">السيارات</p>
               <div className="cars-container">
-                {cars.map((car) => (
-                  <CarCard key={car?._id} />
+                {currentShowroomCars.map((car) => (
+                  <Link to={`/car-details/${car?._id}`}>
+                    <CarCard key={car?._id} props={car} />
+                  </Link>
                 ))}
               </div>
             </section>
-          )} */}
+          )}
         </main>
       </div>
     </div>

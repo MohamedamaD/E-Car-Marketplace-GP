@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import "./UserMenu.scss";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { signOut } from "../../store/slices/authenticationSlice";
 import { UserLinks, UserRoles } from "../../constants";
@@ -8,11 +8,13 @@ import { Button } from "../Button/Button";
 import { BiCar, BiInfoCircle, BiShow } from "react-icons/bi";
 export const UserMenu = ({ setOpen }) => {
   const { user } = useSelector((state) => state.authentication);
+  const history = useHistory();
   console.log(user);
   const dispatch = useDispatch();
   const clickHandler = (e) => {
     dispatch(signOut());
     setOpen(false);
+    history.push("/");
   };
   return (
     <Fragment>

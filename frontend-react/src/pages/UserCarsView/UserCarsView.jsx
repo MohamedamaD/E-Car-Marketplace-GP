@@ -7,11 +7,15 @@ import {
 } from "../../components";
 import { useDispatch, useSelector } from "react-redux";
 import "./UserCarsView.scss";
-import { fetchSellerCarsAndHandlePagination } from "../../store/slices/carsSlice";
+import {
+  deleteCar,
+  fetchSellerCarsAndHandlePagination,
+} from "../../store/slices/carsSlice";
 import { Link } from "react-router-dom";
 import { BiPlus } from "react-icons/bi";
 import { Loading } from "../loading/Loading";
 import { Pagination } from "../../containers";
+import { isFulfilled } from "../../utils";
 
 export const UserCarsView = () => {
   const dispatch = useDispatch();
@@ -62,22 +66,40 @@ export const UserCarsView = () => {
             <section className="rounded white-bg-color cars-section">
               {cars.map((item) => (
                 <div className="car-container" key={item?._id}>
-                  <Link to={`/update-car/${item?._id}`}>
+                  <Link
+                    to={`/car-details/${item?._id}`}
+                    className="car-card-wrapper"
+                  >
                     <CarCard props={item} />
                   </Link>
-                  <Button
-                    className="delete-button"
-                    onClick={() => {
-                      setVisible(true);
-                      setID(item?._id);
-                      // document.body.classList.add("hidden");
-                    }}
-                    value="حذف"
-                  />
+                  <div className="buttons-container">
+                    <Button
+                      className="delete-button"
+                      onClick={() => {
+                        setVisible(true);
+                        setID(item?._id);
+                        // document.body.classList.add("hidden");
+                      }}
+                      value="حذف"
+                    />
+                    <Link to={`/update-car/${item?._id}`}>
+                      <Button value="تعديل" className="main-bg-color" />
+                    </Link>
+                  </div>
                 </div>
               ))}
               {confirmPanelIsVisible && (
-                <ConfirmMessage id={id} setVisible={setVisible} />
+                <ConfirmMessage
+                  id={id}
+                  setVisible={setVisible}
+                  deleteHandler={async () => {
+                    const response = await dispatch(deleteCar(id));
+                    if (isFulfilled(response)) {
+                      setVisible(false);
+                    } else {
+                    }
+                  }}
+                />
               )}
             </section>
           )}

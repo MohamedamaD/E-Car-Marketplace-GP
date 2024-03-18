@@ -1,0 +1,27 @@
+@import '../../styles/mixins';
+@import '../../App.scss';
+
+.location-details {
+    margin-top: 1rem;
+    border: 1px solid #eee;
+    padding: 1rem;
+    cursor: pointer;
+
+    @include responsiveFontSize(1.15em);
+
+    .location-container {
+        list-style: circle;
+        padding: 1rem;
+        margin-top: 0.5rem;
+
+        p {
+            @include flexCenter($justify: flex-start);
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+
+            &.phone {
+                margin-bottom: unset;
+            }
+        }
+    }
+}

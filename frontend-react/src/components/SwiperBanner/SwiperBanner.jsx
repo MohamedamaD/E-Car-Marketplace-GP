@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./SwiperBanner.scss";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -10,8 +10,20 @@ import {
   BiSolidLeftArrowCircle,
   BiSolidRightArrowCircle,
 } from "react-icons/bi";
+import { useDispatch, useSelector } from "react-redux";
+import { Loading } from "../../pages";
+import { getTrendingBanners } from "../../store/slices/mediaSlice";
 
 export const SwiperBanner = () => {
+  const { loading, banners } = useSelector((state) => state.media);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getTrendingBanners());
+    return () => {};
+  }, [dispatch]);
+  
+  if (loading) return <Loading />;
   return (
     <div className="swiper-banner">
       <Swiper
@@ -20,13 +32,11 @@ export const SwiperBanner = () => {
         navigation={{ prevEl: ".left-arrow", nextEl: ".right-arrow" }}
         pagination={{ clickable: true }}
       >
-        {[images.CAR_BANNER_1, images.CAR_BANNER_2, images.CAR_BANNER_3].map(
-          (el, i) => (
-            <SwiperSlide key={i}>
-              <img src={el} alt="" />
-            </SwiperSlide>
-          )
-        )}
+        {banners.map((el) => (
+          <SwiperSlide key={el?._id}>
+            <img src={`http://localhost:5000/${el?.imageURL}`} alt="banner" />
+          </SwiperSlide>
+        ))}
 
         <div className="left-arrow icon-container">
           <BiSolidLeftArrowCircle />

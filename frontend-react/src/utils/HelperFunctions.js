@@ -69,8 +69,18 @@ export const checkSuccess = (success) => {
       return "تم نشر الاعلان بنجاح";
     case "car deleted successfully":
       return "تم ازاله السياره";
+    case "avatar update successfully":
+      return "تم تحديث الصوره الشخصيه";
+    case "showroom created successfully":
+      return "تم اضافه المعرض بنجاح";
+    case "Showroom updated successfully":
+      return "تم تحديث المعرض بنجاح";
+    case "add showroom first":
+      return "ضيف معرض الاول";
+    case "updated":
+      return "تم التحديث";
     default:
-      return "";
+      return "تم بنجاح";
   }
 };
 
@@ -85,4 +95,39 @@ export const translateRole = (role) => {
     default:
       return "فارغ";
   }
+};
+
+export const handleImageUpload = (event, setImages) => {
+  const selectedImages = Array.from(event.target.files);
+  setImages((prev) => [...prev, ...selectedImages]);
+};
+
+export const generateCarInfo = (
+  make,
+  model,
+  year,
+  price,
+  mileage,
+  color,
+  description,
+  transmission,
+  license,
+  features,
+  images
+) => {
+  const formData = new FormData();
+
+  formData.append("make", make);
+  formData.append("model", model);
+  formData.append("year", year);
+  formData.append("price", price);
+  formData.append("mileage", mileage);
+  formData.append("color", color);
+  formData.append("description", description);
+  formData.append("transmission", transmission);
+  formData.append("license", license);
+  features.forEach((feature) => formData.append("features", feature));
+  images.forEach((image) => formData.append("car-images", image));
+
+  return formData;
 };

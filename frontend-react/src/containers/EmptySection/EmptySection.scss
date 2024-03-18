@@ -1,0 +1,17 @@
+@import '../../styles/mixins';
+@import '../../App.scss';
+
+.empty-section {
+    @include flexCenter($direction: column);
+    text-align: center;
+
+    p {
+        @include responsiveFontSize($baseSize: 2em);
+    }
+
+    svg {
+        font-size: 80px;
+    }
+
+    gap: 1rem;
+}

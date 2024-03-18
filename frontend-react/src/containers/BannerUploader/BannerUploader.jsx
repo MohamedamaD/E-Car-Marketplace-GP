@@ -18,12 +18,8 @@ export const BannerUploader = () => {
   const handleUpload = async (ev) => {
     ev.preventDefault();
     const formData = new FormData(formRef.current);
-    const response = await dispatch(createBanner(formData));
-
-    if (isFulfilled(response)) {
-      setSelectedFile([]);
-    } else {
-    }
+    await dispatch(createBanner(formData));
+    setSelectedFile([]);
   };
   if (loading) return <Loading />;
   return (

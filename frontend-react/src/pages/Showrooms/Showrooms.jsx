@@ -67,7 +67,7 @@ export const Showrooms = () => {
           <section className="rounded white-bg-color showrooms-section">
             {showrooms.map((item) => (
               <Link to={`/showroom/${item?._id}`} key={item?._id}>
-                <h3 className="shadow">{item?.showroomName}</h3>
+                <h3 className="shadow">{item?.name}</h3>
               </Link>
             ))}
           </section>

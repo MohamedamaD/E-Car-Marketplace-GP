@@ -19,3 +19,7 @@ export { BodyCard } from "./BodyCard/BodyCard";
 export { ImageUploader } from "./ImageUploader/ImageUploader";
 export { ConfirmMessage } from "./ConfirmMessage/ConfirmMessage";
 export { CustomCompo } from "./CustomCompo/CustomCompo";
+export { ShowroomCard } from "./ShowroomCard/ShowroomCard";
+export { LocationCard } from "./LocationCard/LocationCard";
+export { RangeSlider } from "./RangeSlider/RangeSlider";
+export { CarInformation } from "./CarInformation/CarInformation";

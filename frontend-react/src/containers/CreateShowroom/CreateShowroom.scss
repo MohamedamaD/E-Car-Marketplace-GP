@@ -1,0 +1,74 @@
+@import '../../App.scss';
+@import '../../styles/mixins';
+
+section.create-showroom {
+    .input-field {
+        margin-bottom: 1rem;
+    }
+
+    p.error {
+        color: red;
+        @include responsiveFontSize(1em);
+        margin-bottom: 1rem;
+    }
+
+    #showroom-image {
+        text-align: center;
+        width: 100%;
+    }
+
+
+    .addresses-container {
+        .address-wrapper {
+            @include flexCenter($justify: flex-start);
+            flex-wrap: wrap;
+            gap: 1rem;
+
+            span.address {
+                @include flexCenter();
+                padding: 0.75rem 1rem;
+                gap: .25rem;
+                cursor: pointer;
+
+                @include responsiveFontSize($baseSize: 16px);
+
+                svg {
+                    @include responsiveFontSize($baseSize: 1.1em);
+                }
+            }
+        }
+
+        .add-address-container {
+            margin-bottom: 1rem;
+            @include flexCenter($justify: flex-start, $align: flex-end);
+            gap: 1rem;
+
+            .input-field,
+            button {
+                width: 20%;
+
+                @media screen and (max-width: 767px) {
+                    width: 100%;
+                }
+            }
+
+            @media screen and (max-width: 767px) {
+                @include flexCenter($direction: column, $align: unset);
+            }
+
+            .input-field {
+                margin-bottom: 0 !important;
+            }
+        }
+
+        Button.disabled {
+            cursor: not-allowed;
+        }
+
+        .error-container {
+            p {
+                margin-bottom: unset;
+            }
+        }
+    }
+}

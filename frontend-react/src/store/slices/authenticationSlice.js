@@ -140,6 +140,40 @@ export const updateUserInfo = createAsyncThunk(
   }
 );
 
+export const changeAvatar = createAsyncThunk(
+  "authentication/changeAvatar",
+  async (avatar, { rejectWithValue, dispatch }) => {
+    const token = getToken();
+
+    if (!token) {
+      throw new Error("Token not found");
+    }
+    console.log(avatar);
+    try {
+      const response = await formDataApi.patch("/user/avatar", avatar, {
+        headers: { "x-auth-token": token },
+      });
+
+      setToken(response.data.token);
+      dispatch(openMessage(response.data.message, "success"));
+
+      return response.data;
+    } catch (error) {
+      if (!error.response) {
+        throw error;
+      }
+      dispatch(
+        openMessage(
+          error.response.data.error || "Internal Server Error",
+          "error"
+        )
+      );
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+
 const initialState = {
   user: null,
   isAuthenticated: false,
@@ -245,6 +279,20 @@ const authenticationSlice = createSlice({
       })
       .addCase(completeInformation.rejected, (state, action) => {
         state.loading = false;
+      })
+
+      .addCase(changeAvatar.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(changeAvatar.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload.user;
+        state.token = action.payload.token;
+        console.log(action);
+      })
+      .addCase(changeAvatar.rejected, (state, action) => {
+        state.loading = false;
+        console.log(action);
       }),
 });
 

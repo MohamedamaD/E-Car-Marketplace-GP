@@ -7,20 +7,18 @@
     gap: 1rem;
 
     .image-viewer {
-        position: fixed;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        right: 0;
+        @include positioning(fixed);
         backdrop-filter: blur(3px);
         background: #00000051;
+        z-index: $highOrder;
         @include flexCenter();
         gap: 1rem;
 
         .wrapper-container {
-            z-index: $mediumOrder;
             @include flexCenter($direction: column);
             gap: 1rem;
+            z-index: $highOrder;
+            max-width: 800px;
         }
 
         .wrapper {
@@ -30,10 +28,6 @@
 
         .overlay {
             cursor: pointer;
-        }
-
-        .img-container {
-            z-index: $mediumOrder;
         }
     }
 

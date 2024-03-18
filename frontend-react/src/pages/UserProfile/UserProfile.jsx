@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./UserProfile.scss";
 import { Button, Input, SectionTitle } from "../../components";
-import { BiShield } from "react-icons/bi";
+import { BiShield, BiEdit } from "react-icons/bi";
 import { useSelector, useDispatch } from "react-redux";
 import { Loading } from "../loading/Loading";
 import {
@@ -9,12 +9,16 @@ import {
   updateUserInfo,
 } from "../../store/slices/authenticationSlice";
 import { isFulfilled, translateRole } from "../../utils";
+import { AvatarUploader } from "../../containers/AvatarUploader/AvatarUploader";
+import { images } from "../../constants";
 
 export const UserProfile = () => {
   const { user, loading } = useSelector((state) => state.authentication);
   const role = translateRole(user?.role);
+  const avatar = user?.avatar;
   const dispatch = useDispatch();
   const [isEditing, setEditing] = useState(false);
+  const [avatarUploaderIsOpen, setAvatarUploaderIsOpen] = useState(false);
   const [dataForm, setDataForm] = useState({
     username: user?.username || "",
     phoneNumber: user?.phoneNumber || "",
@@ -67,14 +71,27 @@ export const UserProfile = () => {
           </section>
           <section className="white-bg-color rounded avatar">
             <div className="avatar-container shadow">
-              {user?.avatar && (
-                <img
-                  src={`http://localhost:5000/${user.avatar}`}
-                  alt="avatar"
-                />
-              )}
+              <img
+                src={
+                  avatar
+                    ? `http://localhost:5000/${avatar}`
+                    : images.EMPTY_AVATAR
+                }
+                alt="avatar"
+              />
+
+              <div
+                className="avatar-uploader-wrapper"
+                onClick={() => setAvatarUploaderIsOpen(true)}
+              >
+                <BiEdit className="white-color" />
+              </div>
             </div>
           </section>
+
+          {avatarUploaderIsOpen && (
+            <AvatarUploader isOpen={setAvatarUploaderIsOpen} />
+          )}
 
           <section className="rounded white-bg-color content">
             <div className="form-container">

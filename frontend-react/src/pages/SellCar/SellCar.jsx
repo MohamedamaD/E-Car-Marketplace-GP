@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import "./SellCar.scss";
-import { Button, CustomCompo, ImageUploader } from "../../components";
+import {
+  Button,
+  CarInformation,
+  CustomCompo,
+  ImageUploader,
+} from "../../components";
 import { useDispatch, useSelector } from "react-redux";
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
@@ -14,8 +19,7 @@ import { CarConstants } from "../../constants";
 import { useHistory } from "react-router-dom";
 import { Brands, Models, Transmission } from "../../constants/CarConstants";
 import { Loading } from "../loading/Loading";
-import { setError, setSuccess } from "../../store/slices/authenticationSlice";
-import { isFulfilled } from "../../utils";
+import { generateCarInfo, handleImageUpload, isFulfilled } from "../../utils";
 
 export const SellCar = () => {
   const history = useHistory();
@@ -39,25 +43,24 @@ export const SellCar = () => {
     setValue(newValue);
   };
 
-  const handleImageUpload = (event) => {
-    const selectedImages = Array.from(event.target.files);
-    setImages((prev) => [...prev, ...selectedImages]);
+  const imageChangeHandler = (event) => {
+    handleImageUpload(event, setImages);
   };
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const formData = new FormData();
-
-    formData.append("make", make);
-    formData.append("model", model);
-    formData.append("year", year);
-    formData.append("price", price);
-    formData.append("mileage", mileage);
-    formData.append("color", color);
-    formData.append("description", description);
-    formData.append("transmission", transmission);
-    formData.append("license", license);
-    features.forEach((feature) => formData.append("features", feature));
-    images.forEach((image) => formData.append("car-images", image));
+    const formData = generateCarInfo(
+      make,
+      model,
+      year,
+      price,
+      mileage,
+      color,
+      description,
+      transmission,
+      license,
+      features,
+      images
+    );
 
     const response = await dispatch(sellCar(formData));
     if (isFulfilled(response)) {
@@ -100,88 +103,42 @@ export const SellCar = () => {
                     </TabList>
                   </Box>
                   <TabPanel value="car-details" className="tab-panel">
-                    <div className="form-container">
-                      <CustomCompo
-                        label="ماركة العربية"
-                        id="brand-select"
-                        name="make"
-                        required
-                        value={make}
-                        setValue={setMake}
-                        options={Brands}
-                      />
-                      <CustomCompo
-                        label="الموديل"
-                        id="model-select"
-                        name="model"
-                        required
-                        value={model}
-                        setValue={setModel}
-                        options={Models}
-                      />
-                      <CustomCompo
-                        id="transmission-select"
-                        label="ناقل الحركة"
-                        required
-                        options={Transmission}
-                        name="transmission"
-                        value={transmission}
-                        setValue={setTransmission}
-                      />
-                      <TextField
-                        label="السنة"
-                        value={year}
-                        required
-                        name="year"
-                        onChange={(e) => setYear(e.target.value)}
-                      />
-                      <TextField
-                        label="اللون"
-                        value={color}
-                        required
-                        name="color"
-                        onChange={(e) => setColor(e.target.value)}
-                      />
-                      <TextField
-                        label="كيلومتر"
-                        value={mileage}
-                        required
-                        name="mileage"
-                        onChange={(e) => setMileage(e.target.value)}
-                      />
-                      <TextField
-                        label="السعر"
-                        value={price}
-                        required
-                        name="price"
-                        onChange={(e) => setPrice(e.target.value)}
-                      />
-                      <TextField
-                        label="وحدة مرور التابعة للعربية"
-                        value={license}
-                        required
-                        name="license"
-                        onChange={(e) => setLicense(e.target.value)}
+                    <CarInformation
+                      make={make}
+                      setMake={setMake}
+                      model={model}
+                      setModel={setModel}
+                      year={year}
+                      setYear={setYear}
+                      price={price}
+                      setPrice={setPrice}
+                      mileage={mileage}
+                      setMileage={setMileage}
+                      color={color}
+                      setColor={setColor}
+                      description={description}
+                      setDescription={setDescription}
+                      transmission={transmission}
+                      setTransmission={setTransmission}
+                      features={features}
+                      setFeatures={setFeatures}
+                      traffic={license}
+                      setTraffic={setLicense}
+                    ></CarInformation>
+
+                    <div className="description">
+                      <CarInformation.Description
+                        description={description}
+                        setDescription={setDescription}
                       />
                     </div>
-                    <div className="input-field description">
-                      <label htmlFor="description" className="custom-label">
-                        وصف
-                      </label>
-                      <textarea
-                        name="description"
-                        id="description"
-                        required
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        className="custom-textarea"
-                      ></textarea>
-                    </div>
+
                     <ImageUploader
-                      handleImageUpload={handleImageUpload}
+                      handleImageUpload={imageChangeHandler}
                       images={images}
                       setImages={setImages}
                       name="car-images"
+                      label="صور العربيه"
                     />
                   </TabPanel>
                   <TabPanel value="features">

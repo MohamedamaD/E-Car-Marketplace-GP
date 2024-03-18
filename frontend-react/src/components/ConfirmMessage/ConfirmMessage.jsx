@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import "./ConfirmMessage.scss";
 import { Input } from "../Input/Input";
 import { Button } from "../Button/Button";
-import { deleteCar } from "../../store/slices/carsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Loading } from "../../pages/loading/Loading";
-import { isFulfilled } from "../../utils";
 
-export const ConfirmMessage = ({ id, setVisible }) => {
+
+export const ConfirmMessage = ({
+  id,
+  setVisible,
+  deleteHandler = () => {},
+}) => {
   const { loading } = useSelector((state) => state.cars);
 
   const dispatch = useDispatch();
@@ -37,13 +40,7 @@ export const ConfirmMessage = ({ id, setVisible }) => {
             value="حذف"
             className="delete-button"
             disabled={!confirmed}
-            onClick={async () => {
-              const response = await dispatch(deleteCar(id));
-              if (isFulfilled(response)) {
-                setVisible(false);
-              } else {
-              }
-            }}
+            onClick={deleteHandler}
           />
           <Button
             value="الغاء"

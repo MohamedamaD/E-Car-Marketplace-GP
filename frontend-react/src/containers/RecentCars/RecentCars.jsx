@@ -6,18 +6,19 @@ import { fetchCarListings } from "../../store/slices/dataSlice";
 import { Link } from "react-router-dom";
 import { ApiStatus } from "../../utils";
 import { Loading } from "../../pages";
+import { getCars } from "../../store/slices/carsSlice";
 
-export const RecentCars = ({ limit = 4 }) => {
-  const { carListings, status: dataLoading } = useSelector(
-    (state) => state.data
-  );
+export const RecentCars = () => {
+  const { cars, loading } = useSelector((state) => state.cars);
   const dispatch = useDispatch();
+
   useEffect(() => {
-    dispatch(fetchCarListings(8));
+    // dispatch(getCars({ page: 1 }));
     return () => {};
   }, [dispatch]);
-  if (dataLoading === ApiStatus.LOADING) return <Loading />;
 
+  if (loading) return <Loading />;
+  console.log(cars);
   return (
     <div className="recent-cars">
       <SectionTitle
@@ -31,8 +32,8 @@ export const RecentCars = ({ limit = 4 }) => {
       </SectionTitle>
       <div className="recent-container">
         <main>
-          {carListings.map((car) => (
-            <Link key={car?.id} to={`/car-details/${car?.id}`}>
+          {cars.map((car) => (
+            <Link key={car?._id} to={`/car-details/${car?._id}`}>
               <CarCard props={car} />
             </Link>
           ))}

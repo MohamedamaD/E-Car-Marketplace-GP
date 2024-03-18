@@ -4,6 +4,10 @@
 #buy-car-page {
     padding: 60px 0;
 
+    .MuiBox-root.css-0 {
+        padding: 0 1rem;
+    }
+
     .buy-car-container {
         main {
             display: flex;
@@ -14,20 +18,20 @@
             }
         }
 
+        .pagination-section {
+            margin-top: 1rem;
+        }
 
         .section-title {
             border-bottom: 1px solid #eee;
             padding-bottom: 0.5rem;
 
             .title {
-                font-size: 1.4em;
+                font-weight: 400;
                 margin: 0;
                 color: $blackColor;
             }
 
-            p {
-                font-size: .9em;
-            }
         }
 
         .filters {
@@ -37,8 +41,36 @@
                 width: 100%;
             }
 
-            h4.title {
+            details {
                 margin-bottom: 1rem;
+
+                summary {
+                    @include flexCenter($justify: space-between);
+                    @include responsiveFontSize(1.25em);
+                    cursor: pointer;
+                }
+
+                .data-wrapper {
+                    padding: 0.5rem;
+                    max-height: 250px;
+                    overflow: auto;
+
+                    p {
+                        padding: 1rem 0.5rem;
+                        margin-top: 1rem;
+                        cursor: pointer;
+
+                        &.active {
+                            background-color: $mainColor;
+                            color: $whiteColor;
+                        }
+                    }
+                }
+            }
+
+            p.title {
+                margin-bottom: 1rem;
+                @include responsiveFontSize(1.25em);
             }
 
             .section-container {

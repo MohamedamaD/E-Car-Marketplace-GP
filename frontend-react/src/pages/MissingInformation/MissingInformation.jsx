@@ -14,7 +14,6 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { Loading } from "../loading/Loading";
 import { useHistory } from "react-router-dom";
-import { BiPlus } from "react-icons/bi";
 import { formDataApi } from "../../services/api";
 import { getToken, isFulfilled } from "../../utils";
 
@@ -25,7 +24,6 @@ export const MissingInformation = () => {
   const { loading, user } = useSelector((state) => state.authentication);
   const [role, setRole] = useState("seller");
   const [images, setImages] = useState([]);
-  const [avatar, setAvatar] = useState(null);
 
   const [dataForm, setDataForm] = useState({
     phoneNumber: "",
@@ -62,7 +60,7 @@ export const MissingInformation = () => {
     if (isFulfilled(response)) {
       history.push("/");
     } else {
-      history.go(0);
+      // history.go(0);
     }
   };
   if (loading) return <Loading />;
@@ -87,28 +85,7 @@ export const MissingInformation = () => {
                 subTitle="بالرجاء ملئ هذه البياانات لعدم حذف الحساب ولكي تستخدم مميزات الموقع كامله"
               />
             </section>
-            <section className="rounded white-bg-color avatar-section">
-              <div className="input-field">
-                <label htmlFor="avatar" className="custom-label">
-                  الصوره الشخصيه
-                </label>
-                <div className="avatar-container shadow">
-                  {!avatar ? (
-                    <BiPlus />
-                  ) : (
-                    <img src={URL.createObjectURL(avatar)} alt="avatar" />
-                  )}
-                  <input
-                    type="file"
-                    accept="image/*"
-                    name="avatar"
-                    id="avatar"
-                    // required
-                    onChange={(ev) => setAvatar(ev.target.files[0])}
-                  />
-                </div>
-              </div>
-            </section>
+
             <section className="rounded white-bg-color">
               <div className="input-field">
                 <label className="custom-label">حدد هدفك</label>

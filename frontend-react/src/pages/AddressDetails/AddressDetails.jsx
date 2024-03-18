@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 
-const AddressDetails = () => {
+export const AddressDetails = () => {
   const { address } = useParams();
 
   return (
@@ -10,5 +10,3 @@ const AddressDetails = () => {
     </div>
   );
 };
-
-export default AddressDetails;

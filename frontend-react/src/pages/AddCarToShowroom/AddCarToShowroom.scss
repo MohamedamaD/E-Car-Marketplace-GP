@@ -1,0 +1,21 @@
+@import '../../App.scss';
+@import '../../styles/mixins';
+
+#add-car-to-showroom-page {
+    .add-car-to-showroom-container {
+        .data-form {
+            >* {
+                width: 100%;
+                margin-bottom: 1rem;
+            }
+
+            .car-information {
+                >* {
+                    width: 100%;
+                    margin-bottom: 1rem;
+                }
+            }
+
+        }
+    }
+}

@@ -13,8 +13,8 @@ const carSchema = new mongoose.Schema({
   images: [{ type: String }],
   features: [{ type: String }],
   showroomID: { type: mongoose.Schema.Types.ObjectId, ref: "Showroom" },
-  locationID: { type: mongoose.Schema.Types.ObjectId, ref: "Location" },
   owner: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+  // locationID: { type: mongoose.Schema.Types.ObjectId, ref: "Location" },
 });
 
 const Car = mongoose.model("Car", carSchema);

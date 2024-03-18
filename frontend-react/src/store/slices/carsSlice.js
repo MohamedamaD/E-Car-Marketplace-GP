@@ -13,6 +13,45 @@ const initialState = {
   totalPages: 0,
 };
 
+export const getCars = createAsyncThunk(
+  "cars/getCars",
+  async (
+    { page, sortBy, make, transmission, minPrice, maxPrice },
+    { rejectWithValue, dispatch, getState }
+  ) => {
+    try {
+      const { pageSize } = getState().cars;
+      const response = await api.get("/cars", {
+        params: {
+          page,
+          pageSize,
+          sortBy,
+          make,
+          transmission,
+          minPrice,
+          maxPrice,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      if (!error.response) {
+        throw error;
+      }
+      dispatch(openMessage("network error", "error"));
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const getCarsAndHandlePagination =
+  (page, sortBy, make, transmission, minPrice, maxPrice) =>
+  async (dispatch) => {
+    dispatch(setCurrentPage(page));
+    await dispatch(
+      getCars({ page, sortBy, make, transmission, minPrice, maxPrice })
+    );
+  };
+
 export const sellCar = createAsyncThunk(
   "cars/sellCar",
   async (payload, { rejectWithValue, dispatch }) => {
@@ -149,6 +188,23 @@ export const updateCarDetails = createAsyncThunk(
     }
   }
 );
+export const getCarById = createAsyncThunk(
+  "cars/getCarById",
+  async (payload, { rejectWithValue, dispatch }) => {
+    try {
+      const response = await api.get(`/cars/${payload}`);
+
+      return response.data;
+    } catch (error) {
+      if (!error.response) {
+        throw error;
+      }
+      console.log(error);
+      dispatch(openMessage(error.response.data.error, "error"));
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 
 const carsSlice = createSlice({
   name: "cars",
@@ -209,6 +265,17 @@ const carsSlice = createSlice({
         state.loading = false;
         console.log(action);
       })
+      .addCase(getCarById.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getCarById.fulfilled, (state, action) => {
+        state.loading = false;
+        state.car = action.payload.car;
+      })
+      .addCase(getCarById.rejected, (state, action) => {
+        state.loading = false;
+        console.log(action);
+      })
       .addCase(updateCarDetails.pending, (state) => {
         state.loading = true;
       })
@@ -218,6 +285,21 @@ const carsSlice = createSlice({
       })
       .addCase(updateCarDetails.rejected, (state, action) => {
         state.loading = false;
+      })
+      .addCase(getCars.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getCars.fulfilled, (state, action) => {
+        state.loading = false;
+        state.cars = action.payload.cars;
+        state.totalPages = action.payload.totalCarsCount;
+        console.log(action);
+      })
+      .addCase(getCars.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+        console.log(action);
       });
   },
 });

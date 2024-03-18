@@ -8,10 +8,12 @@ export const ImageUploader = ({
   images,
   setImages,
   name = "",
+  label,
 }) => {
   const [targetImg, setTargetImg] = useState("");
   return (
     <div className="image-upload-container">
+      {label && <p className="label">{label}</p>}
       <div className="upload-input shadow">
         <input
           type="file"

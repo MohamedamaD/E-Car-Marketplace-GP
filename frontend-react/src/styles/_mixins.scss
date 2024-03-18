@@ -23,4 +23,11 @@
     transition: $properties $duration $timing-function;
 }
 
+@mixin positioning($position: relative, $top: 0, $right: 0, $bottom: 0, $left: 0) {
+    position: $position;
+    top: $top;
+    right: $right;
+    bottom: $bottom;
+    left: $left;
+}
 // TODO: for all member please any other properties that are reusable make it here , thanks

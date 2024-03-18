@@ -6,8 +6,9 @@ import { BiMenu, BiUser, BiLogOutCircle } from "react-icons/bi";
 import { Button } from "../Button/Button";
 import { useSelector } from "react-redux";
 import { UserMenu } from "../UserMenu/UserMenu";
+import { FaCarSide } from "react-icons/fa";
 
-export const Navbar = () => {
+export const Navbar = ({ links }) => {
   const { isAuthenticated } = useSelector((state) => state.authentication);
   const [sidebarIsActive, setActive] = useState(false);
   const [menuIsOpen, setOpen] = useState(false);
@@ -25,7 +26,7 @@ export const Navbar = () => {
         </div>
       </Link>
       <nav className="nav-bar">
-        {navLinks.map((navLink, i) => (
+        {links.map((navLink, i) => (
           <Link key={navLink.title + i} to={`/${navLink.link}`}>
             <span> {navLink.title}</span>
           </Link>
@@ -49,7 +50,7 @@ export const Navbar = () => {
             </div>
           </div>
 
-          {navLinks.map((navLink, i) => (
+          {links.map((navLink, i) => (
             <Link
               key={navLink.title + i}
               className="sidebar-link"

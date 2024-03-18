@@ -6,6 +6,7 @@
 
   --white: #fff;
   --black: #000;
+  --dark-green-color: #01705a;
   --p-color: #667085;
   --page-background-color: #f4f7fc;
 
@@ -178,6 +179,10 @@ svg.main-color {
   background-color: var(--black);
 }
 
+.dark-green-bg-color {
+  background-color: var(--dark-green-color);
+}
+
 .rounded {
   border-radius: var(--border-radius);
 }
@@ -213,4 +218,3 @@ select,
 option {
   text-transform: none !important;
 }
-

@@ -5,21 +5,88 @@ import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import "./Recommendation.scss";
-import { Button, CustomSelect } from "../../components";
+import { Button, CustomSelect, ImageUploader } from "../../components";
 import { CarConstants } from "../../constants";
+import {
+  BiArrowBack,
+  BiImage,
+  BiInfoCircle,
+  BiLeftArrow,
+  BiMoney,
+} from "react-icons/bi";
 
 export const Recommendation = () => {
+  const [option, setOption] = useState();
+  const [carImages, setCarImages] = useState([]);
   const [value, setValue] = useState("appearance");
   const [color, setColor] = useState("");
   const [appearance, setAppearance] = useState("");
+
+  const handleImageUpload = (event) => {
+    const selectedImages = Array.from(event.target.files);
+    setCarImages((prev) => [...prev, ...selectedImages]);
+  };
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
   return (
     <div id="recommendation-page" className="layout-page">
       <div className="background-overlay"></div>
+
       <div className="recommendation-container container">
-        <main className="recommendation-hero">
+        <main className="rounded white-bg-color">
+          {!option && (
+            <section className="options-wrapper">
+              <p className="main-color">اختار طريقة البحث</p>
+              <div className="box">
+                <div className="using-image box-item">
+                  <div
+                    className="icon-container"
+                    onClick={() => setOption("using-image")}
+                  >
+                    <BiImage />
+                  </div>
+                  <span>بالصور</span>
+                </div>
+                <div className="using-info box-item">
+                  <div
+                    className="icon-container"
+                    onClick={() => setOption("using-info")}
+                  >
+                    <BiMoney />
+                  </div>
+                  <span>بالسعر والمعلومات</span>
+                </div>
+              </div>
+            </section>
+          )}
+          {option && (
+            <section className="option-wrapper">
+              <div className="prev-container">
+                <span>رجوع</span>
+                <div className="icon-container" onClick={() => setOption("")}>
+                  <BiArrowBack />
+                </div>
+              </div>
+              {option === "using-image" && (
+                <div className="image-sender">
+                  <ImageUploader
+                    name=""
+                    setImages={setCarImages}
+                    handleImageUpload={handleImageUpload}
+                    images={carImages}
+                  />
+                  {carImages.length !== 0 && (
+                    <Button className="send-image main-bg-color" value="توقع" />
+                  )}
+                </div>
+              )}
+              {option === "using-info" && <div className="info-sender"></div>}
+            </section>
+          )}
+        </main>
+
+        {/* <main className="recommendation-hero">
           <h1 className="white-color title">اعثر علي عربية احلامك</h1>
           <div className="user-data white-bg-color">
             <Box sx={{ width: "100%", typography: "body1" }}>
@@ -69,7 +136,7 @@ export const Recommendation = () => {
             </Box>
             <form action=""></form>
           </div>
-        </main>
+        </main> */}
       </div>
     </div>
   );
