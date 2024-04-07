@@ -1,0 +1,24 @@
+@import '../../styles/mixins';
+@import '../../App.scss';
+
+#chats-page {
+    .chat-container {
+        position: unset;
+    }
+
+    .users-list {
+        ul {
+            @include flexCenter($justify: flex-start);
+            gap: 1rem;
+            margin: 1rem 0;
+
+            li {
+                font-size: 1.25em;
+                padding: 1rem 2rem;
+                @include flexCenter($justify: flex-start);
+                gap: 1rem;
+                cursor: pointer;
+            }
+        }
+    }
+}

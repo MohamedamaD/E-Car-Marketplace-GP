@@ -23,3 +23,4 @@ export { ShowroomCard } from "./ShowroomCard/ShowroomCard";
 export { LocationCard } from "./LocationCard/LocationCard";
 export { RangeSlider } from "./RangeSlider/RangeSlider";
 export { CarInformation } from "./CarInformation/CarInformation";
+export { Chat } from "./Chat/Chat";

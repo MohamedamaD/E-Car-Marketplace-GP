@@ -24,3 +24,4 @@ export { SellerDashboard } from "./SellerDashboard/SellerDashboard";
 export { ShowroomOwnerDashboard } from "./ShowroomOwnerDashboard/ShowroomOwnerDashboard";
 export { AddShowroom } from "./AddShowroom/AddShowroom";
 export { EditShowrooms } from "./EditShowrooms/EditShowrooms";
+export { Chats } from "./Chats/Chats";

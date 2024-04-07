@@ -19,6 +19,7 @@ import {
   UpdateCar,
   UserCarsView,
   AddressDetails,
+  Chats,
   EditShowroom,
 } from "./pages";
 import { BottomNavbar, Navbar, ScrollToTop } from "./components";
@@ -62,6 +63,7 @@ const App = () => {
         <Route path="/showroom/:id" component={Showroom} />
         <Route path="/missing-information" component={MissingInformation} />
         <Route path="/common-question" component={CommonQuestion} />
+        <Route path="/chats" component={Chats} />
 
         {routesForUserRole.map((route, index) => (
           <Route key={index} path={route.path} component={route.component} />

@@ -43,17 +43,20 @@ const addCarToShowroom = async (req, res) => {
       owner: req.user._id,
     });
     if (error) {
+      console.log(error);
+
       return res.status(400).json({ message: error.details[0].message });
     }
 
     const images = req.files.map((img) => img.path);
     value.images = images;
-    
+
     const car = new Car(value);
     await car.save();
 
     res.status(201).json({ message: "car created successfully", Car });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };

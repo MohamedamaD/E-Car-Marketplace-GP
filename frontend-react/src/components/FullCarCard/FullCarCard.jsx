@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import "./FullCarCard.scss";
-import { Alert, BodyCard, Button } from "../";
+import { Alert, BodyCard, Button, Chat } from "../";
 import { BiAbacus, BiLocationPlus } from "react-icons/bi";
+import { useSelector } from "react-redux";
 
 export const FullCarCard = ({ props }) => {
+  const { isAuthenticated } = useSelector((state) => state.authentication);
+
   console.log(props);
+  const [isOpen, setOpen] = useState(false);
   return (
     <div className="full-car-card">
       <div className="img-container">
@@ -46,6 +50,15 @@ export const FullCarCard = ({ props }) => {
             className="main-bg-color white-color shadow"
           />
         </div>
+        {isAuthenticated && (
+          <Button
+            value="مراسله صاحب العربيه"
+            className="chat-button secondary-bg-color"
+            onClick={() => setOpen(true)}
+          />
+        )}
+
+        {isOpen && isAuthenticated && <Chat owner={props?.owner} />}
         <div className="alert-wrapper">
           <Alert type="success" message="في حاله الغاء الحجز هتوصلك رساله" />
         </div>

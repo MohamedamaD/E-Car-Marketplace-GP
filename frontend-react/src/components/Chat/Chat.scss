@@ -1,0 +1,57 @@
+@import '../../styles/mixins';
+@import '../../App.scss';
+
+.chat-container {
+    @include positioning(fixed, $top: unset, $right: unset, $bottom: 30px, $left: 1rem);
+    padding: 1rem;
+
+    @media screen and (max-width: 767px) {
+        bottom: 90px;
+    }
+
+    .empty-messages {
+        @include flexCenter();
+        @include responsiveFontSize($baseSize: 1.5em);
+        margin-bottom: 1rem;
+    }
+
+    .message-input-container {
+        @include flexCenter();
+        gap: 1rem;
+
+        @media screen and (max-width: 767px) {
+            flex-direction: column;
+        }
+
+        button {
+            @media screen and (max-width: 767px) {
+                width: 100%;
+            }
+        }
+    }
+
+    .messages-container {
+        max-height: 400px;
+        overflow-y: auto;
+        margin-bottom: 1rem;
+        padding-left: 0.5rem;
+
+        .message {
+            margin-bottom: 1rem;
+            @include flexCenter($align: flex-start, $direction: column);
+
+            &.receiver-message {
+                align-items: flex-end;
+            }
+        }
+
+        .message-sender {}
+
+        .message-content {
+            background-color: #f0f0f0;
+            padding: 8px;
+            border-radius: 8px;
+            max-width: 70%;
+        }
+    }
+}

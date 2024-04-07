@@ -60,6 +60,11 @@ $border: 1px solid #eee;
             }
         }
 
+        .chat-button {
+            margin-bottom: 1rem;
+            width: 100%;
+        }
+
         .button-container {
             @include flexCenter($justify: flex-start);
             gap: 1rem;

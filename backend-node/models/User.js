@@ -25,6 +25,7 @@ const userSchema = new mongoose.Schema({
     country: { type: String },
   },
 
+  conversations: [{ type: mongoose.Schema.Types.ObjectId, ref: "ChatMessage" }],
 });
 
 const User = mongoose.model("User", userSchema);
