@@ -28,6 +28,8 @@
             section {
                 margin-bottom: unset;
 
+
+
                 &.options-wrapper {
                     .box {
                         @include flexCenter($align: flex-start);
@@ -50,6 +52,12 @@
                     }
 
                     .using-sender {}
+
+                    .info-sender {
+                        .input-field {
+                            margin-bottom: 1rem;
+                        }
+                    }
 
                     .prev-container {
                         @include flexCenter($justify: space-between);

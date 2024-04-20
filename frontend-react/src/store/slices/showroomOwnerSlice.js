@@ -186,6 +186,34 @@ export const addCarToShowroom = createAsyncThunk(
     }
   }
 );
+export const deleteCarFromShowroom = createAsyncThunk(
+  "showroomOwner/deleteCarFromShowroom",
+  async (payload, { rejectWithValue, dispatch }) => {
+    const token = getToken();
+
+    if (!token) {
+      throw new Error("Token not found");
+    }
+
+    try {
+      const response = await api.delete(
+        `/showroom-owner/remove/${payload.showroomID}/${payload.carID}`,
+        {
+          headers: { "x-auth-token": token },
+        }
+      );
+
+      dispatch(openMessage(response.data.message, "success"));
+
+      return response.data;
+    } catch (error) {
+      if (!error.response) {
+        throw error;
+      }
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 
 export const getUserShowroomsAndHandlePagination =
   (page, total = false) =>
@@ -198,6 +226,7 @@ export const getUserShowroomsAndHandlePagination =
 const initialState = {
   loading: false,
   userShowrooms: [],
+  showroomCars: [],
   showroom: null,
   currentPage: 1,
   pageSize: 12,
@@ -232,6 +261,7 @@ const showroomOwnerSlice = createSlice({
       .addCase(getShowroomById.fulfilled, (state, action) => {
         state.loading = false;
         state.showroom = action.payload.showroom;
+        state.showroomCars = action.payload.cars;
         console.log(action);
       })
       .addCase(getShowroomById.rejected, (state, action) => {
@@ -298,6 +328,18 @@ const showroomOwnerSlice = createSlice({
         console.log(action);
       })
       .addCase(addCarToShowroom.rejected, (state, action) => {
+        state.loading = false;
+        console.log(action);
+      })
+
+      .addCase(deleteCarFromShowroom.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(deleteCarFromShowroom.fulfilled, (state, action) => {
+        state.loading = false;
+        console.log(action);
+      })
+      .addCase(deleteCarFromShowroom.rejected, (state, action) => {
         state.loading = false;
         console.log(action);
       });

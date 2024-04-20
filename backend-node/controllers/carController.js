@@ -101,23 +101,32 @@ const deleteCar = async (req, res) => {
   }
 };
 
-// const getCarById = async (req, res, next) => {
-//   try {
-//     const { id } = req.params;
-//     const { error, value } = idSchema.validate(id);
-//     if (error) {
-//       return res.status(409).json({ message: "invalid id" });
-//     }
-//     const cars = await Car.find({ locationID: value });
-//     console.log(cars);
-//     // if (!location) {
-//     //   res.status(409).json({ message: "location not found" });
-//     // }
-//     res.status(200).json({ location });
-//   } catch (e) {
-//     res.status(500).json({ message: "Internal Server Error" });
-//   }
-// };
+const bookCar = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    const { error, value } = idSchema.validate(id);
+    if (error) {
+      return res.status(409).json({ message: "invalid id" });
+    }
+
+    const updatedCar = await Car.findByIdAndUpdate(
+      value,
+      { booked: req.body.value },
+      { new: true }
+    );
+
+    if (!updatedCar) {
+      return res.status(404).json({ message: "Car not found" });
+    }
+
+    res
+      .status(200)
+      .json({ message: "Car booked successfully", car: updatedCar });
+  } catch (e) {
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
 
 const getCars = async (req, res, next) => {
   try {
@@ -174,4 +183,12 @@ const getCars = async (req, res, next) => {
       .json({ success: false, message: "Internal Server Error", error });
   }
 };
-module.exports = { createCar, getCarById, updateCar, deleteCar, getCars };
+
+module.exports = {
+  createCar,
+  getCarById,
+  updateCar,
+  deleteCar,
+  getCars,
+  bookCar,
+};

@@ -22,7 +22,12 @@ import {
   Chats,
   EditShowroom,
 } from "./pages";
-import { BottomNavbar, Navbar, ScrollToTop } from "./components";
+import {
+  BottomNavbar,
+  Navbar,
+  RecommendationResult,
+  ScrollToTop,
+} from "./components";
 import { Footer, MessageAlerts } from "./containers";
 import { useDispatch, useSelector } from "react-redux";
 import { safeHouse } from "./store/slices/authenticationSlice";
@@ -64,6 +69,7 @@ const App = () => {
         <Route path="/missing-information" component={MissingInformation} />
         <Route path="/common-question" component={CommonQuestion} />
         <Route path="/chats" component={Chats} />
+        <Route path="/recommendation-result" component={RecommendationResult} />
 
         {routesForUserRole.map((route, index) => (
           <Route key={index} path={route.path} component={route.component} />

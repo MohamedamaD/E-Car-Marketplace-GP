@@ -1,23 +1,36 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
 import "./EditShowroom.scss";
 import { Loading } from "../loading/Loading";
-import { Button, ConfirmMessage, Input, LocationCard } from "../../components";
+import {
+  Button,
+  CarCard,
+  ConfirmMessage,
+  Input,
+  LocationCard,
+} from "../../components";
 import { images } from "../../constants";
 import { BiX } from "react-icons/bi";
 import { isFulfilled } from "../../utils";
 import {
+  deleteCarFromShowroom,
   deleteShowroom,
   editShowrooms,
   getShowroomById,
   updateShowroomImage,
 } from "../../store/slices/showroomOwnerSlice";
 import { EmptySection, NewLocation } from "../../containers";
+import { Link } from "react-router-dom";
+import { deleteCar } from "../../store/slices/carsSlice";
 
 export const EditShowroom = () => {
   const { id } = useParams();
-  const { loading, showroom } = useSelector((state) => state.showroomOwner);
+  const { loading, showroom, showroomCars } = useSelector(
+    (state) => state.showroomOwner
+  );
+  const [confirmPanelIsVisible, setVisible] = useState(false);
+  const [carID, setID] = useState("");
   const [temp, setTemp] = useState(showroom);
   const [image, setImage] = useState();
   const [isOpen, setOpen] = useState(false);
@@ -28,6 +41,7 @@ export const EditShowroom = () => {
   const [newName, setName] = useState("");
   const [newAddress, setAddress] = useState("");
   const notFound = showroom === null;
+
   useEffect(() => {
     const fetchData = () => {
       dispatch(getShowroomById(id));
@@ -50,7 +64,7 @@ export const EditShowroom = () => {
   };
 
   if (loading) return <Loading />;
-  console.log(temp);
+  console.log(showroom);
   return (
     <div className="layout-page" id="edit-showroom-page">
       <div className="edit-showroom-container container">
@@ -203,6 +217,49 @@ export const EditShowroom = () => {
               />
             )}
 
+            {showroomCars.length > 0 && (
+              <section className="rounded white-bg-color showroom-cars-section">
+                <p className="title main-color">السيارات</p>
+                <div className="cars-container">
+                  {showroomCars.map((car) => (
+                    <div key={car?._id}>
+                      <CarCard props={car} />
+                      <div className="buttons-container">
+                        <Button
+                          className="delete-button"
+                          onClick={() => {
+                            setVisible(true);
+                            setID(car?._id);
+                            // document.body.classList.add("hidden");
+                          }}
+                          value="حذف"
+                        />
+                        <Link to={`/update-car/${car?._id}`}>
+                          <Button value="تعديل" className="main-bg-color" />
+                        </Link>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {confirmPanelIsVisible && (
+              <ConfirmMessage
+                id={id}
+                setVisible={setVisible}
+                deleteHandler={async () => {
+                  const response = await dispatch(
+                    deleteCarFromShowroom({ showroomID: id, carID })
+                  );
+                  if (isFulfilled(response)) {
+                    setVisible(false);
+                    history.go(0);
+                  } else {
+                  }
+                }}
+              />
+            )}
             <section className="rounded white-bg-color options-buttons">
               <Button
                 className="delete-button"

@@ -8,6 +8,24 @@
         }
 
         section {
+
+            &.showroom-cars-section {
+                p.title {
+                    font-size: 1.5rem;
+                    margin-bottom: 1rem;
+                }
+
+                .buttons-container {
+                    @include flexCenter($justify: space-between);
+                    gap: 1rem;
+                }
+
+                .cars-container {
+                    @include GridAuto();
+                    gap: 1rem;
+                }
+            }
+
             &.avatar {
                 button {
                     position: relative;

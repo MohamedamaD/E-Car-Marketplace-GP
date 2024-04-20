@@ -47,6 +47,9 @@ router.post(
 );
 
 router.put("/update/:carId", showroomOwnerController.updateCarShowroom);
-router.delete("/remove/:carId", showroomOwnerController.removeCarFromShowroom);
+router.delete(
+  "/remove/:showroomID/:carID",
+  showroomOwnerController.removeCarFromShowroom
+);
 
 module.exports = router;

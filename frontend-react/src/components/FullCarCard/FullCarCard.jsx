@@ -3,12 +3,32 @@ import "./FullCarCard.scss";
 import { Alert, BodyCard, Button, Chat } from "../";
 import { BiAbacus, BiLocationPlus } from "react-icons/bi";
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import api from "../../services/api";
 
 export const FullCarCard = ({ props }) => {
-  const { isAuthenticated } = useSelector((state) => state.authentication);
-
+  const { isAuthenticated, user } = useSelector(
+    (state) => state.authentication
+  );
+  const history = useHistory();
   console.log(props);
   const [isOpen, setOpen] = useState(false);
+
+  const bookHandler = async (event) => {
+    const res = await api.post(`/cars/${props._id}/book`, { value: true });
+    if (res.status === 200) {
+      history.go(0);
+    }
+    console.log(res.data.car);
+  };
+  const unBookHandler = async (event) => {
+    const res = await api.post(`/cars/${props._id}/book`, { value: false });
+    if (res.status === 200) {
+      history.go(0);
+    }
+    console.log(res.data.car);
+  };
+
   return (
     <div className="full-car-card">
       <div className="img-container">
@@ -23,7 +43,7 @@ export const FullCarCard = ({ props }) => {
           <span className="title p-color">العنوان</span>
           <p>
             <BiLocationPlus className="main-color" />
-            <span>هذا عنوان سوف يتم تغيره بالاصلي لاحقا</span>
+            <span>{props?.address}</span>
           </p>
         </div>
         <div className="wrapper-container">
@@ -44,11 +64,20 @@ export const FullCarCard = ({ props }) => {
           </div>
         </div>
         <div className="button-container">
-          <Button value="حجز؟" className="white-bg-color black-color shadow" />
-          <Button
-            value="اطلب زياره"
-            className="main-bg-color white-color shadow"
-          />
+          {!props?.booked && (
+            <Button
+              value="حجز؟"
+              className="white-bg-color black-color shadow"
+              onClick={bookHandler}
+            />
+          )}
+          {props?.booked && (
+            <Button
+              value="الغاء حجز؟"
+              onClick={unBookHandler}
+              className="main-bg-color white-color shadow"
+            />
+          )}
         </div>
         {isAuthenticated && (
           <Button
@@ -60,7 +89,9 @@ export const FullCarCard = ({ props }) => {
 
         {isOpen && isAuthenticated && <Chat owner={props?.owner} />}
         <div className="alert-wrapper">
-          <Alert type="success" message="في حاله الغاء الحجز هتوصلك رساله" />
+          {props?.booked && (
+            <Alert type="success" message="في حاله الغاء الحجز هتوصلك رساله" />
+          )}
         </div>
       </div>
     </div>

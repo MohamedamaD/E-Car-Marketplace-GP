@@ -55,6 +55,7 @@ const sellCar = async (req, res) => {
 
     const car = await Car.create({
       ...value,
+      address: `${user?.address?.street}, ${user?.address?.city}, ${user?.address?.country}`,
     });
 
     await car.save();

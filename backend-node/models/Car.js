@@ -14,6 +14,10 @@ const carSchema = new mongoose.Schema({
   features: [{ type: String }],
   showroomID: { type: mongoose.Schema.Types.ObjectId, ref: "Showroom" },
   owner: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+  booked: { type: Boolean, default: false },
+
+  // new v
+  address: { type: String, optional: true },
   // locationID: { type: mongoose.Schema.Types.ObjectId, ref: "Location" },
 });
 

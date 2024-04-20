@@ -14,7 +14,9 @@ const buyerRoutes = require("./routes/buyerRoutes");
 const chatRoutes = require("./routes/chatRoutes");
 const sellerRoutes = require("./routes/sellerRoutes");
 const showroomOwnerRoutes = require("./routes/showroomOwnerRoutes");
+
 const connectDB = require("./db/config");
+const fetchCars = require("./services/dataCars");
 
 dotenv.config();
 connectDB();
@@ -38,6 +40,18 @@ app.use("/chat", chatRoutes);
 app.use("/buyer", buyerRoutes);
 app.use("/seller", sellerRoutes);
 app.use("/showroom-owner", showroomOwnerRoutes);
+
+app.route("/external").get(async (req, res) => {
+  const { make, year, model, type } = req.query;
+  
+  try {
+    const cars = await fetchCars(make, year, model, type);
+    res.json(cars);
+  } catch (error) {
+    console.error("Error fetching cars:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
 
 const server = app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

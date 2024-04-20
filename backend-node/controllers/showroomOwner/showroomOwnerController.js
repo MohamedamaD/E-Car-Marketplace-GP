@@ -37,6 +37,7 @@ const getShowrooms = async (req, res) => {
 };
 
 const addCarToShowroom = async (req, res) => {
+  const user = req.user;
   try {
     const { error, value } = carValidator.validate({
       ...req.body,
@@ -50,6 +51,8 @@ const addCarToShowroom = async (req, res) => {
 
     const images = req.files.map((img) => img.path);
     value.images = images;
+
+    value.address = `${user?.address?.street}, ${user?.address?.city}, ${user?.address?.country}`;
 
     const car = new Car(value);
     await car.save();
@@ -68,9 +71,16 @@ const updateCarShowroom = async (req, res) => {
   }
 };
 const removeCarFromShowroom = async (req, res) => {
+  const { carID, showroomID } = req.params;
+
   try {
+    const car = await Car.findByIdAndDelete(carID);
+    return res
+      .status(200)
+      .json({ message: "Car removed from showroom successfully" });
   } catch (error) {
-    res.status(500).json({ error: "Internal Server Error" });
+    console.error(error);
+    return res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
@@ -157,7 +167,9 @@ const getShowroomById = async (req, res) => {
       return res.status(409).json({ message: "Showroom not found" });
     }
 
-    res.json({ message: "operation success", showroom });
+    const cars = await Car.find({ showroomID: id });
+
+    res.json({ message: "operation success", showroom, cars });
   } catch (error) {
     console.log(error);
     res.status(500).send("Internal Server Error");

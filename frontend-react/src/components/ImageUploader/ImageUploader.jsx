@@ -8,6 +8,7 @@ export const ImageUploader = ({
   images,
   setImages,
   name = "",
+  multiple = true,
   label,
 }) => {
   const [targetImg, setTargetImg] = useState("");
@@ -18,7 +19,7 @@ export const ImageUploader = ({
         <input
           type="file"
           accept="image/*"
-          multiple
+          multiple={multiple}
           required
           onChange={handleImageUpload}
           name={name}

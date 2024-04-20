@@ -5,7 +5,7 @@ import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import "./Recommendation.scss";
-import { Button, CustomSelect, ImageUploader } from "../../components";
+import { Button, CustomSelect, ImageUploader, Input } from "../../components";
 import { CarConstants } from "../../constants";
 import {
   BiArrowBack,
@@ -14,20 +14,63 @@ import {
   BiLeftArrow,
   BiMoney,
 } from "react-icons/bi";
-
+import axios from "axios";
+import {
+  setIsPhoto,
+  setMultipleResult,
+  setSingleResult,
+} from "../../store/slices/recommendationSlice";
+import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
 export const Recommendation = () => {
   const [option, setOption] = useState();
   const [carImages, setCarImages] = useState([]);
+  const [msrp, setMsrp] = useState("");
+  const [length, setLength] = useState("");
+  const [passengerCapacity, setPassengerCapacity] = useState("");
+  const history = useHistory();
+  const dispatch = useDispatch();
+
   const [value, setValue] = useState("appearance");
   const [color, setColor] = useState("");
   const [appearance, setAppearance] = useState("");
 
   const handleImageUpload = (event) => {
     const selectedImages = Array.from(event.target.files);
-    setCarImages((prev) => [...prev, ...selectedImages]);
+    setCarImages((prev) => [...selectedImages]);
   };
   const handleChange = (event, newValue) => {
     setValue(newValue);
+  };
+
+  const predictHandler = (event) => {
+    const formData = new FormData();
+    formData.append("file", carImages[0]);
+    axios
+      .post("http://localhost:8080/predict-car", formData)
+      .then((response) => {
+        dispatch(setIsPhoto(true));
+        dispatch(setSingleResult(response.data));
+        history.push("recommendation-result");
+      })
+      .catch((error) => {
+        console.error("Error predicting:", error);
+      });
+    console.log(carImages);
+  };
+  const handleSearch = () => {
+    axios
+      .get(
+        `http://localhost:8080/search-cars?msrp=${msrp}&length=${length}&passenger_capacity=${passengerCapacity}`
+      )
+      .then((response) => {
+        dispatch(setIsPhoto(false));
+        dispatch(setMultipleResult(response.data));
+        history.push("recommendation-result");
+      })
+      .catch((error) => {
+        console.error("Error searching for cars:", error);
+      });
   };
   return (
     <div id="recommendation-page" className="layout-page">
@@ -75,13 +118,56 @@ export const Recommendation = () => {
                     setImages={setCarImages}
                     handleImageUpload={handleImageUpload}
                     images={carImages}
+                    multiple={false}
+                    label="ضيف صورة العربيه"
                   />
                   {carImages.length !== 0 && (
-                    <Button className="send-image main-bg-color" value="توقع" />
+                    <Button
+                      className="send-image main-bg-color"
+                      onClick={predictHandler}
+                      value="توقع"
+                    />
                   )}
                 </div>
               )}
-              {option === "using-info" && <div className="info-sender"></div>}
+              {option === "using-info" && (
+                <div className="info-sender">
+                  <div className="input-field">
+                    <label htmlFor="msrp" className="custom-label">
+                      السعر الابتدائي للسياره
+                    </label>
+                    <Input
+                      type="text"
+                      id="msrp"
+                      value={msrp}
+                      onChange={(e) => setMsrp(e.target.value)}
+                    />
+                  </div>
+                  <div className="input-field">
+                    <label htmlFor="length" className="custom-label">
+                      الطول
+                    </label>
+                    <Input
+                      type="text"
+                      value={length}
+                      id="length"
+                      onChange={(e) => setLength(e.target.value)}
+                    />
+                  </div>
+                  <div className="input-field">
+                    <label htmlFor="passengerCapacity" className="custom-label">
+                      عدد الركاب
+                    </label>
+                    <Input
+                      type="text"
+                      id="passengerCapacity"
+                      value={passengerCapacity}
+                      onChange={(e) => setPassengerCapacity(e.target.value)}
+                    />
+                  </div>
+                  <Button value="بحث" onClick={handleSearch} />
+                </div>
+              )}
             </section>
           )}
         </main>
