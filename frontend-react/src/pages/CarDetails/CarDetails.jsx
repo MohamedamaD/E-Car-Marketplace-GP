@@ -20,7 +20,6 @@ export const CarDetails = () => {
     <div id="car-details">
       <div className="container car-details-container">
         <FullCarCard props={car} />
-        
       </div>
     </div>
   );

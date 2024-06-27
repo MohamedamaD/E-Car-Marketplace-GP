@@ -1,7 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import api, { formDataApi } from "../../services/api";
-import { getToken } from "../../utils";
-import { openMessage } from "./messageSlice";
+import api from "../../services/api";
 
 export const fetchShowrooms = createAsyncThunk(
   "showrooms/fetchShowrooms",

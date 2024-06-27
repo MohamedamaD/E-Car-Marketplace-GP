@@ -15,9 +15,16 @@
             li {
                 font-size: 1.25em;
                 padding: 1rem 2rem;
-                @include flexCenter($justify: flex-start);
-                gap: 1rem;
+                // @include flexCenter($justify: flex-start);
+                // gap: 1rem;
                 cursor: pointer;
+
+                img {
+                    width: 100px;
+                    aspect-ratio: 1 / 1;
+                    margin: auto;
+                    margin-bottom: 0.25rem;
+                }
             }
         }
     }

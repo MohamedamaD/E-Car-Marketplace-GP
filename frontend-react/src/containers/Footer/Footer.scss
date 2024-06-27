@@ -29,7 +29,7 @@ footer#footer-app {
                 margin-bottom: unset;
                 flex-direction: column;
                 width: 100%;
-                padding: $padding-width / 2 0;
+                // padding: calc($padding-width / 2) 0;
                 gap: 0.5rem;
             }
 

@@ -4,6 +4,7 @@ import api from "../../services/api";
 import { getToken } from "../../utils";
 import { useSelector } from "react-redux";
 import { Chat } from "../../components";
+import { EmptySection } from "../../containers";
 
 export const Chats = () => {
   const [users, setUsers] = useState([]);
@@ -31,27 +32,35 @@ export const Chats = () => {
   console.log(users);
   return (
     <div className="layout-page" id="chats-page">
-      <div className="chats-container container">
-        <div className="users-list">
-          <h2>المستخدمين</h2>
-          <ul>
-            {users.map((user) => (
-              <li
-                className="shadow rounded white-bg-color"
-                key={user._id}
-                onClick={() => handleUserClick(user._id)}
-              >
-                <img
-                  src={process.env.REACT_APP_ORIGIN_URL + "\\" + user?.avatar}
-                  alt="avatar"
-                />
-                <p>{user.username}</p>
-              </li>
-            ))}
-          </ul>
+      {users.length === 0 && (
+        <section className="chats-container container">
+          <EmptySection title="لا يوجد رسائل" />
+        </section>
+      )}
+      {users.length !== 0 && (
+        <div className="chats-container container">
+          <div className="users-list">
+            <h2>المستخدمين</h2>
+            <ul>
+              {users.map((user) => (
+                <li
+                  className="shadow rounded white-bg-color"
+                  key={user._id}
+                  onClick={() => handleUserClick(user._id)}
+                >
+                  <img
+                    src={process.env.REACT_APP_ORIGIN_URL + "\\" + user?.avatar}
+                    className="rounded"
+                    alt="avatar"
+                  />
+                  <p>{user.username}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+          {selectedUser && <Chat owner={selectedUser} />}
         </div>
-        {selectedUser && <Chat owner={selectedUser} />}
-      </div>
+      )}
     </div>
   );
 };

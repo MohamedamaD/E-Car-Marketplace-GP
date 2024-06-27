@@ -184,6 +184,27 @@ const getCars = async (req, res, next) => {
   }
 };
 
+const searchCarsByFields = async (req, res) => {
+  try {
+    const { make, model, year } = req.query;
+    const query = {};
+    if (make) {
+      query.make = { $regex: make, $options: "i" }; // Case-insensitive search for Make
+    }
+    if (model) {
+      query.model = { $regex: model, $options: "i" }; // Case-insensitive search for Model
+    }
+    if (year) {
+      query.year = year; // Exact match for Year
+    }
+
+    const cars = await Car.find(query);
+    res.status(200).json(cars);
+  } catch (error) {
+    console.error("Error searching cars by fields:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
 module.exports = {
   createCar,
   getCarById,
@@ -191,4 +212,5 @@ module.exports = {
   deleteCar,
   getCars,
   bookCar,
+  searchCarsByFields,
 };

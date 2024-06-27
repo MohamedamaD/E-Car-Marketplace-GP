@@ -4,6 +4,18 @@
             font-size: 1.4em;
             text-align: center;
         }
+
         .result-section {}
+
+        .search-result-section {
+            .content {
+                display: flex;
+                flex-wrap: wrap;
+            }
+        }
     }
+}
+
+.mb-1rem {
+    margin-bottom: 1rem;
 }

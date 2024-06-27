@@ -20,18 +20,23 @@ def hello():
 
 @app.route('/predict-car', methods=['POST'])
 def predict_car():
-    if request.method == 'POST':
-        if 'file' not in request.files:
-            return 'No file part'
-        file = request.files['file']
-        if file.filename == '':
-            return 'No selected file'
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            image_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            file.save(image_path)
-            predicted_class = predict_image(image_path)
-            return predicted_class
+    try:
+        if request.method == 'POST':
+            if 'file' not in request.files:
+                return 'No file part'
+            file = request.files['file']
+            if file.filename == '':
+                return 'No selected file'
+            if file and allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                image_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                file.save(image_path)
+                predicted_class = predict_image(image_path)
+                print(predicted_class)
+                return predicted_class
+    except Exception as e:
+        print(f"Error occurred: {e}")
+        return jsonify({'error': 'Internal server error'}), 500
 
 @app.route('/search-cars', methods=['GET'])
 def search_cars_route():

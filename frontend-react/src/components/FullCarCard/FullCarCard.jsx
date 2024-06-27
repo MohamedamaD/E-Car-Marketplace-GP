@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./FullCarCard.scss";
 import { Alert, BodyCard, Button, Chat } from "../";
-import { BiAbacus, BiLocationPlus } from "react-icons/bi";
+import { BiAbacus, BiLocationPlus, BiX } from "react-icons/bi";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import api from "../../services/api";
@@ -13,7 +13,7 @@ export const FullCarCard = ({ props }) => {
   const history = useHistory();
   console.log(props);
   const [isOpen, setOpen] = useState(false);
-
+  
   const bookHandler = async (event) => {
     const res = await api.post(`/cars/${props._id}/book`, { value: true });
     if (res.status === 200) {
@@ -87,7 +87,13 @@ export const FullCarCard = ({ props }) => {
           />
         )}
 
-        {isOpen && isAuthenticated && <Chat owner={props?.owner} />}
+        {isOpen && isAuthenticated && (
+          <div>
+            <Chat owner={props?.owner}>
+              <BiX className="exit-icon" onClick={() => setOpen(false)} />
+            </Chat>
+          </div>
+        )}
         <div className="alert-wrapper">
           {props?.booked && (
             <Alert type="success" message="في حاله الغاء الحجز هتوصلك رساله" />

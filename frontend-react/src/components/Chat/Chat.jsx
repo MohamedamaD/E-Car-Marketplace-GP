@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import api from "../../services/api";
 const socket = io(process.env.REACT_APP_ORIGIN_URL);
 
-export const Chat = ({ owner }) => {
+export const Chat = ({ owner, children }) => {
   const [messages, setMessages] = useState([]);
   const [messageInput, setMessageInput] = useState("");
   const { user } = useSelector((state) => state.authentication);
@@ -41,6 +41,11 @@ export const Chat = ({ owner }) => {
   }, []);
 
   const handleSendMessage = () => {
+    console.log({
+      message: messageInput,
+      recipient: owner,
+      sender: user?._id,
+    });
     socket.emit("sendMessage", {
       message: messageInput,
       recipient: owner,
@@ -53,6 +58,7 @@ export const Chat = ({ owner }) => {
   return (
     <div>
       <div className="chat-container white-bg-color shadow">
+        {children}
         <div className="messages-container">
           {messages.length === 0 && (
             <div className="empty-messages">

@@ -1,6 +1,9 @@
 const ChatMessage = require("../models/chatMessage");
 const User = require("../models/User");
 
+const socketIO = require("socket.io");
+const io = socketIO();
+
 exports.sendMessage = async (req, res) => {
   try {
     const message = new ChatMessage({

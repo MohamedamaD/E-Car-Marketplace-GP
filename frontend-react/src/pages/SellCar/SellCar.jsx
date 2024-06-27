@@ -12,12 +12,10 @@ import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
-import TextField from "@mui/material/TextField";
 
 import { sellCar } from "../../store/slices/carsSlice";
 import { CarConstants } from "../../constants";
 import { useHistory } from "react-router-dom";
-import { Brands, Models, Transmission } from "../../constants/CarConstants";
 import { Loading } from "../loading/Loading";
 import { generateCarInfo, handleImageUpload, isFulfilled } from "../../utils";
 

@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { formDataApi } from "../../services/api";
-import { getToken, setToken } from "../../utils";
+import { getToken } from "../../utils";
 import { openMessage } from "./messageSlice";
 
 export const createBanner = createAsyncThunk(
@@ -87,5 +87,4 @@ const mediaSlice = createSlice({
       });
   },
 });
-export const {} = mediaSlice.actions;
 export default mediaSlice.reducer;

@@ -1,7 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import api from "../../services/api";
-import { getToken } from "../../utils";
-import { setSuccess } from "./authenticationSlice";
 
 const initialState = {
   carListings: [],
@@ -69,8 +67,6 @@ export const getLocationCars = createAsyncThunk(
   }
 );
 
-
-
 const dataSlice = createSlice({
   name: "data",
   initialState,
@@ -122,7 +118,7 @@ const dataSlice = createSlice({
         state.status = "failed";
         console.log(action);
         // state.error = action.error.message;
-      })
+      });
   },
 });
 

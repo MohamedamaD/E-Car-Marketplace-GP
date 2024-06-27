@@ -11,7 +11,7 @@ import { Loading } from "../loading/Loading";
 import { Pagination } from "../../containers/Pagination/Pagination";
 export const Showrooms = () => {
   const [searchValue, setSearchValue] = useState("");
-  const { showrooms, currentPage, totalPages, loading, error } = useSelector(
+  const { showrooms, currentPage, totalPages, loading } = useSelector(
     (state) => state.showrooms
   );
   const dispatch = useDispatch();

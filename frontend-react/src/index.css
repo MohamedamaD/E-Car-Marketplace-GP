@@ -1,220 +1,220 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;300;400;500;600;700&display=swap');
 
 :root {
-  --main-color: #009b5d;
-  --secondary-color: #1a2f5b;
+    --main-color: #009b5d;
+    --secondary-color: #1a2f5b;
 
-  --white: #fff;
-  --black: #000;
-  --dark-green-color: #01705a;
-  --p-color: #667085;
-  --page-background-color: #f4f7fc;
+    --white: #fff;
+    --black: #000;
+    --dark-green-color: #01705a;
+    --p-color: #667085;
+    --page-background-color: #f4f7fc;
 
-  --font-size: 14px;
-  --thumb-radius: 5px;
-  --border-radius: 5px;
-  --navbar-height: 80px;
-  --bottom-navbar-height: 80px;
+    --font-size: 14px;
+    --thumb-radius: 5px;
+    --border-radius: 5px;
+    --navbar-height: 80px;
+    --bottom-navbar-height: 80px;
 }
 
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  text-decoration: none;
-  outline: none;
-  text-transform: capitalize;
-  border: none;
-  color: var(--secondary-color);
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+    outline: none;
+    text-transform: capitalize;
+    border: none;
+    color: var(--secondary-color);
 }
 
 html {
-  scroll-behavior: smooth;
+    scroll-behavior: smooth;
 }
 
 body {
-  font-size: var(--font-size);
-  font-family: 'IBM Plex Sans Arabic', sans-serif;
+    font-size: var(--font-size);
+    font-family: 'IBM Plex Sans Arabic', sans-serif;
 
-  background-color: var(--white);
-  color: var(--secondary-color);
+    background-color: var(--white);
+    color: var(--secondary-color);
 }
 
 body.hidden {
-  overflow: hidden;
+    overflow: hidden;
 }
 
 a {
-  color: var(--secondary-color);
+    color: var(--secondary-color);
 }
 
 img {
-  display: block;
-  width: 100%;
+    display: block;
+    width: 100%;
 }
 
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+    width: 5px;
+    height: 5px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--secondary-color);
-  border-radius: var(----thumb-radius);
+    background: var(--secondary-color);
+    border-radius: var(----thumb-radius);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--main-color);
-  border-radius: var(----thumb-radius);
+    background: var(--main-color);
+    border-radius: var(----thumb-radius);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  opacity: 0.6;
+    opacity: 0.6;
 }
 
 ::selection {
-  background-color: var(--main-color);
-  color: var(--white);
+    background-color: var(--main-color);
+    color: var(--white);
 }
 
 .container {
-  padding-left: 15px;
-  padding-right: 15px;
-  margin-left: auto;
-  margin-right: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 @media (min-width: 768px) {
-  .container {
-    width: 750px;
-  }
+    .container {
+        width: 750px;
+    }
 }
 
 @media (min-width: 992px) {
-  .container {
-    width: 970px;
-  }
+    .container {
+        width: 970px;
+    }
 }
 
 @media (min-width: 1200px) {
-  .container {
-    width: 1170px;
-  }
+    .container {
+        width: 1170px;
+    }
 }
 
 .icon-container {
-  cursor: pointer;
-  border-radius: var(--border-radius);
-  background-color: var(--white);
-  width: 50px;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    cursor: pointer;
+    border-radius: var(--border-radius);
+    background-color: var(--white);
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
 
-  svg {
-    fill: var(--secondary-color);
-    font-size: 2em;
-  }
+    svg {
+        fill: var(--secondary-color);
+        font-size: 2em;
+    }
 }
 
 .overlay {
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  background-color: #0000004c;
-  z-index: 1;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: #0000004c;
+    z-index: 1;
 }
 
 /* custom layout for global styles */
 .main-color {
-  color: var(--main-color);
+    color: var(--main-color);
 }
 
 .secondary-color {
-  color: var(--secondary-color);
+    color: var(--secondary-color);
 }
 
 .p-color {
-  color: var(--p-color);
+    color: var(--p-color);
 }
 
 .white-color {
-  color: var(--white);
+    color: var(--white);
 }
 
 svg.white-color {
-  fill: var(--white);
+    fill: var(--white);
 }
 
 svg.main-color {
-  fill: var(--main-color);
+    fill: var(--main-color);
 }
 
 .black-color {
-  color: var(--black);
+    color: var(--black);
 }
 
 .main-bg-color {
-  background-color: var(--main-color);
+    background-color: var(--main-color);
 }
 
 .secondary-bg-color {
-  background-color: var(--secondary-color);
+    background-color: var(--secondary-color);
 }
 
 .p-bg-color {
-  background-color: var(--p-color);
+    background-color: var(--p-color);
 }
 
 .white-bg-color {
-  background-color: var(--white);
+    background-color: var(--white);
 }
 
 .black-bg-color {
-  background-color: var(--black);
+    background-color: var(--black);
 }
 
 .dark-green-bg-color {
-  background-color: var(--dark-green-color);
+    background-color: var(--dark-green-color);
 }
 
 .rounded {
-  border-radius: var(--border-radius);
+    border-radius: var(--border-radius);
 }
 
 .shadow {
-  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
 }
 
 .layout-page {
-  min-height: calc(100vh - var(--navbar-height));
-  padding: 60px 0;
-  background-color: var(--page-background-color);
+    min-height: calc(100vh - var(--navbar-height));
+    padding: 60px 0;
+    background-color: var(--page-background-color);
 }
 
 .layout-page main>section {
-  padding: 1rem;
-  margin-bottom: 1rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
 }
 
 .layout-page section>.section-title {
-  margin-bottom: unset;
+    margin-bottom: unset;
 }
 
 label.custom-label {
-  font-size: 1.3em;
-  margin-bottom: 0.5rem;
-  display: inline-block;
+    font-size: 1.3em;
+    margin-bottom: 0.5rem;
+    display: inline-block;
 }
 
 input,
 textarea,
 select,
 option {
-  text-transform: none !important;
+    text-transform: none !important;
 }

@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import { Button, SectionTitle } from "../../components";
 import {
   CreateShowroom,
-  DeleteShowroom,
   BrowseShowrooms,
 } from "../../containers";
 import { Link } from "react-router-dom";

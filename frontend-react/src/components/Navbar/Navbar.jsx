@@ -22,7 +22,7 @@ export const Navbar = ({ links }) => {
       <Link to="/">
         <div className="brand">
           <img src="" alt="" />
-          <h1>اسم الموقع</h1>
+          <h1>ايجي كار</h1>
         </div>
       </Link>
       <nav className="nav-bar">
@@ -42,7 +42,7 @@ export const Navbar = ({ links }) => {
             <Link to="/">
               <div className="brand">
                 <img src="" alt="" />
-                <h1>اسم الموقع</h1>
+                <h1>ايجي كار</h1>
               </div>
             </Link>
             <div className="icon-container" onClick={() => setActive(false)}>

@@ -1,19 +1,7 @@
 import React, { useState } from "react";
-import Box from "@mui/material/Box";
-import Tab from "@mui/material/Tab";
-import TabContext from "@mui/lab/TabContext";
-import TabList from "@mui/lab/TabList";
-import TabPanel from "@mui/lab/TabPanel";
 import "./Recommendation.scss";
-import { Button, CustomSelect, ImageUploader, Input } from "../../components";
-import { CarConstants } from "../../constants";
-import {
-  BiArrowBack,
-  BiImage,
-  BiInfoCircle,
-  BiLeftArrow,
-  BiMoney,
-} from "react-icons/bi";
+import { Button, ImageUploader, Input } from "../../components";
+import { BiArrowBack, BiImage, BiMoney } from "react-icons/bi";
 import axios from "axios";
 import {
   setIsPhoto,
@@ -134,7 +122,7 @@ export const Recommendation = () => {
                 <div className="info-sender">
                   <div className="input-field">
                     <label htmlFor="msrp" className="custom-label">
-                      السعر الابتدائي للسياره
+                      السعر الابتدائي للسياره بالدولار
                     </label>
                     <Input
                       type="text"
