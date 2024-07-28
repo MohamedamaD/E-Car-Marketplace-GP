@@ -2,6 +2,8 @@
 
 Welcome to the **E-Car Marketplace** project! 🌟 This platform allows users to buy and sell cars directly, with advanced features powered by cutting-edge technology.
 
+[Video](https://www.linkedin.com/posts/mohamed-e-mad_webdevelopment-realtimechat-whatsappclone-activity-7223313975491366912-JSNs?utm_source=share&utm_medium=member_desktop)
+
 ## Features
 
 - ✅ **Buy and Sell Cars**: Facilitate transactions directly between users.
