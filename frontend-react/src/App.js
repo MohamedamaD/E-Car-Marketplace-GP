@@ -30,7 +30,7 @@ import {
 } from "./components";
 import { Footer, MessageAlerts } from "./containers";
 import { useDispatch, useSelector } from "react-redux";
-import { safeHouse } from "./store/slices/authenticationSlice";
+import { fetchUserInfo, safeHouse } from "./store/slices/authenticationSlice";
 import {
   getBarLinksForUserRole,
   getLinksForUserRole,
@@ -39,17 +39,21 @@ import {
 
 const App = () => {
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.authentication);
+  const { user, googleToken } = useSelector((state) => state.authentication);
   const routesForUserRole = getRoutesForUserRole(user?.role);
   const navLinks = getLinksForUserRole(user?.role);
   const barLinks = getBarLinksForUserRole(user?.role);
   useEffect(() => {
     const fetchData = async (req, res) => {
-      await dispatch(safeHouse());
+      if (googleToken) {
+        await dispatch(fetchUserInfo());
+      } else {
+        await dispatch(safeHouse());
+      }
     };
     fetchData();
     return () => {};
-  }, [dispatch]);
+  }, [dispatch, googleToken]);
 
   return (
     <Router>

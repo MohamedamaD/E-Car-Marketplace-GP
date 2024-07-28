@@ -5,6 +5,7 @@ const {
   updateUser,
   completeInformation,
   safeHouse,
+  saveUser,
   changeAvatar,
 } = require("../controllers/userController");
 const authenticateUser = require("../middleware/authenticateUser");
@@ -16,6 +17,7 @@ const router = express.Router();
 router.get("/safeHouse", authenticateUser, safeHouse);
 router.post("/register", registerUser);
 router.post("/login", loginUser);
+router.post("/saveUser", saveUser);
 
 router.patch(
   "/avatar",

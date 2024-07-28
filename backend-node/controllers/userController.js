@@ -65,6 +65,46 @@ const registerUser = async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 };
+const saveUser = async (req, res) => {
+  const { name, email, picture } = req.body;
+
+  try {
+    const existingUser = await User.findOne({ email });
+    var user = existingUser;
+
+    if (!existingUser) {
+      const randomPassword = await bcrypt.hash(
+        Math.random().toString(36).slice(-8),
+        10
+      );
+
+      const newUser = new User({
+        username: name,
+        email,
+        role: "buyer",
+        avatar: picture,
+        password: randomPassword,
+      });
+
+      await newUser.save();
+      user = newUser;
+    }
+
+    const token = jwt.sign({ ...user }, process.env.JWT_SECRET, {
+      expiresIn: "1h",
+    });
+
+    res.status(201).json({
+      message: "User registered successfully",
+      accessToken: token,
+      user,
+      // user: { email, username, role: newUser.role },
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
+};
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
@@ -214,5 +254,6 @@ module.exports = {
   updateUser,
   completeInformation,
   safeHouse,
+  saveUser,
   changeAvatar,
 };

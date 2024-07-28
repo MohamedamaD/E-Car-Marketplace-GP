@@ -7,6 +7,41 @@ export const signOut = createAsyncThunk("authentication/signOut", async () => {
   removeToken();
 });
 
+export const fetchUserInfo = createAsyncThunk(
+  "authentication/fetchUserInfo",
+  async () => {
+    const accessToken = getToken();
+    try {
+      const response = await fetch(
+        "https://www.googleapis.com/oauth2/v3/userinfo",
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Failed to fetch user info");
+      }
+      const data = await response.json();
+      console.log(data);
+
+      const res = await api.post("/user/saveUser", {
+        email: data.email,
+        name: data.name,
+        picture: data.picture,
+      });
+
+      console.log(res);
+      setToken(res.data.accessToken);
+      return res.data;
+    } catch (error) {
+      console.error("Error fetching user info:", error);
+      return null;
+    }
+  }
+);
+
 export const login = createAsyncThunk(
   "authentication/login",
   async (payload, { rejectWithValue, dispatch }) => {
@@ -173,12 +208,13 @@ export const changeAvatar = createAsyncThunk(
   }
 );
 
-
 const initialState = {
   user: null,
   isAuthenticated: false,
   token: null,
   loading: false,
+  googleToken: false,
+  googleInfo: null,
   error: "",
   success: "",
 };
@@ -198,6 +234,10 @@ const authenticationSlice = createSlice({
     resetError: (state) => {
       state.error = null;
     },
+    setGoogleToken: (state, action) => {
+      state.googleToken = action.payload;
+      console.log(state.googleToken);
+    },
     setError: (state, action) => {
       console.log(action);
       state.error = action.payload;
@@ -216,6 +256,7 @@ const authenticationSlice = createSlice({
         state.user = {};
         state.isAuthenticated = false;
         state.token = null;
+        state.googleToken = false;
       })
       .addCase(login.pending, (state, action) => {
         state.loading = true;
@@ -270,6 +311,24 @@ const authenticationSlice = createSlice({
         console.log(action);
       })
 
+      .addCase(fetchUserInfo.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(fetchUserInfo.fulfilled, (state, action) => {
+        const { accessToken, user } = action.payload;
+        state.token = accessToken;
+        state.user = user;
+        state.loading = false;
+        state.isAuthenticated = true;
+        console.log(action);
+      })
+      .addCase(fetchUserInfo.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+        state.isAuthenticated = false;
+        console.log(action);
+      })
+
       .addCase(completeInformation.pending, (state, action) => {
         state.loading = true;
       })
@@ -303,5 +362,6 @@ export const {
   resetSuccess,
   setError,
   setSuccess,
+  setGoogleToken,
 } = authenticationSlice.actions;
 export default authenticationSlice.reducer;
