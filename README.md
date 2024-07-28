@@ -1,12 +1,21 @@
-# GP
-car marketplace with ai features
+# E-Car Marketplace 🚗✨
 
-v1 : is Expired
-v2 : present
+Welcome to the **E-Car Marketplace** project! 🌟 This platform allows users to buy and sell cars directly, with advanced features powered by cutting-edge technology.
 
-@main goals
-	-- 3rd part auth & JWT auth -> achieved
-	-- basic user db using node and mongo -> achieved
-	-- home, common-question, about-us, contact-us, login, register pages -> achieved
-	-- buy/sell/recommendation-car/cardetails pages -> achieved
-	-- 2 AI modules under developing one of them running 
+## Features
+
+- ✅ **Buy and Sell Cars**: Facilitate transactions directly between users.
+- 🖼️ **Advanced Image Recognition**: Automatically identify the make, model, and year of the car using state-of-the-art image recognition technology.
+- 🔍 **Personalized Recommendations**: Get tailored car suggestions based on user preferences and budget.
+- 🖥️ **User-Friendly Dashboard**: Manage listings, track interactions, and more, with separate dashboards for sellers, buyers, and showroom owners.
+- 🔧 **CRUD Operations**: Easy management of car listings and user profiles with Create, Read, Update, and Delete functionalities.
+- 💬 **Secure Chatting**: Communicate safely between users with integrated chat functionality.
+- 🔐 **Convenient Login/Register Options**: Sign up or log in with Gmail or Facebook for a seamless user experience.
+
+## Tech Stack
+
+- 🛠️ **Backend**: Node.js and MongoDB for robust and scalable server-side development.
+- 🐍 **Server-Side Scripting**: Python Flask for handling server-side operations and APIs.
+- 🧠 **Machine Learning**: Python with the ResNet model for advanced image recognition tasks.
+- ⚛️ **Frontend**: React and SCSS for a modern, responsive user interface.
+- 💻 **Full-Stack Development**: MERN (MongoDB, Express.js, React, Node.js) for a comprehensive and scalable application architecture.
